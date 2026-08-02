@@ -1,0 +1,7 @@
+# Ders kaynaklari depoya yuklenmez; yalnizca calisma sitesi yayinlanir.
+*.pptx
+*.pdf
+*.docx
+.tmp_review/
+Thumbs.db
+Desktop.ini

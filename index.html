@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="tr" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Bilgi Güvenliği dersi için 106 soruluk etkileşimli çalışma ve deneme sınavı.">
+  <title>Bilgi Güvenliği | Sınav Laboratuvarı</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --surface: #0d1b2e;
+      --surface-2: #12243b;
+      --surface-3: #192e48;
+      --text: #edf6ff;
+      --muted: #9fb2c8;
+      --line: rgba(159, 178, 200, .18);
+      --accent: #58e6c2;
+      --accent-2: #64a8ff;
+      --correct: #50dfa0;
+      --wrong: #ff6b7a;
+      --warning: #ffc66d;
+      --shadow: 0 24px 70px rgba(0, 0, 0, .28);
+      --radius: 22px;
+    }
+
+    html[data-theme="light"] {
+      --bg: #edf4f7;
+      --surface: #ffffff;
+      --surface-2: #f5f9fb;
+      --surface-3: #e8f0f5;
+      --text: #102033;
+      --muted: #53677d;
+      --line: rgba(16, 32, 51, .13);
+      --accent: #087f6d;
+      --accent-2: #1769c7;
+      --correct: #16885a;
+      --wrong: #c9364b;
+      --warning: #a86700;
+      --shadow: 0 20px 55px rgba(31, 64, 86, .13);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 300px;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 9% -10%, rgba(88, 230, 194, .13), transparent 34rem),
+        radial-gradient(circle at 100% 16%, rgba(100, 168, 255, .12), transparent 32rem),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+
+    button, select { font: inherit; }
+    button { color: inherit; }
+    button:focus-visible, select:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--accent) 55%, transparent);
+      outline-offset: 3px;
+    }
+
+    .app-shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 24px 0 56px; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 34px; }
+    .brand { display: flex; align-items: center; gap: 13px; font-weight: 800; letter-spacing: -.02em; }
+    .brand-mark {
+      display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid var(--line);
+      border-radius: 13px; color: #07111f; background: linear-gradient(135deg, var(--accent), #b9ffde);
+      box-shadow: 0 10px 30px rgba(88, 230, 194, .16); font-size: 19px;
+    }
+    .brand small { display: block; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; }
+    .icon-btn { border: 1px solid var(--line); background: var(--surface); border-radius: 13px; min-width: 44px; min-height: 44px; cursor: pointer; }
+
+    .hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(260px, .75fr); gap: 28px; align-items: end; margin: 14px 0 28px; }
+    .eyebrow { color: var(--accent); font-size: 12px; font-weight: 850; letter-spacing: .14em; text-transform: uppercase; }
+    h1 { margin: 8px 0 13px; max-width: 780px; font-size: clamp(36px, 6vw, 70px); line-height: .98; letter-spacing: -.055em; }
+    .hero p { margin: 0; max-width: 720px; color: var(--muted); font-size: clamp(16px, 2vw, 19px); }
+    .hero-note { border-left: 2px solid var(--accent); padding: 4px 0 4px 18px; color: var(--muted); }
+    .hero-note strong { display: block; margin-bottom: 5px; color: var(--text); font-size: 26px; letter-spacing: -.04em; }
+
+    .panel { border: 1px solid var(--line); background: color-mix(in srgb, var(--surface) 94%, transparent); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .setup { padding: clamp(20px, 4vw, 34px); }
+    .setup-head { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; margin-bottom: 26px; }
+    .setup h2, .question-card h2 { margin: 0; letter-spacing: -.035em; }
+    .setup-head p { max-width: 610px; margin: 8px 0 0; color: var(--muted); }
+    .count-badge { white-space: nowrap; border: 1px solid var(--line); border-radius: 999px; padding: 8px 13px; color: var(--accent); font-weight: 800; }
+
+    .controls { display: grid; grid-template-columns: 1.3fr .8fr auto; gap: 14px; align-items: end; }
+    label { display: grid; gap: 7px; color: var(--muted); font-size: 13px; font-weight: 700; }
+    select { min-height: 48px; width: 100%; color: var(--text); border: 1px solid var(--line); border-radius: 13px; background: var(--surface-2); padding: 0 42px 0 14px; }
+    .check { display: flex; align-items: center; gap: 9px; min-height: 48px; padding-bottom: 1px; cursor: pointer; }
+    .check input { width: 18px; height: 18px; accent-color: var(--accent); }
+
+    .mode-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 24px; }
+    .mode-btn { min-height: 112px; padding: 18px; text-align: left; cursor: pointer; border: 1px solid var(--line); border-radius: 17px; background: var(--surface-2); transition: .18s ease; }
+    .mode-btn:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); background: var(--surface-3); }
+    .mode-btn strong { display: block; margin-bottom: 5px; font-size: 17px; }
+    .mode-btn span { color: var(--muted); font-size: 13px; }
+    .mode-btn.primary { color: #07111f; border-color: transparent; background: linear-gradient(135deg, var(--accent), #b9ffde); }
+    .mode-btn.primary span { color: rgba(7, 17, 31, .72); }
+
+    .coverage { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 26px; }
+    .coverage-item { padding: 13px; border: 1px solid var(--line); border-radius: 14px; background: color-mix(in srgb, var(--surface-2) 76%, transparent); }
+    .coverage-item b { display: block; font-size: 18px; color: var(--accent-2); }
+    .coverage-item span { color: var(--muted); font-size: 12px; }
+
+    #quizView, #resultView { display: none; }
+    .quiz-top { position: sticky; top: 10px; z-index: 10; display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; margin-bottom: 16px; padding: 13px 16px; border: 1px solid var(--line); border-radius: 16px; background: color-mix(in srgb, var(--bg) 87%, transparent); backdrop-filter: blur(18px); }
+    .progress-track { height: 8px; overflow: hidden; border-radius: 99px; background: var(--surface-3); }
+    .progress-fill { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width .25s ease; }
+    .live-stats { display: flex; gap: 15px; color: var(--muted); font-size: 13px; font-weight: 750; }
+    .live-stats b { color: var(--text); }
+
+    .quiz-layout { display: grid; grid-template-columns: minmax(0, 1fr) 286px; gap: 18px; align-items: start; }
+    .question-card { padding: clamp(20px, 4vw, 36px); }
+    .question-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin-bottom: 18px; }
+    .chip { display: inline-flex; align-items: center; min-height: 29px; border-radius: 999px; padding: 4px 10px; border: 1px solid var(--line); color: var(--muted); font-size: 12px; font-weight: 800; }
+    .chip.category { color: var(--accent); }
+    .question-text { margin: 0 0 24px; font-size: clamp(19px, 2.5vw, 25px); line-height: 1.38; letter-spacing: -.025em; white-space: pre-line; }
+    .options { display: grid; gap: 11px; }
+    .option { display: grid; grid-template-columns: 38px 1fr; gap: 13px; align-items: center; width: 100%; min-height: 61px; padding: 10px 15px; text-align: left; border: 1px solid var(--line); border-radius: 15px; background: var(--surface-2); cursor: pointer; transition: .16s ease; }
+    .option:hover:not(:disabled) { border-color: var(--accent-2); transform: translateX(3px); background: var(--surface-3); }
+    .option:disabled { cursor: default; opacity: 1; }
+    .letter { display: grid; place-items: center; width: 35px; height: 35px; border-radius: 10px; background: var(--surface-3); color: var(--muted); font-weight: 900; }
+    .option.correct { border-color: color-mix(in srgb, var(--correct) 75%, transparent); background: color-mix(in srgb, var(--correct) 13%, var(--surface-2)); }
+    .option.correct .letter { color: #06291b; background: var(--correct); }
+    .option.wrong { border-color: color-mix(in srgb, var(--wrong) 78%, transparent); background: color-mix(in srgb, var(--wrong) 13%, var(--surface-2)); }
+    .option.wrong .letter { color: #30070d; background: var(--wrong); }
+
+    .feedback { display: none; margin-top: 18px; padding: 16px 18px; border-radius: 15px; border: 1px solid var(--line); background: var(--surface-2); }
+    .feedback.show { display: block; animation: rise .2s ease; }
+    .feedback strong { display: block; margin-bottom: 4px; }
+    .feedback p { margin: 0; color: var(--muted); }
+    .feedback.correct strong { color: var(--correct); }
+    .feedback.wrong strong { color: var(--wrong); }
+
+    .nav-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 23px; }
+    .btn { min-height: 46px; border: 1px solid var(--line); border-radius: 13px; padding: 0 17px; background: var(--surface-2); cursor: pointer; font-weight: 800; }
+    .btn:hover:not(:disabled) { border-color: var(--accent-2); }
+    .btn:disabled { opacity: .38; cursor: not-allowed; }
+    .btn.accent { color: #07111f; border: 0; background: linear-gradient(135deg, var(--accent), #b9ffde); }
+    .btn.danger { color: var(--wrong); }
+
+    .side-panel { position: sticky; top: 83px; padding: 18px; }
+    .side-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 13px; }
+    .side-head strong { font-size: 14px; }
+    .timer { color: var(--accent); font-variant-numeric: tabular-nums; font-weight: 850; }
+    .palette { display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px; max-height: 390px; overflow: auto; padding-right: 3px; }
+    .qdot { aspect-ratio: 1; min-width: 0; border: 1px solid var(--line); border-radius: 9px; background: var(--surface-2); cursor: pointer; font-size: 12px; font-weight: 800; }
+    .qdot.current { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+    .qdot.ok { color: #05291b; background: var(--correct); border-color: transparent; }
+    .qdot.no { color: #31070d; background: var(--wrong); border-color: transparent; }
+    .legend { display: grid; gap: 7px; margin-top: 16px; color: var(--muted); font-size: 12px; }
+    .legend span { display: flex; align-items: center; gap: 8px; }
+    .legend i { width: 10px; height: 10px; border-radius: 3px; background: var(--surface-3); }
+    .legend .l-ok { background: var(--correct); } .legend .l-no { background: var(--wrong); }
+    .side-actions { display: grid; gap: 8px; margin-top: 17px; }
+
+    .result { padding: clamp(24px, 5vw, 52px); text-align: center; }
+    .score-ring { display: grid; place-items: center; width: 150px; height: 150px; margin: 0 auto 22px; border-radius: 50%; background: conic-gradient(var(--accent) var(--score-angle, 0deg), var(--surface-3) 0); position: relative; }
+    .score-ring::after { content: ""; position: absolute; inset: 12px; border-radius: inherit; background: var(--surface); }
+    .score-ring span { position: relative; z-index: 1; font-size: 32px; font-weight: 900; letter-spacing: -.04em; }
+    .result h2 { margin: 0; font-size: clamp(28px, 5vw, 48px); letter-spacing: -.045em; }
+    .result > p { color: var(--muted); }
+    .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 630px; margin: 26px auto; }
+    .result-stat { padding: 15px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface-2); }
+    .result-stat b { display: block; font-size: 24px; }
+    .result-stat span { color: var(--muted); font-size: 12px; }
+    .result-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+
+    .toast { position: fixed; left: 50%; bottom: 22px; z-index: 100; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; max-width: calc(100% - 32px); padding: 11px 15px; border: 1px solid var(--line); border-radius: 12px; color: var(--text); background: var(--surface-3); box-shadow: var(--shadow); transition: .2s ease; }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+    .noscript { margin: 20px auto; max-width: 800px; padding: 18px; color: #721c24; background: #f8d7da; border-radius: 12px; }
+    .footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: 12px; }
+    @keyframes rise { from { opacity: 0; transform: translateY(6px); } }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-note { max-width: 600px; }
+      .quiz-layout { grid-template-columns: 1fr; }
+      .side-panel { position: static; }
+      .palette { grid-template-columns: repeat(10, 1fr); max-height: none; }
+      .coverage { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 680px) {
+      .app-shell { width: min(100% - 20px, 1180px); padding-top: 14px; }
+      .topbar { margin-bottom: 24px; }
+      .brand > span:last-child { font-size: 14px; }
+      h1 { font-size: clamp(38px, 13vw, 58px); }
+      .setup-head { display: grid; }
+      .count-badge { justify-self: start; }
+      .controls, .mode-grid { grid-template-columns: 1fr; }
+      .mode-btn { min-height: 88px; }
+      .quiz-top { grid-template-columns: 1fr; gap: 9px; }
+      .live-stats { justify-content: space-between; }
+      .palette { grid-template-columns: repeat(5, 1fr); }
+      .question-card { border-radius: 18px; }
+      .option { grid-template-columns: 34px 1fr; padding: 10px 12px; }
+      .nav-row .btn { flex: 1; padding: 0 10px; }
+    }
+
+    @media (max-width: 420px) {
+      .coverage, .result-grid { grid-template-columns: 1fr; }
+      .live-stats { font-size: 11px; gap: 7px; }
+      .question-text { font-size: 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; }
+    }
+
+    @media print {
+      body { background: #fff; color: #111; }
+      .topbar, .hero, #setupView, .quiz-top, .side-panel, .nav-row, .feedback, .footer { display: none !important; }
+      #quizView { display: block !important; }
+      .quiz-layout { display: block; }
+      .panel, .question-card { box-shadow: none; border: 0; }
+    }
+  </style>
+</head>
+<body>
+  <noscript><div class="noscript">Bu çalışma sitesinin çalışması için JavaScript etkin olmalıdır.</div></noscript>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">BG</span><span>Bilgi Güvenliği<small>Sınav Laboratuvarı</small></span></div>
+      <button class="icon-btn" id="themeButton" type="button" aria-label="Renk temasını değiştir" title="Temayı değiştir">☼</button>
+    </header>
+
+    <section class="hero" aria-labelledby="pageTitle">
+      <div>
+        <div class="eyebrow">Ders kaynakları + örnek sınav dili</div>
+        <h1 id="pageTitle">Ezber değil, senaryo çöz.</h1>
+        <p>Hocanın örnek soru kalıbına göre hazırlanmış 106 özgün test sorusu. Cevabı seç, sonucu anında gör, kısa açıklamayla bilgiyi pekiştir.</p>
+      </div>
+      <div class="hero-note"><strong>7 konu alanı</strong>Temellerden risk hesaplarına, ağ güvenliğinden SOC ve olay müdahalesine eksiksiz tekrar.</div>
+    </section>
+
+    <section id="setupView" class="panel setup" aria-labelledby="setupTitle">
+      <div class="setup-head">
+        <div><h2 id="setupTitle">Çalışma biçimini seç</h2><p>Filtreleri ayarla; tüm bankayı sırayla çöz veya sınavdaki gibi 25 soruluk karışık bir deneme başlat.</p></div>
+        <span class="count-badge"><span id="availableCount">106</span> soru hazır</span>
+      </div>
+      <div class="controls">
+        <label>Konu
+          <select id="categorySelect" aria-label="Konu filtresi"><option value="all">Tüm konular</option></select>
+        </label>
+        <label>Zorluk
+          <select id="difficultySelect" aria-label="Zorluk filtresi"><option value="all">Tüm düzeyler</option><option value="Kolay">Kolay</option><option value="Orta">Orta</option><option value="Zor">Zor</option></select>
+        </label>
+        <label class="check"><input id="shuffleCheck" type="checkbox" checked> Soruları ve seçenekleri karıştır</label>
+      </div>
+      <div class="mode-grid">
+        <button class="mode-btn primary" type="button" data-mode="exam"><strong>25 soruluk deneme</strong><span>Seçili konulardan rastgele sınav simülasyonu</span></button>
+        <button class="mode-btn" type="button" data-mode="all"><strong>Tüm soru bankası</strong><span>Filtreye uyan bütün soruları çöz</span></button>
+        <button class="mode-btn" type="button" data-mode="wrong"><strong>Yanlışlarımı çöz</strong><span>Bu cihazda son yanlış yaptığın sorular</span></button>
+      </div>
+      <div class="coverage" id="coverageGrid" aria-label="Konu dağılımı"></div>
+    </section>
+
+    <section id="quizView" aria-live="polite">
+      <div class="quiz-top">
+        <div class="progress-track" aria-label="Oturum ilerlemesi"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="live-stats"><span><b id="progressText">1/25</b> soru</span><span>Doğru <b id="correctCount">0</b></span><span>Yanlış <b id="wrongCount">0</b></span></div>
+      </div>
+      <div class="quiz-layout">
+        <article class="panel question-card">
+          <div class="question-meta"><span class="chip category" id="questionCategory"></span><span class="chip" id="questionDifficulty"></span><span class="chip" id="questionNumber"></span></div>
+          <h2 class="question-text" id="questionText"></h2>
+          <div class="options" id="options" role="group" aria-labelledby="questionText"></div>
+          <div class="feedback" id="feedback" role="status"><strong id="feedbackTitle"></strong><p id="feedbackText"></p></div>
+          <div class="nav-row"><button class="btn" id="prevButton" type="button">← Önceki</button><button class="btn accent" id="nextButton" type="button">Sonraki →</button></div>
+        </article>
+        <aside class="panel side-panel" aria-label="Soru navigasyonu">
+          <div class="side-head"><strong>Soru haritası</strong><span class="timer" id="timer">00:00</span></div>
+          <div class="palette" id="palette"></div>
+          <div class="legend"><span><i class="l-ok"></i> Doğru</span><span><i class="l-no"></i> Yanlış</span><span><i></i> Cevaplanmadı</span></div>
+          <div class="side-actions"><button class="btn" id="finishButton" type="button">Oturumu bitir</button><button class="btn danger" id="homeButton" type="button">Başlangıca dön</button></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="resultView" class="panel result" aria-labelledby="resultTitle">
+      <div class="score-ring" id="scoreRing"><span id="scorePercent">0%</span></div>
+      <h2 id="resultTitle">Oturum tamamlandı</h2>
+      <p id="resultMessage"></p>
+      <div class="result-grid"><div class="result-stat"><b id="resultCorrect">0</b><span>Doğru</span></div><div class="result-stat"><b id="resultWrong">0</b><span>Yanlış</span></div><div class="result-stat"><b id="resultBlank">0</b><span>Boş</span></div></div>
+      <div class="result-actions"><button class="btn accent" id="reviewWrongButton" type="button">Yanlışları yeniden çöz</button><button class="btn" id="restartButton" type="button">Başlangıca dön</button></div>
+    </section>
+
+    <div class="toast" id="toast" role="status"></div>
+    <footer class="footer">Bilgi Güvenliği ders kaynakları temel alınarak hazırlanmıştır. Klavye: 1–5 cevap, ← → gezinme.</footer>
+  </main>
+
+  <script>
+    "use strict";
+
+    const questions = [
+      /* QUESTIONS_START */
+      {id:1,category:"Temeller ve Tehditler",difficulty:"Kolay",question:"Bir hastane, hasta kayıtlarını yalnızca tedavi ekibinin görüntüleyebilmesini sağlamak için rol tabanlı yetkilendirme ve şifreleme kullanmaktadır. Bu kontroller öncelikle CIA üçlüsünün hangi unsurunu korur?",options:["Gizlilik","Bütünlük","Erişilebilirlik","İnkâr edememe","Hesap verebilirlik"],answer:0,explanation:"Yetkisiz kişilerin bilgiyi görmesini engellemek gizlilik hedefidir."},
+      {id:2,category:"Temeller ve Tehditler",difficulty:"Orta",question:"Bir kurum, kritik yapılandırma dosyalarının hash değerlerini düzenli olarak karşılaştırmakta ve yetkisiz değişiklik olduğunda alarm üretmektedir. Bu uygulamanın temel güvenlik amacı hangisidir?",options:["Erişilebilirliği artırmak","Bütünlüğü doğrulamak","Gizliliği sağlamak","Kimliği anonimleştirmek","Ağ gecikmesini azaltmak"],answer:1,explanation:"Hash karşılaştırması, verinin izinsiz değişip değişmediğini göstererek bütünlüğü denetler."},
+      {id:3,category:"Temeller ve Tehditler",difficulty:"Orta",question:"Bir e-ticaret sistemi DDoS saldırısı sırasında müşterilere hizmet verememiştir. Veriler okunmamış ve değiştirilmemiştir. Bu olayda öncelikle hangi güvenlik özelliği zarar görmüştür?",options:["Gizlilik","Bütünlük","Erişilebilirlik","Kimlik doğrulama","Yetkilendirme"],answer:2,explanation:"Yetkili kullanıcıların ihtiyaç anında hizmete ulaşamaması erişilebilirlik ihlalidir."},
+      {id:4,category:"Temeller ve Tehditler",difficulty:"Orta",question:"CNSS güvenlik modelinde aşağıdaki üçlülerden hangisi modelin üç farklı boyutunu doğru biçimde temsil eder?",options:["Gizlilik – depolama – teknoloji","Şifreleme – ağ – kullanıcı","Bütünlük – risk – denetim","Erişilebilirlik – parola – saldırgan","Politika – yazılım – gizlilik"],answer:0,explanation:"CNSS; güvenlik özelliği, bilginin durumu ve koruma yöntemi boyutlarını birlikte ele alır."},
+      {id:5,category:"Temeller ve Tehditler",difficulty:"Kolay",question:"Bir kurum yalnızca sunucuları ve yazılımları varlık envanterine eklemiş; kullanıcıları, prosedürleri ve ağ bağlantılarını kapsam dışında bırakmıştır. En doğru değerlendirme hangisidir?",options:["Envanter yeterlidir; insan ve prosedür bilgi sistemi bileşeni değildir.","Yalnızca ağ bağlantılarının eklenmesi yeterlidir.","Bilgi sistemi donanım, yazılım, veri, insan, prosedür ve ağ bileşenleriyle bütün olarak ele alınmalıdır.","Prosedürler yalnızca hukuk biriminin sorumluluğundadır.","Varlık envanteri yalnızca finansal değeri olan cihazları içermelidir."],answer:2,explanation:"Bilgi sistemi teknik bileşenlerle sınırlı değildir; insan ve süreçler de korunacak varlıklardır."},
+      {id:6,category:"Temeller ve Tehditler",difficulty:"Orta",question:"Bir kurum güvenliği artırmak için her işlemde beş ayrı onay istemiş, çalışanlar da işi yetiştirmek için kişisel bulut hesapları kullanmaya başlamıştır. Bu durumun en doğru açıklaması hangisidir?",options:["Aşırı kısıtlama gölge BT oluşturarak güvenlik–erişim dengesini bozmuştur.","Daha fazla onay her koşulda riski sıfırlar.","Kişisel bulut kullanımı erişilebilirliği artırdığı için kabul edilmelidir.","Sorun yalnızca bant genişliği yetersizliğidir.","Güvenlik ile kullanılabilirlik arasında ilişki yoktur."],answer:0,explanation:"Aşırı kısıtlama kullanıcıları kontrol dışı çözümlere itebilir; güvenlik iş ihtiyacıyla dengelenmelidir."},
+      {id:7,category:"Temeller ve Tehditler",difficulty:"Orta",question:"Bir saldırgan oltalama ile çalışanın parolasını ele geçirmiş; MFA ikinci katmanda erişimi durdurmuş, EDR ise indirilen zararlı dosyayı karantinaya almıştır. Bu senaryo hangi yaklaşımı en iyi gösterir?",options:["Tekil hata noktası","Savunma derinliği","Risk kabulü","Yalnızca fiziksel güvenlik","İsteğe bağlı erişim kontrolü"],answer:1,explanation:"Bir kontrol aşılırsa diğer katmanların korumaya devam etmesi defense-in-depth yaklaşımıdır."},
+      {id:8,category:"Temeller ve Tehditler",difficulty:"Orta",question:"Üst yönetim risk iştahını ve bütçeyi belirlemiş, kurum genelinde politika yayımlamış ve teknik ekiplerden bu çerçevede kontrol uygulamalarını istemiştir. Bu uygulama yaklaşımı hangisidir?",options:["Bottom-up","Ad hoc yönetim","Top-down","Yalnızca operasyonel planlama","Risk aktarımı"],answer:2,explanation:"Hedef, kaynak ve sorumluluğun üst yönetimden başlayarak yayılması top-down yaklaşımdır."},
+      {id:9,category:"Temeller ve Tehditler",difficulty:"Zor",question:"Bir yazılım projesinde güvenlik gereksinimleri yalnızca ürün canlıya alınmadan bir gün önce test edilmiştir. Çok sayıda mimari açık nedeniyle proje gecikmiştir. En uygun iyileştirme hangisidir?",options:["Güvenliği yalnızca bakım aşamasında değerlendirmek","SDLC'nin analiz, tasarım, geliştirme, test, uygulama ve bakım aşamalarına güvenliği yerleştirmek","Sadece daha güçlü bir antivirüs satın almak","Test kayıtlarını silerek süreci hızlandırmak","Güvenlik sorumluluğunu yalnızca son kullanıcıya vermek"],answer:1,explanation:"Güvenlik sonradan eklenen bir yama değil, yazılım yaşam döngüsünün tüm aşamalarının parçasıdır."},
+      {id:10,category:"Temeller ve Tehditler",difficulty:"Orta",question:"Aşağıdaki olaylardan hangisi doğrudan saldırıdan çok dolaylı tehdit olarak değerlendirilir?",options:["Saldırganın fidye yazılımı çalıştırması","Çalışanın yanlış yapılandırma nedeniyle bulut klasörünü herkese açması","Bir grubun DDoS saldırısı düzenlemesi","Kimlik avıyla parola çalınması","Web uygulamasına SQL enjeksiyonu yapılması"],answer:1,explanation:"Kasıtlı saldırı olmayan insan hatası ve süreç eksikliği dolaylı tehditlerdendir."},
+      {id:11,category:"Temeller ve Tehditler",difficulty:"Orta",question:"Bir geliştirici, ücretli bir yazılımın lisans kontrolünü kaldırarak programı kurum genelinde izinsiz çoğaltmıştır. En doğru değerlendirme hangisidir?",options:["Yalnızca erişilebilirlik sorunudur.","Fikri mülkiyet ve lisans ihlali oluşmuştur.","Yazılım kurum içinde kullanıldığı için sorun yoktur.","Sadece ağ güvenliği ihlalidir.","Kaynak kod değiştirilmediyse ihlal sayılmaz."],answer:1,explanation:"Yazılım lisansı ve telif hakları korunması gereken fikri mülkiyet varlıklarıdır."},
+      {id:12,category:"Temeller ve Tehditler",difficulty:"Orta",question:"Kritik bir uygulama saldırı olmadan, kapasite planlaması yapılmadığı için yoğun saatte cevap veremez hâle gelmiştir. Bu olayla ilgili en doğru değerlendirme hangisidir?",options:["Güvenlik olayı sayılamaz; yalnızca saldırılar güvenliği etkiler.","Hizmet kalitesindeki sapma erişilebilirliği ve iş sürekliliğini etkileyen bir güvenlik riskidir.","Gizlilik ihlali kesin olarak gerçekleşmiştir.","Sorun yalnızca kullanıcı eğitimidir.","Veri değişmediği için hiçbir risk yoktur."],answer:1,explanation:"Yavaşlama ve kesinti saldırı kaynaklı olmasa bile erişilebilirlik ve süreklilik riskidir."},
+      {id:13,category:"Temeller ve Tehditler",difficulty:"Orta",question:"Sunucu odasında kartlı geçiş vardır ancak UPS, jeneratör ve uygun yangın söndürme sistemi bulunmamaktadır. Hangi kontrol alanı öncelikle eksiktir?",options:["Çevresel ve fiziksel kontrol","Uygulama katmanı filtreleme","Veri sınıflandırma","Taktiksel planlama","Kriptografik anahtar değişimi"],answer:0,explanation:"Elektrik, yangın ve iklim risklerine karşı UPS, jeneratör ve söndürme sistemleri çevresel güvenlik kontrolüdür."},
+      {id:14,category:"Temeller ve Tehditler",difficulty:"Zor",question:"Bir kurum fidye yazılımına karşı antivirüs kurmuş ancak tüm yedekleri üretim ağına sürekli bağlı tutmuştur. Saldırı yedekleri de şifrelemiştir. En etkili iyileştirme hangisidir?",options:["Yalnızca daha uzun parola kullanmak","Çevrimdışı veya mantıksal olarak yalıtılmış, düzenli test edilen yedekler kullanmak","Tüm logları kapatmak","Kullanıcılara yerel yönetici yetkisi vermek","Dosya sunucusunu internete doğrudan açmak"],answer:1,explanation:"Ransomware'e karşı yedeklerin ana ağdan yalıtılması ve geri dönüş testlerinin yapılması kritiktir."},
+      {id:15,category:"Temeller ve Tehditler",difficulty:"Orta",question:"Bir olay müdahale ekibi şu işlemleri yapacaktır:\nI. Etkilenen sistemi izole etme\nII. Hazırlık ve iletişim planını oluşturma\nIII. Zararlı kalıntıları temizleme\nIV. Olayı tespit ve analiz etme\nV. Sistemleri güvenli biçimde hizmete alma\nVI. Ders çıkarma\nEn uygun sıra hangisidir?",options:["II – IV – I – III – V – VI","IV – II – III – I – VI – V","II – I – IV – V – III – VI","IV – I – II – III – V – VI","II – IV – III – I – V – VI"],answer:0,explanation:"Standart akış hazırlık, tespit/analiz, sınırlama, yok etme, kurtarma ve ders çıkarmadır."},
+      {id:16,category:"Etik, Hukuk ve Meslek",difficulty:"Zor",question:"Bir bulut sistem yöneticisi, teknik görevi nedeniyle tüm müşteri verilerine erişebilen ayrıcalıklı bir hesaba sahiptir. Yönetici, herhangi bir güvenlik olayı bulunmadığı hâlde sistem performansını inceleme gerekçesiyle müşterilerin şifrelenmemiş dosyalarını açarak içeriklerini kontrol etmiştir. Dosyaları değiştirmemiş ve üçüncü kişilerle paylaşmamıştır. Bu olayla ilgili en doğru değerlendirme hangisidir?",options:["Veriler değiştirilmediği için bütünlük ve gizlilik ihlali oluşmamıştır.","Yönetici ayrıcalıklı hesaba sahip olduğu için yaptığı tüm erişimler meşrudur.","Veriler üçüncü kişilerle paylaşılmadığından etik açıdan sorun yoktur.","Teknik yetkilendirme bulunsa bile amaçla sınırlılık ve bilmesi gereken prensipleri ihlal edilmiştir.","Erişim sistem kayıtlarına işlendiği sürece davranış etik kabul edilir."],answer:3,explanation:"Teknik yetki, veriyi iş gereği olmadan inceleme hakkı vermez; mahremiyet ve amaçla sınırlılık ihlal edilmiştir."},
+      {id:17,category:"Etik, Hukuk ve Meslek",difficulty:"Orta",question:"Bir çalışan, yasada açıkça yasaklanmamış olmasına rağmen müşterilerin iletişim bilgilerini kişisel satış amacıyla kullanmıştır. Bu durum hukuk–etik ilişkisi açısından nasıl değerlendirilmelidir?",options:["Yasal düzenleme yoksa davranış otomatik olarak etiktir.","Davranış yasa dışı olmayabilir ancak mahremiyet ve sorumluluk bakımından etik dışı olabilir.","Etik yalnızca kamu kurumlarında geçerlidir.","Veri değiştirilmediği için etik sorun oluşmaz.","Kişisel çıkar amacı etik değerlendirmeyi etkilemez."],answer:1,explanation:"Bir davranış hukuken açıkça yasaklanmamış olsa da etik ilkelere aykırı olabilir."},
+      {id:18,category:"Etik, Hukuk ve Meslek",difficulty:"Kolay",question:"Bir saldırgan yetkisi olmadan şirket sunucusuna girerek kayıtları değiştirmiştir. ABD hukuk çerçeveleri içinde bu davranışı doğrudan hedefleyen düzenleme hangisidir?",options:["HIPAA","Sarbanes–Oxley Act","Computer Fraud and Abuse Act","Privacy Shield","ISO 27001"],answer:2,explanation:"CFAA, bilgisayar dolandırıcılığını ve sistemlere yetkisiz erişimi yasaklar."},
+      {id:19,category:"Etik, Hukuk ve Meslek",difficulty:"Orta",question:"Bir kişi çalışanların e-posta trafiğini yetkisiz biçimde yakalayıp okumaktadır. Bu durumla en doğrudan ilişkili düzenleme hangisidir?",options:["Electronic Communications Privacy Act","Sarbanes–Oxley Act","COBIT","NIST 800-30","SETA"],answer:0,explanation:"ECPA elektronik iletişimin yetkisiz dinlenmesi ve ele geçirilmesine karşı gizliliği korur."},
+      {id:20,category:"Etik, Hukuk ve Meslek",difficulty:"Kolay",question:"Bir hastane, hastaların tıbbi kayıtlarını yetkisiz bir reklam şirketiyle paylaşmıştır. Ders kapsamındaki hangi düzenleme özellikle sağlık bilgilerinin gizliliğine odaklanır?",options:["CFAA","HIPAA","SOX","ECPA","ISO 27000"],answer:1,explanation:"HIPAA, kişisel sağlık bilgilerinin gizliliğini ve güvenliğini korur."},
+      {id:21,category:"Etik, Hukuk ve Meslek",difficulty:"Orta",question:"Halka açık bir şirket finansal kayıtların değiştirilmesini önlemek, raporların doğruluğunu göstermek ve iç kontrolleri güçlendirmek istemektedir. Hangi düzenleme bu amaçla en yakından ilişkilidir?",options:["Sarbanes–Oxley Act","HIPAA","CFAA","Privacy Shield","WPA3"],answer:0,explanation:"SOX, halka açık şirketlerde finansal bilgilerin bütünlüğü, şeffaflığı ve iç kontrolleriyle ilgilidir."},
+      {id:22,category:"Etik, Hukuk ve Meslek",difficulty:"Orta",question:"Bir uygulama kişisel verileri toplarken kullanıcıya amacı açıklamamakta, açık onay almamakta ve kişinin kendi verisine erişmesine izin vermemektedir. Hangi üç GDPR ilkesi birlikte zedelenmiştir?",options:["Veri sıkıştırma, yedekleme ve anonim ağ","Açık rıza, şeffaflık ve kişisel veriye erişim hakkı","Sadece bütünlük, erişilebilirlik ve hız","Telif, patent ve marka","Kimlik doğrulama, indeksleme ve yönlendirme"],answer:1,explanation:"GDPR; bilgilendirilmiş onay, şeffaf işleme ve veri sahibinin erişim haklarını öne çıkarır."},
+      {id:23,category:"Etik, Hukuk ve Meslek",difficulty:"Zor",question:"Türkiye'de kurulu bir şirket, AB vatandaşlarının verilerini ABD'deki bir hizmet üzerinden işlemektedir. En doğru yaklaşım hangisidir?",options:["Yalnızca şirket merkezinin bulunduğu ülkenin kuralları geçerlidir.","Veri internette olduğu için ulusal düzenlemeler uygulanmaz.","Faaliyet ve veri sahipleriyle ilişkili ülkelerin veri koruma kuralları ile aktarım koşulları birlikte değerlendirilmelidir.","Bulut sağlayıcısı kullanmak tüm hukuki sorumluluğu kaldırır.","Kullanıcı veriyi bir kez paylaştığında bütün haklarını kaybeder."],answer:2,explanation:"Sınır ötesi işlemede birden çok ülkenin gizlilik ve aktarım düzenlemelerine uyum gerekebilir."},
+      {id:24,category:"Etik, Hukuk ve Meslek",difficulty:"Kolay",question:"Bir siber suç farklı ülkelerdeki sistemleri etkilediği için ulusal ekipler delil ve operasyon bilgisi paylaşmaktadır. Bu iş birliğini destekleyen kuruluşlara örnek hangisidir?",options:["INTERPOL ve Europol","ACM ve IEEE 802.1X","NIST ve WPA3","RADIUS ve TACACS+","EDR ve NDR"],answer:0,explanation:"INTERPOL ve Europol sınır aşan siber suçlarla mücadelede koordinasyon ve bilgi paylaşımını destekler."},
+      {id:25,category:"Etik, Hukuk ve Meslek",difficulty:"Zor",question:"Aşağıdaki kuruluş–işlev eşleştirmelerinden hangisi doğrudur?\nI. ACM\nII. ISACA\nIII. ISC²",options:["I–Sağlık verisi mevzuatı, II–Kablosuz ağ standardı, III–Finansal raporlama","I–Bilişim etik kodları, II–Yönetişim ve denetim standartları, III–CISSP ve etik rehberler","I–Olay müdahalesi, II–Şifreleme algoritması, III–Ağ yönlendirme","I–Ceza hukuku, II–E-posta gizliliği, III–Veri aktarımı","I–Firewall üretimi, II–Antivirüs, III–Bulut depolama"],answer:1,explanation:"ACM etik kodlarıyla, ISACA yönetişim/denetimle, ISC² ise CISSP gibi sertifikalar ve etik rehberlerle bilinir."},
+      {id:26,category:"Etik, Hukuk ve Meslek",difficulty:"Orta",question:"Bir kurum bilinen kritik açığı kapatabilecek yamayı, yedeklemeyi ve çalışan eğitimini maliyet gerekçesiyle hiç uygulamamıştır. İhlal sonrasında 'haberdar değildik' savunmasını yapmıştır. Öncelikle hangi yükümlülük yerine getirilmemiştir?",options:["Due care: varlıkları korumak için makul önlemleri alma","Risk sonlandırma","Saldırı simülasyonu","Veri normalizasyonu","Görev tabanlı erişim"],answer:0,explanation:"Due care, bilinen risklere karşı makul ve gerekli koruma önlemlerini uygulamayı ifade eder."},
+      {id:27,category:"Etik, Hukuk ve Meslek",difficulty:"Orta",question:"Bir kurum güvenlik politikalarını oluşturmuş; ancak yıllardır risk değerlendirmesi, denetim veya güncelleme yapmamıştır. En belirgin eksiklik hangisidir?",options:["Due diligence","Veri minimizasyonu","Risk aktarımı","Paket filtreleme","Fiziksel erişim"],answer:0,explanation:"Due diligence, kontrolleri sürekli gözden geçirme, denetleme ve yeni tehditlere göre iyileştirmedir."},
+      {id:28,category:"Etik, Hukuk ve Meslek",difficulty:"Zor",question:"Uluslararası bir ekipte bilgi paylaşımına ilişkin kültürel yaklaşımlar farklıdır. Bir çalışan kendi kültüründe normal görülen bir uygulamayı gerekçe göstererek kurumun gizli verisini izinsiz paylaşmıştır. En doğru değerlendirme hangisidir?",options:["Kültürel kabul tüm kurumsal ve yasal sorumlulukları ortadan kaldırır.","Uluslararası ekiplerde etik kurallar uygulanamaz.","Kültürel farklar anlaşılmalı; ancak gizlilik, yetki ve geçerli kurallar yine korunmalıdır.","Veri kolektif görülüyorsa erişim kaydı tutulmasına gerek yoktur.","Sorumluluk yalnızca veriyi alan kişidedir."],answer:2,explanation:"Kültürel farkındalık önemlidir fakat mahremiyet, yetkilendirme ve kurumsal yükümlülükleri geçersiz kılmaz."},
+      {id:29,category:"Planlama ve Politikalar",difficulty:"Zor",question:"Bir kurumda aşağıdaki karar ve faaliyetler gerçekleştirilmektedir:\nI. Yönetim kurulu, kurumun kabul edebileceği azami siber risk düzeyini belirlemiştir.\nII. Bilgi güvenliği yöneticisi, üç yıllık güvenlik dönüşüm programını ve bütçesini hazırlamıştır.\nIII. SOC ekibi, kimlik avı olayları için alarm eşiklerini ve müdahale prosedürlerini güncellemiştir.\nBu faaliyetlerin düzeyleri sırasıyla hangisidir?",options:["Taktiksel – stratejik – operasyonel","Stratejik – operasyonel – taktiksel","Stratejik – taktiksel – operasyonel","Operasyonel – stratejik – taktiksel","Yönetişim – operasyonel – stratejik"],answer:2,explanation:"Risk iştahı stratejik, dönüşüm programı taktiksel, günlük alarm ve müdahale ayarları operasyoneldir."},
+      {id:30,category:"Planlama ve Politikalar",difficulty:"Orta",question:"Üst yönetim güvenlik hedeflerini belirlemiş fakat bütçe ayırmamış, sorumluluk vermemiş ve uygulamayı izlememiştir. Bilgi güvenliği yönetişimi açısından en doğru değerlendirme hangisidir?",options:["Hedef belirlemek tek başına yeterlidir.","Yönetişim; politika kadar kaynak tahsisi, sorumluluk, gözetim ve denetim de gerektirir.","Yönetişim yalnızca teknik ekibin günlük işidir.","Bütçe güvenlik seviyesini etkilemez.","Politika olmadan sadece cihaz satın almak yeterlidir."],answer:1,explanation:"Etkin yönetişim yönetim desteği, kaynak, hesap verebilirlik ve uygulamanın izlenmesini birlikte gerektirir."},
+      {id:31,category:"Planlama ve Politikalar",difficulty:"Orta",question:"Kurumun genel güvenlik felsefesini, üst düzey sorumlulukları ve tüm birimler için ortak yönü tanımlayan politika hangisidir?",options:["ISSP","SysSP","EISP","Olay bileti","ACL"],answer:2,explanation:"EISP, kurum genelindeki stratejik bilgi güvenliği yaklaşımını ve temel ilkeleri belirler."},
+      {id:32,category:"Planlama ve Politikalar",difficulty:"Orta",question:"Kurum; e-posta, sosyal medya, internet kullanımı ve uzaktan erişim için çalışan davranışlarını ayrıntılı olarak belirleyen ayrı bir politika hazırlamıştır. Bu politika türü hangisidir?",options:["EISP","ISSP","SysSP","DRP","BIA"],answer:1,explanation:"Belirli bir güvenlik konusuna odaklanan politikalar Issue-Specific Security Policy kapsamındadır."},
+      {id:33,category:"Planlama ve Politikalar",difficulty:"Orta",question:"Bir Linux sunucusunda hangi servislerin açık olacağı, firewall kuralları, yönetici erişimi ve log ayarları ayrıntılı olarak tanımlanmıştır. Bu düzenleme en iyi hangi politika türüyle açıklanır?",options:["EISP","ISSP","SysSP","BCP","Etik kod"],answer:2,explanation:"Belirli sistemin teknik ve operasyonel kontrollerini tanımlayan politika SysSP'dir."},
+      {id:34,category:"Planlama ve Politikalar",difficulty:"Zor",question:"Aşağıdaki ifadelerden hangisi politika, standart ve uygulama arasındaki ilişkiyi en doğru açıklar?",options:["Politika teknik port numarasını; standart kurum vizyonunu; uygulama yasal cezayı belirler.","Politika yön ve beklentiyi, standart zorunlu gereksinimi, uygulama ise önerilen yöntemi ortaya koyar.","Üç kavram tamamen aynıdır.","Standartlar isteğe bağlı, uygulamalar her zaman zorunludur.","Politika yalnızca cihaz yapılandırmasıdır."],answer:1,explanation:"Politika neyin ve neden yapılacağını; standart zorunlu eşiği; uygulama ise önerilen nasıl yaklaşımını destekler."},
+      {id:35,category:"Planlama ve Politikalar",difficulty:"Orta",question:"Bir kurum güvenlik mimarisini kurarken kontrollerin hangi sırayla ve hangi çerçevede uygulanacağını gösteren yol haritası aramaktadır. ISO 27000 ve NIST rehberlerinden yararlanması hangi kavrama örnektir?",options:["Güvenlik çerçevesi","Yanlış pozitif","Risk kabulü","Padded cell","Paket parçalama"],answer:0,explanation:"Güvenlik çerçevesi, politika ve kontrollerin sistematik uygulanması için bir blueprint sunar."},
+      {id:36,category:"Planlama ve Politikalar",difficulty:"Zor",question:"SETA programında aşağıdaki faaliyetler uygulanmıştır:\nI. Güvenlik mimarlarına ileri düzey kriptografi dersi\nII. Çalışanlara uygulamalı oltalama raporlama tatbikatı\nIII. Aylık kısa güvenlik hatırlatmaları\nBu faaliyetler sırasıyla hangi bileşenlere karşılık gelir?",options:["Awareness – Training – Education","Education – Training – Awareness","Training – Education – Awareness","Education – Awareness – Training","Policy – Standard – Practice"],answer:1,explanation:"Teorik derinlik education, uygulamalı beceri training, sürekli dikkat oluşturma awareness bileşenidir."},
+      {id:37,category:"Planlama ve Politikalar",difficulty:"Orta",question:"Bir kurum güvenlik ihlali olduğunda alarmın nasıl doğrulanacağını, kimin çağrılacağını, sistemin ne zaman izole edileceğini ve iletişimin nasıl yürütüleceğini tanımlamıştır. Bu belge hangisidir?",options:["Olay Müdahale Planı","Felaket Kurtarma Planı","E-posta ISSP'si","Varlık envanteri","Fikri mülkiyet politikası"],answer:0,explanation:"IRP, güvenlik olayının tespiti, analizi, sınırlanması ve koordineli yanıt adımlarını belirler."},
+      {id:38,category:"Planlama ve Politikalar",difficulty:"Orta",question:"Deprem sonrasında veri merkezinin çalışamaz hâle gelmesi üzerine sistemlerin alternatif merkezde yeniden kurulması, yedeklerin geri yüklenmesi ve kritik servislerin devreye alınması planlanmaktadır. Bu hangi plandır?",options:["ISSP","Felaket Kurtarma Planı","Kabul edilebilir kullanım politikası","Tehdit avı hipotezi","Erişim kontrol listesi"],answer:1,explanation:"DRP, felaket sonrası bilgi sistemlerini ve teknik hizmetleri yeniden çalışır hâle getirmeye odaklanır."},
+      {id:39,category:"Planlama ve Politikalar",difficulty:"Orta",question:"Ana ofis kullanılamazken müşteri hizmetlerinin uzaktan, finans işlemlerinin alternatif lokasyondan ve kritik işlerin öncelik sırasıyla sürdürülmesi hangi planın temel amacıdır?",options:["İş Sürekliliği Planı","SysSP","ACL","Sızma testi planı","Yama yönetimi"],answer:0,explanation:"BCP'nin odağı kesinti sırasında kritik iş süreçlerinin devam etmesidir."},
+      {id:40,category:"Planlama ve Politikalar",difficulty:"Zor",question:"Bir kurum önce genel güvenlik yaklaşımını belirlemiş, ardından uzaktan çalışma kurallarını yazmış ve son olarak VPN sunucusunun teknik yapılandırmasını tanımlamıştır. Kullanılan politika sırası hangisidir?",options:["SysSP → ISSP → EISP","EISP → ISSP → SysSP","ISSP → EISP → SysSP","EISP → SysSP → ISSP","Standart → BCP → EISP"],answer:1,explanation:"Genel kurumsal çerçeve EISP, konuya özgü uzaktan çalışma ISSP, teknik VPN ayarları SysSP'dir."},
+      {id:41,category:"Risk Yönetimi",difficulty:"Orta",question:"Risk yönetimi sürecinin temel aşamaları için en doğru sıra hangisidir?",options:["Kontrol → tanımlama → değerlendirme","Tanımlama → değerlendirme → kontrol","Değerlendirme → kontrol → varlık envanteri","Kabul → aktarım → tanımlama","Sadece tehdit belirleme → süreci sonlandırma"],answer:1,explanation:"Önce varlık, tehdit ve zafiyetler tanımlanır; sonra risk değerlendirilir ve uygun kontrol seçilir."},
+      {id:42,category:"Risk Yönetimi",difficulty:"Zor",question:"Bir kurumun kritik veri tabanının varlık değeri 1.200.000 TL’dir. Başarılı bir saldırı sonucunda varlığın %35’inin kaybedileceği ve saldırının yılda ortalama 0,25 kez gerçekleşeceği tahmin edilmektedir. Yıllık maliyeti 50.000 TL olan bir kontrol uygulandığında saldırının yıllık gerçekleşme oranının 0,05’e düşeceği öngörülmektedir. Kayıp oranının değişmediği kabul edilmektedir. Kontrol öncesi ALE, kontrol sonrası ALE ve net yıllık fayda sırasıyla hangisidir?",options:["105.000 TL – 21.000 TL – 34.000 TL","420.000 TL – 84.000 TL – 286.000 TL","105.000 TL – 50.000 TL – 5.000 TL","300.000 TL – 60.000 TL – 190.000 TL","420.000 TL – 21.000 TL – 349.000 TL"],answer:0,explanation:"SLE=420.000; ALE önce 105.000, sonra 21.000; net fayda=105.000−21.000−50.000=34.000 TL."},
+      {id:43,category:"Risk Yönetimi",difficulty:"Zor",question:"Bir bilgi sistemi için mevcut ALE değeri 200.000 TL’dir. Birbirinden bağımsız iki kontrolün risk azaltma oranları sırasıyla %60 ve %50’dir. Kontrollerin toplam yıllık maliyeti 70.000 TL’dir. İki kontrol birlikte uygulandığında artık ALE ve net yıllık fayda yaklaşık olarak ne olur?",options:["Artık ALE 0 TL, net fayda 130.000 TL","Artık ALE 20.000 TL, net fayda 110.000 TL","Artık ALE 50.000 TL, net fayda 80.000 TL","Artık ALE 40.000 TL, net fayda 90.000 TL","Artık ALE 90.000 TL, net fayda 40.000 TL"],answer:3,explanation:"Bağımsız kontroller sonrası kalan oran 0,40×0,50=%20; artık ALE 40.000, net fayda 200.000−40.000−70.000=90.000 TL."},
+      {id:44,category:"Risk Yönetimi",difficulty:"Orta",question:"Değeri 800.000 TL olan bir sunucunun tek bir yangın olayında %25 zarar göreceği tahmin edilmektedir. SLE değeri kaç TL'dir?",options:["25.000","100.000","200.000","600.000","800.000"],answer:2,explanation:"SLE = Varlık Değeri × Maruz Kalma Faktörü = 800.000 × 0,25 = 200.000 TL."},
+      {id:45,category:"Risk Yönetimi",difficulty:"Orta",question:"SLE değeri 300.000 TL olan bir olayın yıllık gerçekleşme oranı 0,2 ise ALE kaç TL'dir?",options:["60.000","150.000","300.000","600.000","1.500.000"],answer:0,explanation:"ALE = SLE × ARO = 300.000 × 0,2 = 60.000 TL."},
+      {id:46,category:"Risk Yönetimi",difficulty:"Orta",question:"Yeni ortaya çıkan bir tehditle ilgili geçmiş kayıp verisi yoktur. Farklı birimlerden uzmanlar olasılık ve etkiyi düşük–orta–yüksek ölçeğinde değerlendirerek risk matrisine yerleştirmiştir. Hangi yöntem kullanılmıştır?",options:["Niceliksel değerlendirme","Niteliksel değerlendirme","Kriptografik doğrulama","Saldırı simülasyonu","Yalnızca ALE analizi"],answer:1,explanation:"Uzman görüşü ve kategorik ölçekler niteliksel risk değerlendirmesinin özelliğidir."},
+      {id:47,category:"Risk Yönetimi",difficulty:"Zor",question:"Bir riskin gerçekleşme olasılığı düşük, etkisi ise kurumun faaliyetlerini haftalarca durduracak kadar yüksektir. En doğru yaklaşım hangisidir?",options:["Olasılık düşük olduğu için risk her zaman yok sayılmalıdır.","Yalnızca etki veya yalnızca olasılığa bakmak yeterlidir.","Olasılık ve etki birlikte değerlendirilerek hazırlık, yedeklilik veya aktarım gibi kontroller düşünülmelidir.","Risk matrisi yalnızca finansal verilerde kullanılabilir.","Risk otomatik olarak kabul edilmelidir."],answer:2,explanation:"Düşük olasılık yüksek etki riski de önemli olabilir; iki boyut birlikte değerlendirilmelidir."},
+      {id:48,category:"Risk Yönetimi",difficulty:"Zor",question:"Bir kurum, müşteri verilerinin işlendiği hizmeti bir bulut sağlayıcısına devretmiş; sözleşmeye tazminat hükümleri eklemiş ve siber güvenlik sigortası yaptırmıştır. Ancak veri ihlali yaşandığında kurumun mevzuattan kaynaklanan sorumluluklarının devam edeceği belirtilmiştir. En doğru değerlendirme hangisidir?",options:["Risk tamamen sonlandırılmıştır.","Riskin özellikle finansal sonuçlarının bir bölümü aktarılmış, ancak risk sahipliği tamamen ortadan kalkmamıştır.","Risk kabul edilmiş ve hiçbir kontrol uygulanmamıştır.","Risk yalnızca teknik kontrollerle azaltılmıştır.","Hizmet dış kaynağa verildiği için artık risk bulunmamaktadır."],answer:1,explanation:"Sigorta ve dış kaynak aktarım sağlar; fakat yasal sorumluluk ve artık risk tamamen yok olmaz."},
+      {id:49,category:"Risk Yönetimi",difficulty:"Orta",question:"Bir kurum oltalama riskini tamamen ortadan kaldıramasa da MFA, e-posta filtreleme ve eğitimle olasılığı ve etkiyi düşürmüştür. Hangi risk stratejisi uygulanmıştır?",options:["Sonlandırma","Azaltma","Kabul","Aktarım","Yok sayma"],answer:1,explanation:"Kontrollerle riskin olasılık veya etkisini düşürmek mitigation, yani azaltmadır."},
+      {id:50,category:"Risk Yönetimi",difficulty:"Orta",question:"Yıllık beklenen kaybı 2.000 TL olan düşük etkili bir risk için önerilen kontrolün yıllık maliyeti 30.000 TL'dir. Yönetim riski belgeleyip izlemeye karar vermiştir. Bu hangi stratejidir?",options:["Savunma","Sonlandırma","Kabul","Aktarım","Padded cell"],answer:2,explanation:"Kontrol maliyeti riske göre orantısızsa yönetim bilinçli ve belgeli risk kabulü yapabilir."},
+      {id:51,category:"Risk Yönetimi",difficulty:"Orta",question:"Güvenliği sağlanamayan eski bir hizmet, kabul edilemez düzeyde risk oluşturduğu için tamamen kapatılmıştır. Bu karar hangi risk stratejisidir?",options:["Aktarım","Kabul","Sonlandırma","Azaltma","Normalizasyon"],answer:2,explanation:"Riskli faaliyeti veya sistemi tamamen ortadan kaldırmak termination stratejisidir."},
+      {id:52,category:"Risk Yönetimi",difficulty:"Orta",question:"Kurum; güvenlik duvarı, şifreleme, erişim kontrolü ve antivirüs gibi teknik önlemlerle varlıklarını doğrudan korumaktadır. Risk kontrol stratejileri içinde bu yaklaşım hangisidir?",options:["Savunma","Kabul","Aktarım","Sonlandırma","Endeksleme"],answer:0,explanation:"Kontrolleri doğrudan uygulayarak riske karşı koruma oluşturmak savunma stratejisidir."},
+      {id:53,category:"Risk Yönetimi",difficulty:"Zor",question:"Aynı büyüklükteki iki kurum aynı risk için farklı kontrol kararı vermiştir. Birinin riski kabul ettiği, diğerinin yoğun yatırım yaptığı görülmektedir. Bu farklılığı en iyi açıklayan kavram hangisidir?",options:["Risk iştahı ve kurumsal kaynaklar","Hash uzunluğu","IP adresleme türü","Paket başlığı","Dosya uzantısı"],answer:0,explanation:"Kontrol seçimi risk büyüklüğünün yanında kurumun risk iştahı, hedefleri ve kaynaklarına bağlıdır."},
+      {id:54,category:"Risk Yönetimi",difficulty:"Orta",question:"Geçen yıl etkili olan kontrol, yeni saldırı tekniği karşısında yetersiz kalmıştır. Risk yönetimi açısından en uygun yaklaşım hangisidir?",options:["Risk analizi bir kez yapıldığı için hiçbir değişiklik yapmamak","Kontrolleri ve riskleri düzenli izleyip yeniden değerlendirmek","Eski kayıtları silmek","Sorumluluğu yalnızca kullanıcıya vermek","Tüm riskleri otomatik kabul etmek"],answer:1,explanation:"Risk yönetimi dinamik ve tekrarlanan bir süreçtir; tehdit ve kontroller sürekli güncellenmelidir."},
+      {id:55,category:"Risk Yönetimi",difficulty:"Zor",question:"Mevcut ALE 150.000 TL'dir. Yıllık maliyeti 40.000 TL olan kontrol, ALE'yi 45.000 TL'ye düşürmektedir. Kontrolün net yıllık faydası kaç TL'dir?",options:["45.000","65.000","105.000","110.000","150.000"],answer:1,explanation:"Net fayda = 150.000 − 45.000 − 40.000 = 65.000 TL."},
+      {id:56,category:"Erişim ve Ağ Güvenliği",difficulty:"Zor",question:"Bir kurumda erişim kararı verilirken kullanıcının görevi, bağlandığı cihazın güvenlik durumu, bağlantı saati, bulunduğu ülke, verinin gizlilik seviyesi ve işlemin türü birlikte değerlendirilmektedir. Aynı role sahip iki kullanıcı farklı koşullar nedeniyle farklı erişim kararları alabilmektedir. Bu yapı en iyi hangi erişim kontrol modeliyle açıklanır?",options:["DAC","MAC","Statik RBAC","TBAC","ABAC"],answer:4,explanation:"ABAC; kullanıcı, kaynak, cihaz, konum, zaman ve işlem gibi özniteliklerle dinamik karar verir."},
+      {id:57,category:"Erişim ve Ağ Güvenliği",difficulty:"Zor",question:"Bir askerî sistemde kullanıcılar ve belgeler “Gizli”, “Çok Gizli” ve “Kritik” şeklinde sınıflandırılmıştır. “Gizli” seviyesindeki kullanıcı, “Çok Gizli” belgeyi okuyamamakta; “Çok Gizli” seviyesindeki kullanıcı ise bilgiyi “Gizli” seviyesindeki bir belgeye yazamamaktadır. Bu kurallar hangi modelle en iyi açıklanır?",options:["Biba bütünlük modeli","Bell–LaPadula gizlilik modeli","Clark–Wilson modeli","DAC","TBAC"],answer:1,explanation:"Bell–LaPadula gizlilik için “yukarı okuma yok, aşağı yazma yok” kurallarını uygular."},
+      {id:58,category:"Erişim ve Ağ Güvenliği",difficulty:"Zor",question:"Bir finans sisteminde düşük bütünlük seviyesindeki kaynaktan yüksek bütünlükteki muhasebe kaydına veri yazılması engellenmekte; yüksek bütünlükteki süreç de doğrulanmamış düşük bütünlüklü veriyi doğrudan okuyamamaktadır. Bu yaklaşım hangisidir?",options:["Bell–LaPadula","Biba","DAC","ABAC","Padded cell"],answer:1,explanation:"Biba, bütünlüğü korumak için “yukarı yazma yok, aşağı okuma yok” yaklaşımını kullanır."},
+      {id:59,category:"Erişim ve Ağ Güvenliği",difficulty:"Zor",question:"Bir muhasebe sisteminde kullanıcılar kayıtları doğrudan değiştirememekte, yalnızca önceden tanımlanmış ve denetlenen işlemler üzerinden güncelleme yapabilmektedir. Görevlerin ayrılığı ve denetim kayıtları zorunludur. Bu yapı hangi modelle ilişkilidir?",options:["Clark–Wilson","Bell–LaPadula","Statik paket filtreleme","WEP","DAC"],answer:0,explanation:"Clark–Wilson bütünlüğü iyi biçimlendirilmiş işlemler, görevlerin ayrılığı ve denetimle korur."},
+      {id:60,category:"Erişim ve Ağ Güvenliği",difficulty:"Zor",question:"Bir bankada kredi talebini oluşturan çalışanın aynı talebi onaylaması engellenmektedir. Çalışanlar rollerine göre yetkilendirilmekte, ancak “Talep Oluşturan” ve “Talep Onaylayan” rolleri aynı işlem için aynı kullanıcıya atanamamaktadır. Bu yapı hangisidir?",options:["MAC içerisinde güvenlik etiketi","DAC içerisinde kaynak sahibinin yetki vermesi","Görevlerin ayrılığı kısıtı uygulanmış RBAC","Zaman tabanlı TBAC","Yalnızca ACL kullanımı"],answer:2,explanation:"Yetkilerin rollere atanması ve çatışan rollerin ayrılması, kısıtlı RBAC örneğidir."},
+      {id:61,category:"Erişim ve Ağ Güvenliği",difficulty:"Orta",question:"Bir teknisyene yalnızca belirli bakım görevi açıkken sunucuya erişim verilmekte, iş emri kapanınca yetki otomatik kaldırılmaktadır. Hangi model en uygundur?",options:["TBAC","DAC","MAC","Bell–LaPadula","Statik RBAC"],answer:0,explanation:"TBAC yetkiyi belirli görev veya iş akışının süresiyle dinamik olarak sınırlar."},
+      {id:62,category:"Erişim ve Ağ Güvenliği",difficulty:"Orta",question:"Bir kullanıcı sisteme parola ve telefonundaki tek kullanımlık kodla giriş yapmaktadır. Bu iki unsur hangi faktörleri temsil eder?",options:["Olduğunuz bir şey + bulunduğunuz yer","Bildiğiniz bir şey + sahip olduğunuz bir şey","İki farklı bildiğiniz şey","Sahip olduğunuz iki şey","Yetkilendirme + hesap verebilirlik"],answer:1,explanation:"Parola bilgi faktörü, telefon/OTP ise sahiplik faktörüdür; farklı faktörler MFA oluşturur."},
+      {id:63,category:"Erişim ve Ağ Güvenliği",difficulty:"Zor",question:"Bir güvenlik duvarı yalnızca IP, port ve protokole bakmakta; paketlerin mevcut bir TCP oturumuna ait olup olmadığını izlememektedir. Bu yapı ve temel eksikliği hangisidir?",options:["Statik paket filtreleme; oturum bağlamını takip etmez","Durumsal denetim; içeriği şifreler","Proxy firewall; IP başlığını gizlemez","NGFW; uygulamayı tanımaz","WAF; veritabanını yedeklemez"],answer:0,explanation:"Statik filtre paketleri bağımsız inceler; state table ve oturum bağlamı bulunmaz."},
+      {id:64,category:"Erişim ve Ağ Güvenliği",difficulty:"Orta",question:"Dış istemci doğrudan iç sunucuya bağlanmamakta; aradaki sistem isteği uygulama katmanında açıp analiz ettikten sonra iç sunucuya yeni bir bağlantı kurmaktadır. Bu güvenlik duvarı türü hangisidir?",options:["Statik paket filtresi","Proxy firewall","Yalnızca NAT","ACL'siz yönlendirici","Hub"],answer:1,explanation:"Proxy firewall istemci ile sunucu arasındaki bağlantıyı sonlandırıp uygulama düzeyinde yeni bağlantı kurar."},
+      {id:65,category:"Erişim ve Ağ Güvenliği",difficulty:"Zor",question:"Bir saldırgan, ele geçirdiği geçerli kullanıcı hesabıyla HTTPS üzerinden bulut depolamaya bağlanıp hassas belgeleri şifreli trafik içinde dışarı aktarmaktadır. Trafik izin verilen 443 portunu kullanmaktadır. Tespit olasılığını en fazla artıracak çözüm hangisidir?",options:["Yalnızca IP denetleyen ACL","Statik paket filtreleme","Yalnızca TCP durum tablosu","NAT tabanlı yönlendirici","TLS inceleme, kullanıcı farkındalığı ve uygulama kontrolü bulunan NGFW"],answer:4,explanation:"NGFW portun ötesinde kullanıcı, uygulama ve şifreli trafik içeriğini inceleyebilir."},
+      {id:66,category:"Erişim ve Ağ Güvenliği",difficulty:"Orta",question:"İnternete açık web, DNS ve e-posta sunucuları iç ağdan yalıtılmış ayrı bir bölgede tutulmaktadır. Web sunucusu ele geçirilse bile iç ağa geçiş sıkı kurallarla sınırlandırılmıştır. Bu mimari hangisidir?",options:["DMZ","VLAN olmadan düz ağ","DAC","Padded cell","Yerel yedek"],answer:0,explanation:"DMZ, dışarı hizmet veren sistemleri iç ağdan ayıran tampon güvenlik bölgesidir."},
+      {id:67,category:"Erişim ve Ağ Güvenliği",difficulty:"Zor",question:"Bir firewall kural listesi yukarıdan aşağı işlenmektedir. Listenin başında “Allow Any Any”, altında ise hassas sunucuya erişimi sınırlandıran özel kurallar vardır. En doğru değerlendirme hangisidir?",options:["Özel kurallar önceki genel izin nedeniyle etkisiz kalır; spesifik kurallar üste, implicit deny sona konmalıdır.","Allow Any Any en güvenli varsayımdır.","Kural sırası sonucu etkilemez.","Implicit deny yalnızca kablosuz ağlarda kullanılır.","Tüm trafiğin izinli olması Zero Trust'tır."],answer:0,explanation:"İlk eşleşen kural uygulandığından geniş izin özel kısıtları gölgeler; varsayılan reddetme esastır."},
+      {id:68,category:"Erişim ve Ağ Güvenliği",difficulty:"Orta",question:"I. Evden çalışan tek bir kullanıcının kuruma güvenli bağlanması\nII. İstanbul ve Ankara ofis ağlarının kalıcı tünelle birleşmesi\nBu gereksinimler için VPN türleri sırasıyla hangisidir?",options:["Site-to-Site – Remote Access","Remote Access – Site-to-Site","Transport – WAF","TLS inceleme – ACL","Honeypot – IPS"],answer:1,explanation:"Bireysel bağlantı Remote Access, iki ağ geçidini sürekli bağlamak Site-to-Site VPN'dir."},
+      {id:69,category:"Erişim ve Ağ Güvenliği",difficulty:"Zor",question:"IPSec kapsamında yalnızca bütünlük, kaynak doğrulama ve anti-replay isteyen; veriyi şifreleyerek gizlilik sağlamayı istemeyen bir yapı hangi protokolü kullanmalıdır?",options:["ESP","AH","IKE","TLS","RADIUS"],answer:1,explanation:"AH bütünlük ve kimlik doğrulama sağlar fakat veri gizliliği için şifreleme yapmaz; ESP gizlilik de sağlar."},
+      {id:70,category:"Erişim ve Ağ Güvenliği",difficulty:"Zor",question:"Şubeler arası IPSec VPN'de iç ağ IP adreslerinin dışarıdan görünmemesi ve orijinal IP paketinin bütünüyle korunması istenmektedir. Hangi mod kullanılmalıdır?",options:["Transport mode","Tunnel mode","Pasif IDS modu","Statik filtre modu","WEP modu"],answer:1,explanation:"Tunnel mode orijinal IP paketini tamamen kapsüller ve yeni bir dış IP başlığı ekler."},
+      {id:71,category:"Erişim ve Ağ Güvenliği",difficulty:"Zor",question:"İki VPN ağ geçidi AES ve SHA-256 kullanımında anlaşmakta, dinamik anahtar üretmekte ve anahtarları belirli aralıklarla yenilemektedir. Bu işlevleri doğru eşleştiren seçenek hangisidir?",options:["SA güvenlik parametrelerini tanımlar; IKE bunları müzakere eder ve anahtar değişimini yürütür.","IKE yalnızca log depolar; SA kullanıcı eğitir.","AH anahtar üretir; ESP risk kabul eder.","RADIUS tünel modu seçer; WAF hash üretir.","ACL sertifika dağıtır; DAC anahtarı yeniler."],answer:0,explanation:"Security Association parametre anlaşmasıdır; IKE güvenli müzakere ve anahtar değişimini sağlar."},
+      {id:72,category:"Erişim ve Ağ Güvenliği",difficulty:"Orta",question:"Bir sistem şüpheli trafiği pasif olarak izleyip alarm üretmekte ancak bağlantıyı kesmemektedir. Diğer sistem trafiğin üzerinde inline çalışıp zararlı paketi düşürmektedir. Bunlar sırasıyla hangileridir?",options:["IPS – IDS","IDS – IPS","WAF – SIEM","EDR – DLP","ACL – VPN"],answer:1,explanation:"IDS pasif tespit ve alarm; IPS aktif engelleme ve bağlantıya müdahale işlevi görür."},
+      {id:73,category:"Erişim ve Ağ Güvenliği",difficulty:"Zor",question:"Bir IDS bilinen zararlı yazılımları çok doğru yakalamakta ancak yeni saldırıları kaçırmaktadır. Anomali tabanlı yeni modül sıfır gün davranışlarını yakalarken çok sayıda yanlış alarm üretmektedir. En doğru değerlendirme hangisidir?",options:["İmza tabanlı yöntem bilinen tehditlerde güçlü; anomali tabanlı yöntem bilinmeyenlerde yararlı fakat false positive üretebilir.","İki yöntem tamamen aynıdır.","Anomali tabanlı yöntem yalnızca dosya adı arar.","İmza tabanlı yöntem normal profil oluşturur.","Yanlış alarm yalnızca firewall'da oluşur."],answer:0,explanation:"İmza bilinen desene, anomali ise normal davranıştan sapmaya dayanır; güçlü ve zayıf yönleri farklıdır."},
+      {id:74,category:"Erişim ve Ağ Güvenliği",difficulty:"Zor",question:"Bir kurum kablosuz ağını güçlendirmek istemektedir:\nI. Sözlük saldırılarına karşı SAE kullanmak\nII. Her çalışanın kendi hesabı/sertifikasıyla ağa girmesini sağlamak\nIII. Switch/AP üzerinden merkezi AAA yapmak\nEn uygun eşleştirme hangisidir?",options:["WEP – PSK – NAT","WPA3 – IEEE 802.1X – RADIUS","WPA2 – DAC – AH","TLS – SysSP – ESP","IPSec – RBAC – WAF"],answer:1,explanation:"WPA3 SAE kullanır; 802.1X kurumsal port erişimini, RADIUS ise merkezi AAA'yı destekler."},
+      {id:75,category:"Erişim ve Ağ Güvenliği",difficulty:"Zor",question:"Bir kurum sıfır güven mimarisine geçmiştir. Kurum ağı içindeki kullanıcı daha önce doğrulanmış olsa da kritik veri tabanına erişirken cihaz güvenliği, oturum riski ve mevcut görevi yeniden değerlendirilmektedir. Yetki yalnızca gerekli tablo ve işlemle sınırlandırılmaktadır. Bu uygulama hangi özellikleri birlikte gösterir?",options:["Sürekli doğrulama ve en az ayrıcalık","Çevre güvenliği ve varsayılan güven","Tek seferlik doğrulama ve geniş ağ erişimi","Yalnızca fiziksel güvenlik","Statik parola ve sınırsız oturum"],answer:0,explanation:"Zero Trust her isteği yeniden değerlendirir ve erişimi en az ayrıcalıkla sınırlar."},
+      {id:76,category:"SOC, Tespit ve Araçlar",difficulty:"Orta",question:"Aşağıdaki kavramların en doğru sıralı açıklaması hangisidir?\nI. Log\nII. Event\nIII. Incident",options:["I–Tehdit, II–Yedek, III–Kural","I–Faaliyet kaydı, II–Anlamlı meydana gelme, III–Güvenliği olumsuz etkileyen doğrulanmış olay veya olaylar bütünü","I–Saldırgan, II–Firewall, III–Antivirüs","I–Politika, II–Standart, III–Uygulama","I–Hash, II–İmza, III–Sertifika"],answer:1,explanation:"Log ham kayıttır; event anlamlı oluşumdur; incident ise müdahale gerektiren güvenlik olayıdır."},
+      {id:77,category:"SOC, Tespit ve Araçlar",difficulty:"Zor",question:"Bir SIEM platformunda şu adımlar uygulanacaktır:\nI. Kayıtların ortak alanlara dönüştürülmesi\nII. Firewall, EDR, DNS ve sunuculardan kayıtların alınması\nIII. Kullanıcı, varlık ve tehdit istihbaratıyla zenginleştirme\nIV. Korelasyon kurallarının çalıştırılması\nV. Alarmın analist tarafından incelenmesi\nVI. Farklı sistemlerin zaman bilgilerinin uyumlu hâle getirilmesi\nEn mantıklı sıra hangisidir?",options:["I – II – III – VI – V – IV","II – IV – I – III – VI – V","VI – II – I – IV – III – V","II – VI – I – III – IV – V","III – II – VI – V – I – IV"],answer:3,explanation:"Önce loglar alınır ve zamanları uyumlanır; sonra normalizasyon, zenginleştirme, korelasyon ve analist incelemesi gelir."},
+      {id:78,category:"SOC, Tespit ve Araçlar",difficulty:"Orta",question:"Farklı üreticilerin loglarında kullanıcı alanı “user”, “username” ve “account” olarak gelmektedir. SIEM bu alanları ortak bir şemada “user” alanına dönüştürmektedir. Bu işlem hangisidir?",options:["Normalizasyon","İzolasyon","Eradication","Şifreleme","Risk aktarımı"],answer:0,explanation:"Farklı log biçimlerini ortak alan ve formata dönüştürmek normalizasyondur."},
+      {id:79,category:"SOC, Tespit ve Araçlar",difficulty:"Zor",question:"Kurumun ağ tabanlı IDS sistemi, uçtan uca şifrelenmiş bağlantı içindeki zararlı PowerShell komutlarını görememektedir. Komutlar uç noktada çözüldükten sonra süreç oluşturmakta ve kayıt defterini değiştirmektedir. En uygun iyileştirme hangisidir?",options:["NIDS'yi tamamen kaldırmak","NIDS'ye ek olarak uç noktadaki süreç, dosya ve telemetriyi izleyen EDR/HIDS kullanmak","Yalnızca port kurallarını artırmak","Tüm şifreli bağlantıları engellemek","Sunucu loglarını kapatmak"],answer:1,explanation:"EDR/HIDS, ağda görülemeyen şifre çözülmüş uç nokta davranışlarını ve süreç telemetrisini izler."},
+      {id:80,category:"SOC, Tespit ve Araçlar",difficulty:"Orta",question:"Bir çalışan “Gizli” etiketli belgeyi kişisel bulut hesabına ve USB belleğe kopyalamaya çalışmaktadır. İçerik düzeyinde tespit edip aktarımı durdurması gereken çözüm hangisidir?",options:["DLP","NAT","DHCP","Padded cell","SLE"],answer:0,explanation:"DLP hassas verinin e-posta, bulut veya USB üzerinden yetkisiz çıkışını içerik analiziyle engeller."},
+      {id:81,category:"SOC, Tespit ve Araçlar",difficulty:"Orta",question:"Bir platform SIEM alarmı geldiğinde e-posta başlığını, URL'yi ve eki otomatik analiz etmekte; zararlıysa firewall kuralını güncelleyip olay kaydı açmaktadır. Bu platform hangisidir?",options:["SOAR","Sadece SIEM depolama","Statik ACL","DAC","WEP"],answer:0,explanation:"SOAR, farklı güvenlik araçlarını playbook'larla orkestre eder ve tekrarlı yanıt adımlarını otomatikleştirir."},
+      {id:82,category:"SOC, Tespit ve Araçlar",difficulty:"Zor",question:"Bir web uygulamasına gönderilen `admin' AND 1=1 #` girdisi parola kontrolünü yorum satırına dönüştürerek sorguyu değiştirmektedir. En etkili uygulama içi temel önlem hangisidir?",options:["Parametreli sorgular ve girdi doğrulama","Yalnızca daha büyük disk","Sunucu saatini değiştirme","Logları kapatma","Kullanıcıya yönetici yetkisi verme"],answer:0,explanation:"Prepared statement/parametreli sorgu kullanıcı girdisini SQL komutundan ayırır; WAF ek katman olabilir."},
+      {id:83,category:"SOC, Tespit ve Araçlar",difficulty:"Zor",question:"SOC, şüpheli SQL enjeksiyonu alarmını araştırmaktadır. Aşağıdakilerden hangisi en anlamlı inceleme bütünüdür?",options:["Yalnızca sunucunun ekran görüntüsünü almak","Hedef hizmeti, erişim loglarını, URI'leri, HTTP durum kodlarını, kaynak IP'leri, user-agent ve trafik desenini birlikte incelemek","Bütün logları silip saldırıyı tekrarlamak","Sadece kullanıcının parolasını değiştirmek","Yalnızca cihazın seri numarasına bakmak"],answer:1,explanation:"SQLi soruşturması istek içeriğini, web erişim kayıtlarını ve ağ bağlamını birlikte korele etmelidir."},
+      {id:84,category:"SOC, Tespit ve Araçlar",difficulty:"Zor",question:"Bir saldırı tespit sistemi testinde 90 doğru pozitif, 30 yanlış pozitif, 10 yanlış negatif ve 870 doğru negatif üretmiştir. Kesinlik (precision) ve duyarlılık (recall) sırasıyla hangisidir?",options:["%90 ve %75","%75 ve %87","%75 ve %90","%90 ve %97","%97 ve %75"],answer:2,explanation:"Precision=90/(90+30)=%75; recall=90/(90+10)=%90."},
+      {id:85,category:"SOC, Tespit ve Araçlar",difficulty:"Orta",question:"Meşru bir yedekleme işlemi her gece zararlı veri aktarımı alarmı üretmektedir. Analiz bunun gerçek tehdit olmadığını doğrulamıştır. En uygun sonraki işlem hangisidir?",options:["Alarmı true positive olarak raporlamak","Tespit kuralını bağlamı koruyacak biçimde ince ayarlamak","Bütün logları kapatmak","Yedekleri silmek","Tüm gece trafiğini engellemek"],answer:1,explanation:"False positive sonrasında amaç, gerçek tehditleri kaçırmadan kuralı daha isabetli hâle getirmektir."},
+      {id:86,category:"SOC, Tespit ve Araçlar",difficulty:"Zor",question:"SOC ekibine aynı zararlı imzasıyla üç alarm gelmiştir:\n1. İnternete kapalı test bilgisayarı\n2. İnternete açık, kritik müşteri verisi içeren ve güncel olmayan sunucu\n3. Güncel yamalı sıradan ofis bilgisayarı\nİkinci alarmın önce incelenmesini en güçlü gerekçelendiren yaklaşım hangisidir?",options:["Yalnızca oluşma sırası","Sadece imzanın önem derecesi","Varlık kritikliğini, maruziyeti, zafiyet durumunu ve olası etkiyi birlikte değerlendirmek","En fazla log üreten cihazı seçmek","Yaması olmayan tüm sistemleri otomatik kapatmak"],answer:2,explanation:"Alarm önceliği yalnızca imzaya değil iş etkisi, varlık değeri, açık ve maruziyet bağlamına dayanmalıdır."},
+      {id:87,category:"SOC, Tespit ve Araçlar",difficulty:"Orta",question:"Bir ekip gerçekçi saldırılar simüle etmekte, diğer ekip sürekli izleme ve savunma yapmakta; üçüncü çalışma biçimi ise iki ekibin bulguları anında paylaşarak kontrolleri geliştirmesini sağlamaktadır. Bunlar sırasıyla hangileridir?",options:["Blue – Red – White","Red – Blue – Purple","Purple – Red – Blue","SOC – CERT – NOC","EDR – NDR – SIEM"],answer:1,explanation:"Red saldırıyı simüle eder, Blue savunur, Purple iki tarafı iş birliği ve sürekli iyileştirmede buluşturur."},
+      {id:88,category:"SOC, Tespit ve Araçlar",difficulty:"Zor",question:"Bir güvenlik ekibi şu çalışmaları yapacaktır:\nI. Açık portları, servis sürümlerini ve işletim sistemi özelliklerini belirlemek\nII. Servis sürümlerini bilinen zafiyetlerle eşleştirip risk puanı üretmek\nIII. Kablosuz ağları aktif paket göndermeden dinlemek ve gizli SSID'leri tespit etmek\nEn uygun araçlar sırasıyla hangileridir?",options:["Nessus – Nmap – Wireshark","Nmap – Nessus – Kismet","Kismet – Nmap – Nessus","Wireshark – Kismet – Nmap","Nessus – Kismet – Nmap"],answer:1,explanation:"Nmap keşif/tarama, Nessus zafiyet değerlendirme, Kismet pasif kablosuz keşif için uygundur."},
+      {id:89,category:"Tehdit İstihbaratı ve Müdahale",difficulty:"Orta",question:"Bir kurum farklı kaynaklardan saldırgan gruplar, altyapılar ve davranışlar hakkında veri toplamakta; bunları analiz ederek savunma ekiplerine uygulanabilir bilgi sunmaktadır. Bu süreç hangisidir?",options:["Siber Tehdit İstihbaratı (CTI)","Yalnızca veri yedekleme","DAC","Statik yönlendirme","Risk sonlandırma"],answer:0,explanation:"CTI potansiyel ve devam eden tehdit verisini toplayıp analiz ederek uygulanabilir istihbarata dönüştürür."},
+      {id:90,category:"Tehdit İstihbaratı ve Müdahale",difficulty:"Zor",question:"Aşağıdaki göstergelerden hangisi IoC'den çok IoA olarak değerlendirilir?",options:["Bilinen zararlı dosyanın SHA-256 hash'i","Geçmiş saldırıda kullanılan sabit IP adresi","Belirli bir dosya adı","Bir sürecin kimlik bilgisi dökümünden hemen sonra olağandışı uzak bağlantı başlatması","Bilinen C2 alan adı"],answer:3,explanation:"IoA saldırı davranışı ve niyetine; IoC ise hash, IP ve dosya adı gibi ihlal izlerine odaklanır."},
+      {id:91,category:"Tehdit İstihbaratı ve Müdahale",difficulty:"Zor",question:"Acı Piramidi yaklaşımında savunmacının saldırgan için en yüksek maliyeti ve uyum zorluğunu oluşturması hangi gösterge türünü hedeflemesiyle beklenir?",options:["Tek bir IP adresi","Dosya hash'i","Alan adı","Ağ/host artefaktı","Taktik, teknik ve prosedürler"],answer:4,explanation:"TTP'leri değiştirmek saldırgan için hash veya IP değiştirmekten çok daha zordur; piramidin üstü daha fazla acı yaratır."},
+      {id:92,category:"Tehdit İstihbaratı ve Müdahale",difficulty:"Zor",question:"TTP kavramlarında aşağıdaki eşleştirmelerden hangisi doğrudur?",options:["Taktik ayrıntılı komut; teknik hukuki kural; prosedür iş hedefidir.","Taktik saldırganın amacı, teknik bu amaca ulaşma yöntemi, prosedür tekniğin somut uygulanış adımlarıdır.","Taktik IP adresi, teknik hash, prosedür dosya adıdır.","Üçü de aynı anlama gelir.","Taktik yalnızca savunmacı, prosedür yalnızca kullanıcı içindir."],answer:1,explanation:"Taktik neden/hedefi, teknik nasıl yaklaşımını, prosedür ise gerçek uygulama ayrıntılarını açıklar."},
+      {id:93,category:"Tehdit İstihbaratı ve Müdahale",difficulty:"Zor",question:"Bir tehdit avcısı, geçerli hesapların gece saatlerinde bulut depolamaya olağan dışı veri yüklediği hipotezini geliştirmiştir. En uygun süreç hangisidir?",options:["Alarmı kapatma → logları silme → sistemi yeniden başlatma","Ürünü değiştirme → hipotez kurma → tüm kullanıcıları engelleme","Hipotez → yalnızca imza arama → sonuç yoksa kalıcı olarak bitirme","Sosyal medyada yayımlama → hesabı silme → kanıt toplama","Hipotez → veri kaynaklarını belirleme → sorgulama/analiz → doğrulama → olay müdahalesi ve yeni tespit kuralları"],answer:4,explanation:"Tehdit avcılığı hipotez güdümlü, kanıta dayalı ve tespitleri iyileştiren yinelemeli bir süreçtir."},
+      {id:94,category:"Tehdit İstihbaratı ve Müdahale",difficulty:"Orta",question:"Bir kurum saldırganların taktik ve tekniklerini ortak bir dilde sınıflandırmak, savunma boşluklarını görmek ve av hipotezleri üretmek istemektedir. Hangi çerçeve en uygundur?",options:["MITRE ATT&CK","CIA üçlüsü","ISO dosya biçimi","WEP","SLE tablosu"],answer:0,explanation:"MITRE ATT&CK, gerçek saldırgan davranışlarını taktik ve tekniklerle standartlaştırır."},
+      {id:95,category:"Tehdit İstihbaratı ve Müdahale",difficulty:"Orta",question:"Keşiften silahlandırma, teslimat ve istismara; ardından kurulum, komuta-kontrol ve hedefte eyleme uzanan saldırı aşamalarını modelleyen yaklaşım hangisidir?",options:["Cyber Kill Chain","SETA","Clark–Wilson","Risk matrisi","EISP"],answer:0,explanation:"Lockheed Martin Cyber Kill Chain, saldırı yaşam döngüsünü aşamalara ayırarak savunmanın nerede bozabileceğini gösterir."},
+      {id:96,category:"Tehdit İstihbaratı ve Müdahale",difficulty:"Zor",question:"Bir olay müdahale ekibi şu adımları uygulayacaktır:\nI. Temiz yedekten geri dönüş ve servis doğrulama\nII. Kök nedeni ve zararlı kalıntıları kaldırma\nIII. Hazırlık ve playbook oluşturma\nIV. Tespit ve analiz\nV. Yayılımı sınırlama\nVI. Olay sonrası ders çıkarma\nDoğru sıra hangisidir?",options:["III – IV – V – II – I – VI","IV – III – II – V – VI – I","III – V – IV – I – II – VI","IV – V – III – II – I – VI","III – IV – II – V – I – VI"],answer:0,explanation:"Yaşam döngüsü hazırlık, tespit/analiz, containment, eradication, recovery ve lessons learned sırasını izler."},
+      {id:97,category:"Tehdit İstihbaratı ve Müdahale",difficulty:"Zor",question:"Çalışan bir sunucunun RAM'inde şifreleme anahtarları ve saldırgan bağlantıları olduğu düşünülmektedir. Ağdan veri çıkışı geçici olarak engellenmiştir; sunucu kapanırsa bellek kanıtları kaybolacaktır. Adli bilişim açısından en uygun ilk işlem hangisidir?",options:["Diski biçimlendirmek","Sunucuyu doğrudan kapatmak","Uçucu bellek ve aktif bağlantı bilgilerini uygun yöntemlerle toplamak","Şüpheli dosyaları hemen silmek","Logları düzenleyip gereksiz kayıtları kaldırmak"],answer:2,explanation:"Uçucu kanıtlar güç kesilince kaybolacağından RAM ve canlı bağlantılar öncelikle güvenli biçimde toplanır."},
+      {id:98,category:"Tehdit İstihbaratı ve Müdahale",difficulty:"Zor",question:"Bir disk imajı adli inceleme amacıyla alınacaktır. Kanıtın güvenilirliğini en iyi koruyan işlem hangisidir?",options:["Orijinal disk üzerinde doğrudan inceleme","İmajı analistlerin kişisel cihazlarına dağıtma","İnceleme sırasında dosya tarihlerini güncelleme","Yazma engelleyici kullanma, imaj öncesi/sonrası hash doğrulama ve teslim zincirini belgeleme","İmajdan sonra orijinal diski silme"],answer:3,explanation:"Write blocker, hash doğrulaması ve chain of custody kanıt bütünlüğünü ve izlenebilirliği korur."},
+      {id:99,category:"Tehdit İstihbaratı ve Müdahale",difficulty:"Zor",question:"Bir saldırgan gerçek üretim sistemine eriştikten sonra tespit edilmiş; bağlantısı kesilmeden, gerçek sistemin benzeri olan izole ve ayrıntılı izlenen bir ortama aktarılmıştır. Bu ortamdan kurumsal sistemlere erişim engellenmiştir. Bu yapı hangisidir?",options:["Düşük etkileşimli honeypot","Statik paket filtreleme","Padded cell","NAC","Proxy firewall"],answer:2,explanation:"Padded cell, tespit edilen saldırganı gerçek sisteme benzeyen kontrollü ve izole gözlem ortamına yönlendirir."},
+      {id:100,category:"Tehdit İstihbaratı ve Müdahale",difficulty:"Zor",question:"Bir olayda zararlı süreç durdurulmuş, enfekte hesap devre dışı bırakılmış ve saldırgan IP'si engellenmiştir. Ardından sistem temiz yedekten kurulup yamalanmış, parolalar sıfırlanmış ve hizmet izlenerek açılmıştır. Bu iki faaliyet grubu sırasıyla hangi aşamalardır?",options:["Hazırlık – tespit","Sınırlama – ders çıkarma","Yok etme (eradication) – kurtarma (recovery)","Risk aktarımı – kabul","Normalizasyon – korelasyon"],answer:2,explanation:"Zararlı kökü kaldırmak eradication; sistemi güvenli çalışır duruma döndürmek recovery aşamasıdır."},
+      {id:101,category:"SOC, Tespit ve Araçlar",difficulty:"Orta",question:"Bir çözüm uç noktalara ajan kurmadan ağ trafiğini ve iletişim desenlerini analiz ederek yatay hareketi ve olağandışı veri çıkışını tespit etmektedir. Bu çözüm hangisidir?",options:["NDR","EDR","EISP","DAC","SLE"],answer:0,explanation:"NDR ağ trafiğinde görünürlük ve davranış analizi sağlar; EDR ise uç nokta telemetrisine odaklanır."},
+      {id:102,category:"Erişim ve Ağ Güvenliği",difficulty:"Zor",question:"Bir kurum çalışanların ağa girişini merkezi olarak doğrulamak için açık standart kullanırken, ağ yöneticilerinin router ve switch üzerinde hangi komutu çalıştırdığını ayrıntılı kaydetmek istemektedir. En uygun protokoller sırasıyla hangileridir?",options:["TACACS+ – RADIUS","RADIUS – TACACS+","WPA3 – WEP","AH – ESP","NDR – EDR"],answer:1,explanation:"RADIUS ağ erişimi AAA için yaygındır; TACACS+ ağ cihazı yönetimi ve komut düzeyi denetimde öne çıkar."},
+      {id:103,category:"Erişim ve Ağ Güvenliği",difficulty:"Orta",question:"Mobil çalışanların özel istemci kurmadan standart web tarayıcısıyla kurum portalına güvenli erişmesi istenmektedir. En uygun VPN yaklaşımı hangisidir?",options:["Site-to-Site IPSec Tunnel","SSL/TLS VPN","Statik ACL","WEP","Padded cell"],answer:1,explanation:"SSL/TLS VPN tarayıcı üzerinden esnek uygulama erişimi sağlayabilir; IPSec çoğunlukla ağ katmanında ve istemci/ağ geçidi yapısında çalışır."},
+      {id:104,category:"Erişim ve Ağ Güvenliği",difficulty:"Zor",question:"I. Yalnızca birkaç servisi taklit eden, kurulumu kolay ve riski düşük tuzak\nII. Gerçek işletim sistemi barındıran, saldırganın araç ve komutlarını ayrıntılı izleyen tuzak\nBunlar sırasıyla hangi honeypot türleridir?",options:["Yüksek etkileşimli – düşük etkileşimli","Düşük etkileşimli – yüksek etkileşimli","Padded cell – firewall","IDS – IPS","WAF – DLP"],answer:1,explanation:"Düşük etkileşimli honeypot sınırlı servis taklit eder; yüksek etkileşimli olan ayrıntılı istihbarat için gerçekçi ortam sunar."},
+      {id:105,category:"SOC, Tespit ve Araçlar",difficulty:"Orta",question:"Bir kurum genel ağ firewall'u bulunmasına rağmen SQL enjeksiyonu ve XSS gibi HTTP/HTTPS isteklerine özgü saldırıları web sunucusuna ulaşmadan filtrelemek istemektedir. Hangi ek kontrol en uygundur?",options:["WAF","Yalnızca NAT","UPS","RADIUS","SLE"],answer:0,explanation:"WAF OSI uygulama katmanında web isteklerini analiz ederek SQLi ve XSS gibi saldırıları filtreler."},
+      {id:106,category:"SOC, Tespit ve Araçlar",difficulty:"Zor",question:"Aşağıdaki rol–sorumluluk eşleştirmelerinden hangisi en uygundur?\nI. CISO\nII. Tier 1 analist\nIII. Tier 3 analist",options:["I–Günlük ilk alarm taraması, II–Bütçe, III–Kablo kurulumu","I–Strateji/risk/bütçe, II–İlk izleme ve triage, III–İleri araştırma ve olay müdahalesi liderliği","I–Yalnızca firewall kuralı, II–Hukuk, III–İnsan kaynakları","I–Disk imajı, II–Risk iştahı, III–Parola sıfırlama","I–Uç kullanıcı eğitimi, II–CISSP sınavı, III–Fiziksel güvenlik"],answer:1,explanation:"CISO stratejik programı yönetir; Tier 1 ilk izleme/triage, Tier 3 ise ileri analiz ve müdahale liderliği yapar."},
+      /* QUESTIONS_END */
+    ];
+
+    const letters = ["A", "B", "C", "D", "E"];
+    const storageKey = "bilgiGuvenligiQuizHistoryV1";
+    const state = { session: [], index: 0, answers: {}, startedAt: 0, timerId: null };
+    const $ = (id) => document.getElementById(id);
+
+    const setupView = $("setupView");
+    const quizView = $("quizView");
+    const resultView = $("resultView");
+    const categorySelect = $("categorySelect");
+    const difficultySelect = $("difficultySelect");
+    const shuffleCheck = $("shuffleCheck");
+
+    function loadHistory() {
+      try { return JSON.parse(localStorage.getItem(storageKey)) || {}; }
+      catch { return {}; }
+    }
+
+    function saveAttempt(questionId, isCorrect) {
+      const history = loadHistory();
+      const old = history[questionId] || { attempts: 0, correct: 0 };
+      history[questionId] = { attempts: old.attempts + 1, correct: old.correct + (isCorrect ? 1 : 0), lastCorrect: isCorrect };
+      localStorage.setItem(storageKey, JSON.stringify(history));
+    }
+
+    function shuffle(items) {
+      const copy = [...items];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function shuffleQuestionOptions(question) {
+      const mixed = shuffle(question.options.map((text, index) => ({ text, correct: index === question.answer })));
+      return { ...question, options: mixed.map((item) => item.text), answer: mixed.findIndex((item) => item.correct) };
+    }
+
+    function filteredQuestions() {
+      return questions.filter((q) =>
+        (categorySelect.value === "all" || q.category === categorySelect.value) &&
+        (difficultySelect.value === "all" || q.difficulty === difficultySelect.value)
+      );
+    }
+
+    function refreshAvailableCount() { $("availableCount").textContent = filteredQuestions().length; }
+
+    function startSession(mode) {
+      let pool = filteredQuestions();
+      if (mode === "wrong") {
+        const history = loadHistory();
+        pool = pool.filter((q) => history[q.id] && history[q.id].lastCorrect === false);
+        if (!pool.length) { showToast("Bu filtrede yeniden çözülecek yanlış soru yok."); return; }
+      }
+      if (!pool.length) { showToast("Seçilen filtrelere uygun soru bulunamadı."); return; }
+      if (shuffleCheck.checked || mode === "exam") {
+        pool = shuffle(pool).map(shuffleQuestionOptions);
+      }
+      if (mode === "exam") pool = pool.slice(0, Math.min(25, pool.length));
+
+      state.session = pool;
+      state.index = 0;
+      state.answers = {};
+      state.startedAt = Date.now();
+      setupView.style.display = "none";
+      resultView.style.display = "none";
+      quizView.style.display = "block";
+      buildPalette();
+      startTimer();
+      renderQuestion();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function startTimer() {
+      clearInterval(state.timerId);
+      const update = () => {
+        const seconds = Math.floor((Date.now() - state.startedAt) / 1000);
+        $("timer").textContent = `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
+      };
+      update();
+      state.timerId = setInterval(update, 1000);
+    }
+
+    function renderQuestion() {
+      const q = state.session[state.index];
+      const selected = state.answers[q.id];
+      $("questionCategory").textContent = q.category;
+      $("questionDifficulty").textContent = q.difficulty;
+      $("questionNumber").textContent = `Soru ${state.index + 1}`;
+      $("questionText").textContent = q.question;
+      $("options").innerHTML = "";
+
+      q.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "option";
+        button.disabled = selected !== undefined;
+        button.innerHTML = `<span class="letter">${letters[index]}</span><span>${option}</span>`;
+        button.setAttribute("aria-label", `${letters[index]} seçeneği: ${option}`);
+        if (selected !== undefined) {
+          if (index === q.answer) button.classList.add("correct");
+          else if (index === selected) button.classList.add("wrong");
+        }
+        button.addEventListener("click", () => answerQuestion(index));
+        $("options").appendChild(button);
+      });
+
+      const feedback = $("feedback");
+      if (selected === undefined) {
+        feedback.className = "feedback";
+      } else {
+        const correct = selected === q.answer;
+        feedback.className = `feedback show ${correct ? "correct" : "wrong"}`;
+        $("feedbackTitle").textContent = correct ? "Doğru cevap." : `Yanlış. Doğru cevap: ${letters[q.answer]}`;
+        $("feedbackText").textContent = q.explanation;
+      }
+
+      $("prevButton").disabled = state.index === 0;
+      $("nextButton").textContent = state.index === state.session.length - 1 ? "Sonucu gör →" : "Sonraki →";
+      updateStats();
+      updatePalette();
+      document.querySelector(".question-card").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function answerQuestion(optionIndex) {
+      const q = state.session[state.index];
+      if (state.answers[q.id] !== undefined) return;
+      state.answers[q.id] = optionIndex;
+      saveAttempt(q.id, optionIndex === q.answer);
+      renderQuestion();
+    }
+
+    function updateStats() {
+      let correct = 0, wrong = 0;
+      state.session.forEach((q) => {
+        if (state.answers[q.id] === undefined) return;
+        state.answers[q.id] === q.answer ? correct++ : wrong++;
+      });
+      $("correctCount").textContent = correct;
+      $("wrongCount").textContent = wrong;
+      $("progressText").textContent = `${state.index + 1}/${state.session.length}`;
+      const answered = correct + wrong;
+      $("progressFill").style.width = `${(answered / state.session.length) * 100}%`;
+    }
+
+    function buildPalette() {
+      $("palette").innerHTML = "";
+      state.session.forEach((q, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "qdot";
+        button.textContent = index + 1;
+        button.setAttribute("aria-label", `${index + 1}. soruya git`);
+        button.addEventListener("click", () => { state.index = index; renderQuestion(); });
+        $("palette").appendChild(button);
+      });
+    }
+
+    function updatePalette() {
+      [...$("palette").children].forEach((button, index) => {
+        const q = state.session[index];
+        const selected = state.answers[q.id];
+        button.className = "qdot";
+        if (index === state.index) button.classList.add("current");
+        if (selected !== undefined) button.classList.add(selected === q.answer ? "ok" : "no");
+      });
+    }
+
+    function move(delta) {
+      const next = state.index + delta;
+      if (next < 0) return;
+      if (next >= state.session.length) { finishSession(); return; }
+      state.index = next;
+      renderQuestion();
+    }
+
+    function finishSession() {
+      clearInterval(state.timerId);
+      let correct = 0, wrong = 0;
+      state.session.forEach((q) => {
+        const selected = state.answers[q.id];
+        if (selected === undefined) return;
+        selected === q.answer ? correct++ : wrong++;
+      });
+      const blank = state.session.length - correct - wrong;
+      const percent = Math.round((correct / state.session.length) * 100);
+      quizView.style.display = "none";
+      resultView.style.display = "block";
+      $("scorePercent").textContent = `${percent}%`;
+      $("scoreRing").style.setProperty("--score-angle", `${percent * 3.6}deg`);
+      $("resultCorrect").textContent = correct;
+      $("resultWrong").textContent = wrong;
+      $("resultBlank").textContent = blank;
+      $("resultMessage").textContent = percent >= 85 ? "Sınav temposu çok iyi. Zor sorularla devam edebilirsin." : percent >= 65 ? "Temel sağlam; yanlışlarını tekrar ederek puanı hızla yükseltebilirsin." : "Yanlış soruları açıklamalarıyla yeniden çözmek en verimli sonraki adım.";
+      $("reviewWrongButton").style.display = wrong ? "inline-block" : "none";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function goHome() {
+      clearInterval(state.timerId);
+      quizView.style.display = "none";
+      resultView.style.display = "none";
+      setupView.style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function reviewCurrentWrong() {
+      const wrong = state.session.filter((q) => state.answers[q.id] !== undefined && state.answers[q.id] !== q.answer);
+      if (!wrong.length) { goHome(); return; }
+      state.session = shuffle(wrong);
+      state.index = 0;
+      state.answers = {};
+      state.startedAt = Date.now();
+      resultView.style.display = "none";
+      quizView.style.display = "block";
+      buildPalette(); startTimer(); renderQuestion();
+    }
+
+    let toastTimer;
+    function showToast(message) {
+      clearTimeout(toastTimer);
+      $("toast").textContent = message;
+      $("toast").classList.add("show");
+      toastTimer = setTimeout(() => $("toast").classList.remove("show"), 2600);
+    }
+
+    function initialize() {
+      const categories = [...new Set(questions.map((q) => q.category))];
+      categories.forEach((category) => {
+        const option = document.createElement("option");
+        option.value = category; option.textContent = category;
+        categorySelect.appendChild(option);
+      });
+      $("coverageGrid").innerHTML = categories.map((category) => {
+        const count = questions.filter((q) => q.category === category).length;
+        return `<div class="coverage-item"><b>${count}</b><span>${category}</span></div>`;
+      }).join("");
+      refreshAvailableCount();
+
+      const savedTheme = localStorage.getItem("bilgiGuvenligiTheme") || "dark";
+      document.documentElement.dataset.theme = savedTheme;
+      $("themeButton").textContent = savedTheme === "dark" ? "☼" : "☾";
+    }
+
+    document.querySelectorAll("[data-mode]").forEach((button) => button.addEventListener("click", () => startSession(button.dataset.mode)));
+    categorySelect.addEventListener("change", refreshAvailableCount);
+    difficultySelect.addEventListener("change", refreshAvailableCount);
+    $("prevButton").addEventListener("click", () => move(-1));
+    $("nextButton").addEventListener("click", () => move(1));
+    $("finishButton").addEventListener("click", finishSession);
+    $("homeButton").addEventListener("click", goHome);
+    $("restartButton").addEventListener("click", goHome);
+    $("reviewWrongButton").addEventListener("click", reviewCurrentWrong);
+    $("themeButton").addEventListener("click", () => {
+      const theme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+      document.documentElement.dataset.theme = theme;
+      localStorage.setItem("bilgiGuvenligiTheme", theme);
+      $("themeButton").textContent = theme === "dark" ? "☼" : "☾";
+    });
+    document.addEventListener("keydown", (event) => {
+      if (quizView.style.display !== "block") return;
+      if (["1", "2", "3", "4", "5"].includes(event.key)) answerQuestion(Number(event.key) - 1);
+      if (event.key === "ArrowLeft") move(-1);
+      if (event.key === "ArrowRight") move(1);
+    });
+
+    initialize();
+  </script>
+</body>
+</html>
