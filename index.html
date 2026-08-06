@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Bilgi Güvenliği dersi için 106 özgün ve 20 öğretmen örneği olmak üzere 126 soruluk etkileşimli çalışma ve deneme sınavı.">
-  <title>Bilgi Güvenliği | Sınav Laboratuvarı</title>
+  <meta name="description" content="Bilgi Güvenliği ve Makine Öğrenmesi dersleri için etkileşimli sınav laboratuvarı; testler, klasik sorular, adım adım çözümler ve formül föyü.">
+  <title>Ders Çalışma | Sınav Laboratuvarı</title>
   <style>
     :root {
       --bg: #07111f;
@@ -176,6 +176,104 @@
     .footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: 12px; }
     @keyframes rise { from { opacity: 0; transform: translateY(6px); } }
 
+    [hidden] { display: none !important; }
+    .top-actions { display: flex; align-items: center; gap: 9px; }
+    .subject-back { min-height: 44px; }
+    .chooser-shell { min-height: 100vh; display: grid; align-content: center; padding-top: 42px; padding-bottom: 42px; }
+    .chooser-top { position: absolute; top: 22px; right: max(16px, calc((100% - 1180px) / 2)); }
+    .chooser-copy { max-width: 760px; margin-bottom: 28px; }
+    .chooser-copy h1 { max-width: 900px; }
+    .subject-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .subject-card { min-height: 245px; padding: clamp(24px, 4vw, 38px); text-align: left; cursor: pointer; border: 1px solid var(--line); border-radius: var(--radius); color: var(--text); background: var(--surface); box-shadow: var(--shadow); transition: transform .2s ease, border-color .2s ease; }
+    .subject-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+    .subject-icon { display: grid; place-items: center; width: 58px; height: 58px; margin-bottom: 22px; border-radius: 18px; color: #07111f; background: linear-gradient(135deg, var(--accent), #b9ffde); font-weight: 950; font-size: 18px; }
+    .subject-card.ml .subject-icon { background: linear-gradient(135deg, var(--accent-2), #b9d8ff); }
+    .subject-card h2 { margin: 0 0 8px; font-size: clamp(25px, 3vw, 34px); letter-spacing: -.04em; }
+    .subject-card p { margin: 0 0 22px; color: var(--muted); }
+    .subject-card b { color: var(--accent); }
+    .subject-card.ml b { color: var(--accent-2); }
+
+    .ml-hero { grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr); }
+    .exam-map { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .exam-map div { min-height: 112px; padding: 15px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface-2); }
+    .exam-map b { display: block; margin-bottom: 6px; color: var(--accent); font-size: 13px; }
+    .exam-map span { font-size: 13px; color: var(--muted); }
+    .ml-home { display: grid; gap: 18px; }
+    .ml-intro { padding: clamp(20px, 4vw, 34px); }
+    .ml-intro h2 { margin: 0 0 7px; letter-spacing: -.035em; }
+    .ml-intro > p { margin: 0 0 22px; color: var(--muted); }
+    .lab-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; }
+    .lab-card { min-height: 154px; padding: 19px; text-align: left; border: 1px solid var(--line); border-radius: 16px; background: var(--surface-2); cursor: pointer; transition: .18s ease; }
+    .lab-card:hover { transform: translateY(-2px); border-color: var(--accent-2); background: var(--surface-3); }
+    .lab-card.primary { color: #07111f; border: 0; background: linear-gradient(135deg, var(--accent), #b9ffde); }
+    .lab-card strong { display: block; margin-bottom: 6px; font-size: 17px; }
+    .lab-card span { display: block; color: var(--muted); font-size: 13px; }
+    .lab-card.primary span { color: rgba(7,17,31,.72); }
+    .lab-card small { display: inline-block; margin-top: 15px; font-weight: 850; color: var(--accent-2); }
+    .lab-card.primary small { color: #075a4e; }
+
+    .ml-toolbar { position: sticky; top: 8px; z-index: 12; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 15px; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(18px); }
+    .ml-toolbar-left, .ml-toolbar-right { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+    .ml-problem { overflow: hidden; }
+    .ml-problem-head { padding: clamp(21px, 4vw, 36px); border-bottom: 1px solid var(--line); }
+    .ml-problem-head h2 { margin: 12px 0 0; font-size: clamp(23px, 3vw, 34px); line-height: 1.3; letter-spacing: -.035em; white-space: pre-line; }
+    .ml-problem-body { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(310px, .85fr); }
+    .ml-work-area { padding: clamp(20px, 4vw, 34px); border-right: 1px solid var(--line); }
+    .ml-data { overflow-x: auto; margin-bottom: 18px; }
+    .ml-data table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .ml-data th, .ml-data td { padding: 10px 11px; text-align: left; border: 1px solid var(--line); }
+    .ml-data th { color: var(--accent); background: var(--surface-2); }
+    .ml-data code, .hypothesis { font-family: "Cascadia Code", Consolas, monospace; font-size: .93em; }
+    .scratch-label { display: grid; gap: 7px; color: var(--muted); font-size: 13px; font-weight: 750; }
+    .scratch { width: 100%; min-height: 118px; resize: vertical; padding: 13px; border: 1px solid var(--line); border-radius: 13px; color: var(--text); background: var(--surface-2); font: inherit; line-height: 1.55; }
+    .ml-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 14px; }
+    .hint-box { margin-top: 14px; padding: 14px 16px; border-left: 3px solid var(--warning); border-radius: 0 12px 12px 0; color: var(--muted); background: color-mix(in srgb, var(--warning) 8%, var(--surface-2)); animation: rise .2s ease; }
+    .ml-visual { min-height: 390px; padding: 20px; background: color-mix(in srgb, var(--surface-2) 58%, transparent); }
+    .ml-visual h3 { margin: 0 0 12px; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    #mlCanvas { display: block; width: 100%; height: 250px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+    .visual-caption { margin: 10px 2px 0; color: var(--muted); font-size: 13px; }
+    .hypothesis-stack { display: grid; gap: 8px; min-height: 250px; align-content: center; }
+    .hypothesis-row { padding: 11px 12px; border: 1px solid var(--line); border-radius: 11px; background: var(--surface); transition: transform .45s ease, border-color .3s ease, background .3s ease; }
+    .hypothesis-row.active { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 11%, var(--surface)); transform: translateX(8px); }
+    .perceptron-live { display: grid; min-height: 250px; align-content: center; gap: 10px; }
+    .net-equation { padding: 14px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface); font-family: "Cascadia Code", Consolas, monospace; }
+    .truth-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; padding: 8px; border-radius: 10px; color: var(--muted); font-size: 13px; transition: .25s ease; }
+    .truth-row.active { color: var(--text); background: color-mix(in srgb, var(--accent) 13%, var(--surface)); }
+
+    .solution-zone { padding: clamp(20px, 4vw, 34px); border-top: 1px solid var(--line); background: color-mix(in srgb, var(--surface-2) 55%, transparent); }
+    .solution-zone h3 { margin: 0 0 14px; }
+    .solution-steps { display: grid; gap: 10px; }
+    .solution-step { display: grid; grid-template-columns: 34px 1fr; gap: 12px; padding: 14px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface); animation: rise .24s ease; }
+    .step-no { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; color: #07111f; background: var(--accent); font-weight: 950; }
+    .solution-step strong { display: block; margin-bottom: 3px; }
+    .solution-step p { margin: 0; color: var(--muted); }
+    .final-answer { margin-top: 13px; padding: 16px; border: 1px solid color-mix(in srgb, var(--correct) 52%, var(--line)); border-radius: 13px; background: color-mix(in srgb, var(--correct) 10%, var(--surface)); animation: rise .24s ease; }
+    .final-answer strong { color: var(--correct); }
+
+    .ml-bank-head { display: grid; grid-template-columns: 1fr 260px; gap: 18px; align-items: end; padding: clamp(20px, 4vw, 34px); }
+    .ml-bank-head h2, .formula-head h2 { margin: 0 0 7px; letter-spacing: -.04em; }
+    .ml-bank-head p, .formula-head p { margin: 0; color: var(--muted); }
+    .bank-list { display: grid; gap: 12px; padding: 0 clamp(20px, 4vw, 34px) clamp(20px, 4vw, 34px); }
+    .bank-item { border: 1px solid var(--line); border-radius: 15px; background: var(--surface-2); }
+    .bank-item summary { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 17px; cursor: pointer; list-style: none; }
+    .bank-item summary::-webkit-details-marker { display: none; }
+    .bank-item summary::after { content: "+"; color: var(--accent); font-size: 23px; }
+    .bank-item[open] summary::after { content: "−"; }
+    .bank-number { color: var(--accent); font-weight: 900; }
+    .bank-summary strong { display: block; }
+    .bank-summary span { color: var(--muted); font-size: 12px; }
+    .bank-answer { padding: 0 17px 18px 50px; }
+    .bank-answer ol { color: var(--muted); }
+    .bank-answer .exam-write { padding: 13px; border-left: 3px solid var(--correct); background: color-mix(in srgb, var(--correct) 8%, transparent); }
+
+    .formula-head { padding: clamp(20px, 4vw, 34px); }
+    .formula-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; padding: 0 clamp(20px, 4vw, 34px) clamp(20px, 4vw, 34px); }
+    .formula-card { padding: 18px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface-2); }
+    .formula-card h3 { margin: 0 0 12px; color: var(--accent); }
+    .formula { overflow-x: auto; margin: 9px 0; padding: 11px 13px; border-radius: 10px; background: var(--surface); font-family: "Cascadia Code", Consolas, monospace; }
+    .formula-card ul { margin: 10px 0 0; padding-left: 20px; color: var(--muted); }
+    .source-note { margin-top: 18px; padding: 13px; border: 1px dashed var(--line); border-radius: 12px; color: var(--muted); font-size: 12px; }
+
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; }
       .hero-note { max-width: 600px; }
@@ -183,6 +281,10 @@
       .side-panel { position: static; }
       .palette { grid-template-columns: repeat(10, 1fr); max-height: none; }
       .coverage { grid-template-columns: repeat(2, 1fr); }
+      .ml-hero, .ml-problem-body { grid-template-columns: 1fr; }
+      .ml-work-area { border-right: 0; border-bottom: 1px solid var(--line); }
+      .exam-map { grid-template-columns: repeat(2, 1fr); }
+      .lab-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 680px) {
@@ -200,10 +302,16 @@
       .question-card { border-radius: 18px; }
       .option { grid-template-columns: 34px 1fr; padding: 10px 12px; }
       .nav-row .btn { flex: 1; padding: 0 10px; }
+      .subject-grid, .formula-grid, .ml-bank-head { grid-template-columns: 1fr; }
+      .subject-card { min-height: 210px; }
+      .lab-grid { grid-template-columns: 1fr; }
+      .ml-toolbar { align-items: flex-start; }
+      .ml-toolbar-right { justify-content: flex-end; }
+      .bank-answer { padding-left: 17px; }
     }
 
     @media (max-width: 420px) {
-      .coverage, .result-grid { grid-template-columns: 1fr; }
+      .coverage, .result-grid, .exam-map { grid-template-columns: 1fr; }
       .live-stats { font-size: 11px; gap: 7px; }
       .question-text { font-size: 18px; }
     }
@@ -218,15 +326,29 @@
       #quizView { display: block !important; }
       .quiz-layout { display: block; }
       .panel, .question-card { box-shadow: none; border: 0; }
+      #subjectChooser, #securityApp, #mlHome, .ml-toolbar, .ml-actions, .scratch-label, .hint-box, .ml-visual { display: none !important; }
+      #mlApp { display: block !important; }
+      .solution-step, .final-answer { display: grid !important; break-inside: avoid; }
+      .formula-grid { display: block; padding: 0; }
+      .formula-card { break-inside: avoid; margin-bottom: 12px; }
     }
   </style>
 </head>
 <body>
   <noscript><div class="noscript">Bu çalışma sitesinin çalışması için JavaScript etkin olmalıdır.</div></noscript>
-  <main class="app-shell">
+  <main class="app-shell chooser-shell" id="subjectChooser">
+    <div class="chooser-top"><button class="icon-btn" id="chooserThemeButton" type="button" aria-label="Renk temasını değiştir" title="Temayı değiştir">☼</button></div>
+    <div class="chooser-copy"><div class="eyebrow">Sınav çalışma merkezi</div><h1>Hangi derse çalışıyoruz?</h1><p>Bilgi Güvenliği için test çöz; Makine Öğrenmesi için hocanın klasik soru düzeninde işlem yap, çözümü adım adım izle.</p></div>
+    <div class="subject-grid">
+      <button class="subject-card" type="button" data-subject="security"><span class="subject-icon">BG</span><h2>Bilgi Güvenliği</h2><p>Mevcut soru bankası, öğretmenin soruları ve 25 soruluk deneme modu.</p><b>126 test sorusu →</b></button>
+      <button class="subject-card ml" type="button" data-subject="ml"><span class="subject-icon">ML</span><h2>Makine Öğrenmesi</h2><p>Hipotez sıralama, bulanık mantık, perceptron ve tüm sürpriz konu ihtimalleri.</p><b>Klasik soru laboratuvarı →</b></button>
+    </div>
+  </main>
+
+  <main class="app-shell" id="securityApp" hidden>
     <header class="topbar">
       <div class="brand"><span class="brand-mark" aria-hidden="true">BG</span><span>Bilgi Güvenliği<small>Sınav Laboratuvarı</small></span></div>
-      <button class="icon-btn" id="themeButton" type="button" aria-label="Renk temasını değiştir" title="Temayı değiştir">☼</button>
+      <div class="top-actions"><button class="btn subject-back" id="securitySubjectBack" type="button">← Dersler</button><button class="icon-btn" id="themeButton" type="button" aria-label="Renk temasını değiştir" title="Temayı değiştir">☼</button></div>
     </header>
 
     <section class="hero" aria-labelledby="pageTitle">
@@ -293,6 +415,58 @@
 
     <div class="toast" id="toast" role="status"></div>
     <footer class="footer">Bilgi Güvenliği ders kaynakları temel alınarak hazırlanmıştır. Klavye: 1–5 cevap, ← → gezinme.</footer>
+  </main>
+
+  <main class="app-shell" id="mlApp" hidden>
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">ML</span><span>Makine Öğrenmesi<small>Klasik Sınav Laboratuvarı</small></span></div>
+      <div class="top-actions"><button class="btn subject-back" id="mlSubjectBack" type="button">← Dersler</button><button class="icon-btn" id="mlThemeButton" type="button" aria-label="Renk temasını değiştir" title="Temayı değiştir">☼</button></div>
+    </header>
+
+    <section class="hero ml-hero">
+      <div><div class="eyebrow">Tüm sunumlar + sınıf notları</div><h1>Klasik soruyu işlem işlem çöz.</h1><p>Şık yok. Önce kendin hesapla; sonra ipucunu aç, çözüm adımlarını sırayla ilerlet ve sınav kâğıdına yazılacak kısa sonucu gör.</p></div>
+      <div class="exam-map" aria-label="Sınavdaki dört soru tipi"><div><b>1. Soru</b><span>Hipotezleri genelden özele veya tersine sırala</span></div><div><b>2. Soru</b><span>Bulanıklaştırma, kural, durulaştırma</span></div><div><b>3. Soru</b><span>Perceptron ileri hesap / öğrenme</span></div><div><b>4. Soru</b><span>Sunumlardaki herhangi bir konu</span></div></div>
+    </section>
+
+    <section class="ml-home" id="mlHome">
+      <div class="panel ml-intro">
+        <h2>Nasıl çalışmak istersin?</h2><p>İlk üç laboratuvar her açılışta sayıları ve örnekleri değiştirir. Sürpriz bankası, beş sunumun tamamını kapsar.</p>
+        <div class="lab-grid">
+          <button class="lab-card primary" type="button" data-ml-mode="exam"><strong>4 soruluk sınav provası</strong><span>Her kesin soru türünden bir tane, dördüncü soru tüm konulardan rastgele.</span><small>Provayı başlat →</small></button>
+          <button class="lab-card" type="button" data-ml-mode="hypothesis"><strong>Hipotez sıralama</strong><span>? ve belirli değerleri karşılaştır; genellik ilişkisini adım adım kur.</span><small>Sınırsız varyasyon</small></button>
+          <button class="lab-card" type="button" data-ml-mode="fuzzy"><strong>Bulanık mantık</strong><span>Üyelik derecesi, AND=min, α-kesiti ve ağırlıklı ortalama.</span><small>10 sayısal senaryo</small></button>
+          <button class="lab-card" type="button" data-ml-mode="perceptron"><strong>Perceptron</strong><span>Net hesabı, eşik çıktısı, doğruluk tablosu ve ağırlık güncellemesi.</span><small>İleri + öğrenme</small></button>
+          <button class="lab-card" type="button" data-ml-mode="bank"><strong>Sürpriz soru bankası</strong><span>Temeller, kavram öğrenme, karar ağaçları, bulanık mantık ve YSA.</span><small><span id="mlBankCount">0</span> klasik soru</small></button>
+          <button class="lab-card" type="button" data-ml-mode="formula"><strong>Hızlı formül föyü</strong><span>Sınav sırasında aranan formüller, işlem sıraları ve sık yapılan hatalar.</span><small>Tek sayfada özet</small></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="mlWorkspace" hidden>
+      <div class="ml-toolbar"><div class="ml-toolbar-left"><button class="btn" id="mlHomeButton" type="button">← Ana menü</button><span class="chip category" id="mlTopicChip"></span><span class="chip" id="mlDifficultyChip"></span></div><div class="ml-toolbar-right"><span id="mlProgressText" class="chip"></span><button class="btn" id="mlNewButton" type="button">Yeni soru ↻</button></div></div>
+      <article class="panel ml-problem">
+        <header class="ml-problem-head"><div class="eyebrow" id="mlSourceLabel"></div><h2 id="mlQuestionText"></h2></header>
+        <div class="ml-problem-body">
+          <div class="ml-work-area"><div class="ml-data" id="mlQuestionData"></div><label class="scratch-label">Kendi çözüm alanın<textarea class="scratch" id="mlScratch" placeholder="Formülleri ve ara sonuçları buraya yazabilirsin..."></textarea></label><div class="ml-actions"><button class="btn" id="mlHintButton" type="button">İpucu</button><button class="btn accent" id="mlSolveButton" type="button">Çözümü adım adım başlat</button></div><div class="hint-box" id="mlHintBox" hidden></div></div>
+          <aside class="ml-visual"><h3 id="mlVisualTitle">Canlı çözüm alanı</h3><canvas id="mlCanvas" width="680" height="500" hidden></canvas><div id="mlVisualHtml"></div><p class="visual-caption" id="mlVisualCaption">Çözümü başlattığında işlem burada canlanacak.</p></aside>
+        </div>
+        <section class="solution-zone" id="mlSolutionZone" hidden><h3>Çözüm adımları</h3><div class="solution-steps" id="mlSolutionSteps"></div><div class="ml-actions"><button class="btn accent" id="mlNextStepButton" type="button">Sonraki adımı göster →</button><button class="btn" id="mlShowAllButton" type="button">Tüm çözümü göster</button></div><div class="final-answer" id="mlFinalAnswer" hidden></div></section>
+      </article>
+    </section>
+
+    <section id="mlBankView" class="panel" hidden>
+      <div class="ml-toolbar"><div class="ml-toolbar-left"><button class="btn" data-ml-home type="button">← Ana menü</button><span class="chip category">Sürpriz 20 puan</span></div><button class="btn" id="mlRandomBankButton" type="button">Rastgele soru aç</button></div>
+      <div class="ml-bank-head"><div><h2>Klasik sürpriz soru bankası</h2><p>Her soruda işlem sırası ve sınavda yazılabilecek sonuç bulunur.</p></div><label>Konu filtresi<select id="mlBankFilter"><option value="all">Tüm konular</option></select></label></div>
+      <div class="bank-list" id="mlBankList"></div>
+    </section>
+
+    <section id="mlFormulaView" class="panel" hidden>
+      <div class="ml-toolbar"><div class="ml-toolbar-left"><button class="btn" data-ml-home type="button">← Ana menü</button><span class="chip category">Hızlı başvuru</span></div><button class="btn" id="printFormulaButton" type="button">Yazdır / PDF al</button></div>
+      <div class="formula-head"><h2>Formül ve işlem föyü</h2><p>Sunumlardaki gösterime uygun, klasik soruda kullanılacak kısa yöntemler.</p></div>
+      <div class="formula-grid" id="mlFormulaGrid"></div>
+    </section>
+
+    <footer class="footer">Makine Öğrenmesi klasöründeki beş ders sunumu ve paylaşılan sınıf notları temel alınmıştır.</footer>
   </main>
 
   <script>
@@ -688,12 +862,7 @@
     $("homeButton").addEventListener("click", goHome);
     $("restartButton").addEventListener("click", goHome);
     $("reviewWrongButton").addEventListener("click", reviewCurrentWrong);
-    $("themeButton").addEventListener("click", () => {
-      const theme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-      document.documentElement.dataset.theme = theme;
-      localStorage.setItem("bilgiGuvenligiTheme", theme);
-      $("themeButton").textContent = theme === "dark" ? "☼" : "☾";
-    });
+    $("themeButton").addEventListener("click", toggleGlobalTheme);
     document.addEventListener("keydown", (event) => {
       if (quizView.style.display !== "block") return;
       if (["1", "2", "3", "4", "5"].includes(event.key)) answerQuestion(Number(event.key) - 1);
@@ -701,7 +870,320 @@
       if (event.key === "ArrowRight") move(1);
     });
 
+    /* MAKİNE ÖĞRENMESİ KLASİK SINAV LABORATUVARI */
+    const mlState = { mode: "", session: [], index: 0, problem: null, revealed: 0, animationFrame: 0 };
+    const mlTopics = {
+      fundamentals: "Temel Kavramlar",
+      concept: "Kavram Öğrenme",
+      tree: "Karar Ağaçları",
+      fuzzy: "Bulanık Mantık",
+      ann: "Yapay Sinir Ağları"
+    };
+
+    const mlBank = [
+      {id:"s01",topic:"fundamentals",title:"Öğrenme türlerini karşılaştırma",q:"Gözetimli, gözetimsiz ve pekiştirmeli öğrenmeyi; kullanılan veri, geri bildirim ve amaç bakımından karşılaştırınız. Her biri için bir örnek veriniz.",steps:["Gözetimli öğrenmede girişlerle birlikte doğru hedef/etiket bulunur; model girişten hedefe eşleme öğrenir.","Gözetimsiz öğrenmede etiket yoktur; veri içindeki doğal gruplar veya ilişkiler aranır.","Pekiştirmeli öğrenmede ajan, ortamda eylem seçer; ödül-ceza sinyaline göre uzun dönemli getiriyi artırır."],final:"Gözetimli: etiketli veri—sınıflandırma/regresyon. Gözetimsiz: etiketsiz veri—kümeleme/birliktelik. Pekiştirmeli: ödül sinyali—oyun oynayan veya rota seçen ajan."},
+      {id:"s02",topic:"fundamentals",title:"Tahmin ve kestirim ayrımı",q:"Bir sistemin (a) yarın yağmur yağıp yağmayacağını, (b) yarınki sıcaklığın kaç derece olacağını bulması isteniyor. Problemleri türleriyle açıklayınız.",steps:["Yağmur sonucu ayrık sınıflardan biridir: evet/hayır.","Sıcaklık sayısal ve sürekli bir değerdir.","Sunumlardaki kullanım ile ilk görev tahmin/sınıflandırma, ikinci görev kestirim/regresyondur."],final:"(a) Sınıflandırma (ayrık sınıf), (b) regresyon/kestirim (sürekli sayısal çıktı)."},
+      {id:"s03",topic:"fundamentals",title:"Yöntem seçme",q:"Müşteri kaybı, ev fiyatı, müşteri segmenti ve birlikte alınan ürünler problemleri için uygun makine öğrenmesi görevini yazınız.",steps:["Müşteri kaybı evet/hayır etiketi üretir: sınıflandırma.","Ev fiyatı sürekli sayıdır: regresyon.","Müşteri segmentinde önceden etiket yoktur: kümeleme.","Birlikte alınan ürünlerde eş-oluşum örüntüsü aranır: birliktelik kuralları."],final:"Kayıp→sınıflandırma; fiyat→regresyon; segment→kümeleme; sepet ilişkisi→birliktelik kuralları."},
+      {id:"s04",topic:"fundamentals",title:"Veri türleri",q:"Kan grubu, eğitim düzeyi, çocuk sayısı ve boy uzunluğu değişkenlerini nominal/ordinal/ayrık/sürekli olarak sınıflandırınız.",steps:["Kan grubu kategorilerinin doğal sırası yoktur: nominal.","Eğitim düzeyinde anlamlı sıra vardır: ordinal.","Çocuk sayısı sayılabilir tam değerler alır: ayrık sayısal.","Boy bir aralıkta kesintisiz değer alabilir: sürekli sayısal."],final:"Kan grubu nominal; eğitim düzeyi ordinal; çocuk sayısı ayrık; boy uzunluğu sürekli."},
+      {id:"s05",topic:"concept",title:"Örnek uzayı büyüklüğü",q:"Bir örnek 4 nitelikle tanımlansın. Nitelik alanlarının büyüklükleri sırasıyla 3, 2, 4 ve 2 olsun. Örnek uzayı |X| kaçtır?",steps:["Bir örnek her nitelikten bir değer seçer.","Kartezyen çarpımın büyüklüğü alan büyüklüklerinin çarpımıdır.","|X|=3×2×4×2=48."],final:"Örnek uzayı 48 farklı örnek içerir."},
+      {id:"s06",topic:"concept",title:"Hipotez uzayı sayısı",q:"Alan büyüklükleri 3,2,2,2 olan dört nitelik için her kısıt gerçek değer, ? veya Ø alabiliyor. Tüm sözdizimsel hipotezleri ve anlamsal olarak farklı hipotezleri sayınız.",steps:["Bir niteliğin kısıt seçenekleri |Vᵢ| gerçek değer + ? + Ø olduğundan |Vᵢ|+2'dir.","Tüm yazımlar: (3+2)(2+2)(2+2)(2+2)=5×4³=320.","Ø içeren bütün yazımlar aynı boş kavramı temsil eder. Boş olmayanlar için her nitelikte gerçek değer veya ? seçilir: (3+1)(2+1)³=108.","Tek boş hipotezi ekle: 108+1=109."],final:"Sözdizimsel sayı 320, anlamsal olarak farklı sayı 109'dur."},
+      {id:"s07",topic:"concept",title:"Find-S yürütme",q:"Pozitif örnekler x₁=<Güneşli,Sıcak,Rüzgarlı,Kuru>, x₂=<Güneşli,Sıcak,Rüzgarlı,Nemli>, negatif x₃=<Yağmurlu,Soğuk,Rüzgarlı,Nemli>, pozitif x₄=<Güneşli,Sıcak,Sakin,Nemli> olsun. Find-S sonucunu bulunuz.",steps:["Başlangıç h=<Ø,Ø,Ø,Ø>.","x₁ pozitif: h=<Güneşli,Sıcak,Rüzgarlı,Kuru>.","x₂ pozitif: yalnız son nitelik uyuşmaz; h=<Güneşli,Sıcak,Rüzgarlı,?>.","x₃ negatif olduğu için Find-S tarafından atlanır.","x₄ pozitif: rüzgâr uyuşmaz; h=<Güneşli,Sıcak,?,?>."],final:"Find-S hipotezi <Güneşli,Sıcak,?,?> olur."},
+      {id:"s08",topic:"concept",title:"Find-S'nin zayıflıkları",q:"Find-S algoritmasının üç temel zayıflığını ve bunların sonucunu açıklayınız.",steps:["Negatif örnekleri kullanmaz; yanlış pozitifleri ayıklayamaz.","Gürültülü/yanlış etiketli tek bir pozitif gereksiz genellemeye yol açabilir.","Yalnız tek en-özel hipotez üretir; veriye uyan başka hipotezleri ve belirsizliği göstermez."],final:"Negatifleri yok sayması, gürültüye duyarlılığı ve sürüm uzayını göstermemesi Find-S'nin temel sınırlamalarıdır."},
+      {id:"s09",topic:"concept",title:"Sürüm uzayı yorumu",q:"VS(H,D) kavramını tanımlayınız. Sürüm uzayının boş, tek elemanlı veya çok elemanlı olması ne anlama gelir?",steps:["VS(H,D)={h∈H | h, D'deki bütün örneklerle tutarlıdır}.","Boşsa H içinde tüm veriyi açıklayan hipotez yoktur; veri çelişkili/gürültülü olabilir.","Tek elemanlıysa veri hedefi H içinde benzersiz belirlemiştir.","Çok elemanlıysa bilgi yetersizdir; yeni ayırt edici örnek gerekir."],final:"Sürüm uzayı, eğitim verisiyle tutarlı hipotezlerin kümesidir; büyüklüğü kalan belirsizliği gösterir."},
+      {id:"s10",topic:"concept",title:"Aday eleme sınırları",q:"Candidate Elimination algoritmasındaki S ve G sınırlarını ve pozitif/negatif örnek geldiğinde nasıl değiştiklerini açıklayınız.",steps:["S, veriye uyan en özel; G, veriye uyan en genel hipotezlerin sınırıdır.","Pozitif örnek geldiğinde onu kapsamayan G elemanları silinir; S elemanları örneği kapsayacak kadar en az genellenir.","Negatif örnekte onu kapsayan S elemanları silinir; G elemanları negatifi dışlayacak kadar en az özelleştirilir.","S ve G arasında kalan hipotezler sürüm uzayını temsil eder."],final:"Pozitif örnek S'yi genelleştirir, negatif örnek G'yi özelleştirir; tutarsız sınır elemanları elenir."},
+      {id:"s11",topic:"concept",title:"Genellik tanımı",q:"h₁=<Güneşli,?,Rüzgarlı,?> ve h₂=<Güneşli,Sıcak,Rüzgarlı,Kuru> için hangisi daha geneldir? Tanım üzerinden gösteriniz.",steps:["h₂'nin kapsadığı örneklerde hava Güneşli ve rüzgâr Rüzgarlı olmak zorundadır.","h₁, sıcaklık ve nem/son nitelikte ? kullandığı için h₂'nin bütün örneklerini kapsar.","Ayrıca h₂'nin kapsamadığı bazı örnekleri de kapsar; örneğin son değer Nemli olabilir."],final:"h₁, h₂'den daha geneldir: h₁ ≥g h₂."},
+      {id:"s12",topic:"tree",title:"İkili entropi",q:"10 örnekten 8'i pozitif, 2'si negatif olsun. Kümenin entropisini hesaplayınız.",steps:["p₊=8/10=0,8 ve p₋=2/10=0,2.","H(S)=−[0,8 log₂0,8 + 0,2 log₂0,2].","H(S)≈−[0,8(−0,3219)+0,2(−2,3219)]≈0,722."],final:"Entropi yaklaşık 0,722 bittir. Küme saf olmadığı için 0'dan büyük, dengeli olmadığı için 1'den küçüktür."},
+      {id:"s13",topic:"tree",title:"Koşullu entropi ve kazanç",q:"S kümesinde 9 olumlu, 5 olumsuz örnek vardır (H(S)=0,940). X niteliği, veriyi A: 4+/0− ve B: 5+/5− olarak bölsün. H(X,S) ve Gain(X,S) değerlerini bulunuz.",steps:["A saf olduğundan H(A)=0.","B dengeli olduğundan H(B)=1.","H(X,S)=(4/14)·0+(10/14)·1=0,714.","Gain(X,S)=H(S)−H(X,S)=0,940−0,714=0,226."],final:"Koşullu entropi 0,714; bilgi kazancı 0,226'dır."},
+      {id:"s14",topic:"tree",title:"ID3 kök seçimi",q:"Bir veri kümesinde kazançlar HAVA=0,246, ISI=0,029, NEM=0,151 ve RÜZGAR=0,048 bulunmuştur. ID3 hangi niteliği kök seçer, neden?",steps:["ID3 her aday niteliğin bilgi kazancını karşılaştırır.","En büyük kazanç, bölme sonrasında belirsizliği en fazla azaltır.","0,246 diğer değerlerin tümünden büyüktür."],final:"ID3 kök düğüm olarak HAVA niteliğini seçer; en yüksek bilgi kazancı 0,246'dır."},
+      {id:"s15",topic:"tree",title:"C4.5 sayısal eşik",q:"Sıralı sayısal değerler 70, 80, 85 ve 95 olsun. 80 ile 85'in sınıfları farklıysa aday eşik değeri nedir ve bölme nasıl yazılır?",steps:["C4.5, sınıfın değiştiği ardışık değerlerin orta noktasını aday eşik alır.","t=(80+85)/2=82,5.","Örnekler X≤82,5 ve X>82,5 biçiminde iki dala ayrılır; kazanç oranı hesaplanır."],final:"Aday eşik 82,5'tir; dallar X≤82,5 ve X>82,5 olur."},
+      {id:"s16",topic:"tree",title:"Aşırı öğrenme ve budama",q:"Karar ağacında aşırı öğrenme nedir? Ön budama ve son budamayı karşılaştırınız.",steps:["Ağaç eğitim gürültüsünü/istisnaları da ezberleyip eğitimde yüksek, testte düşük başarı gösterirse aşırı öğrenmiştir.","Ön budama; minimum örnek, maksimum derinlik veya yetersiz kazanç gibi ölçütlerle büyümeyi erken durdurur.","Son budama; önce büyük ağacı kurar, sonra doğrulama başarısını iyileştirmeyen alt dalları yaprakla değiştirir."],final:"Ön budama büyümeyi sınırlar; son budama kurulan ağacı sadeleştirir. İkisi de genellemeyi artırmayı amaçlar."},
+      {id:"s17",topic:"tree",title:"Karar ağacından kural çıkarma",q:"Kök HAVA; Güneşli dalında NEM; NEM=Yüksek yaprağı Hayır, NEM=Normal yaprağı Evet olsun. Bu parçadan kuralları yazınız.",steps:["Kökten yaprağa her yol bir VE bağlı koşul oluşturur.","Birinci yol: HAVA=Güneşli ve NEM=Yüksek.","İkinci yol: HAVA=Güneşli ve NEM=Normal.","Yaprak değerleri kural sonucudur."],final:"Eğer HAVA=Güneşli VE NEM=Yüksek ise Hayır; eğer HAVA=Güneşli VE NEM=Normal ise Evet."},
+      {id:"s18",topic:"fuzzy",title:"Bulanık kontrol adımları",q:"Bir bulanık kontrol sisteminin girişten sayısal çıkışa kadar temel aşamalarını sıralayınız.",steps:["Giriş ve çıkış değişkenleri ile evrensel kümeler belirlenir.","Üyelik fonksiyonları tanımlanır ve kesin girişler bulanıklaştırılır.","IF–THEN kural tabanı üzerinde AND/OR işlemleriyle çıkarım yapılır.","Kural sonuçları birleştirilir.","Bir durulaştırma yöntemiyle kesin çıkış elde edilir."],final:"Değişkenler/üyelikler → bulanıklaştırma → kural çıkarımı → birleştirme → durulaştırma."},
+      {id:"s19",topic:"fuzzy",title:"Üçgensel üyelik",q:"A=(10,20,30) üçgensel bulanık kümesi için μA(16) ve μA(26) değerlerini bulunuz.",steps:["16 yükselen kenardadır: μ=(16−10)/(20−10)=0,6.","26 düşen kenardadır: μ=(30−26)/(30−20)=0,4.","Her iki değer de [0,1] aralığındadır."],final:"μA(16)=0,6 ve μA(26)=0,4."},
+      {id:"s20",topic:"fuzzy",title:"Yamuksal yaş üyelikleri",q:"Genç=(10,10,20,30), Orta=(25,40,40,55), Yaşlı=(50,60,70,70) kabul edilsin. 54 yaşın üyelik derecelerini hesaplayınız.",steps:["54, Genç desteğinin dışındadır: μGenç=0.","Orta kümesinin düşen kenarı: μOrta=(55−54)/(55−40)=1/15≈0,067.","Yaşlı kümesinin yükselen kenarı: μYaşlı=(54−50)/(60−50)=0,4."],final:"54 yaş; Genç'e 0, Orta'ya yaklaşık 0,067 ve Yaşlı'ya 0,4 derecesinde üyedir."},
+      {id:"s21",topic:"fuzzy",title:"Mamdani min–max çıkarımı",q:"R1'in öncül üyelikleri 0,8 ve 0,6; R2'nin öncülleri 0,4 ve 0,9 olsun. AND=min kullanılıyorsa ateşleme derecelerini bulunuz. İki kural aynı çıktıyı üretiyorsa birleşik yükseklik nedir?",steps:["R1: α₁=min(0,8;0,6)=0,6.","R2: α₂=min(0,4;0,9)=0,4.","Aynı sonuç kümesindeki kesilmiş çıktılar max ile birleştirilir.","max(0,6;0,4)=0,6."],final:"Ateşlemeler 0,6 ve 0,4; birleşik çıktı yüksekliği 0,6'dır."},
+      {id:"s22",topic:"fuzzy",title:"Mamdani–Sugeno–Singleton",q:"Mamdani, Takagi–Sugeno ve Singleton çıkarım sistemlerini kural sonucu bakımından karşılaştırınız.",steps:["Mamdani sonucunda bir bulanık küme vardır; sonuç kümeleri birleştirilip durulaştırılır.","Takagi–Sugeno sonucunda girişlerin fonksiyonu bulunur: z=f(x,y), çoğunlukla doğrusal/sabit.","Singleton sonucunda her kural tek bir kesin sabit değer üretir.","Sugeno ve Singleton sonuçları genellikle ateşleme dereceleriyle ağırlıklı ortalanır."],final:"Mamdani→bulanık sonuç kümesi; Sugeno→fonksiyon; Singleton→sabit tek değer."},
+      {id:"s23",topic:"fuzzy",title:"Durulaştırma yöntemleri",q:"Maksimum üyelik, maksimumların ortalaması, ağırlık merkezi ve ağırlıklı ortalama yöntemlerini kısaca açıklayınız.",steps:["Maksimum üyelik en yüksek üyeliğin oluştuğu bir x değerini seçer.","Maksimumların ortalaması, tepe düzse tepe noktalarının ortalamasını alır.","Ağırlık merkezi, çıktı alanının momentini toplam alana böler.","Ağırlıklı ortalama, simetrik sonuç kümelerinin temsil değerlerini ateşleme dereceleriyle ortalar."],final:"Yöntem seçimi çıktı şekline bağlıdır; en genel geometrik yöntem ağırlık merkezi, simetrik kümelerde pratik yöntem ağırlıklı ortalamadır."},
+      {id:"s24",topic:"fuzzy",title:"Bulanık mantığın yorumu",q:"Klasik küme ile bulanık küme arasındaki farkı ve bulanık üyelik derecesinin olasılık olmadığını açıklayınız.",steps:["Klasik kümede üyelik yalnız 0 veya 1'dir.","Bulanık kümede bir öğe 0 ile 1 arasında kısmi üyeliğe sahip olabilir.","Üyelik derecesi kavrama uygunluk/gerçeklik derecesidir; olayın gerçekleşme olasılığı değildir.","Örneğin 54 yaşın Yaşlı kümesine 0,4 üyeliği, kişinin %40 olasılıkla yaşlı olduğu anlamına gelmez."],final:"Bulanıklık kavramsal dereceyi, olasılık ise belirsiz bir olayın gerçekleşme şansını ifade eder."},
+      {id:"s25",topic:"ann",title:"Yapay nöron bileşenleri",q:"Bir yapay nöronun girişten çıktıya kadar bileşenlerini ve her birinin görevini açıklayınız.",steps:["xᵢ girişleri örneğin özelliklerini taşır.","wᵢ ağırlıkları girişlerin etkisini belirler; bias w₀ karar sınırını kaydırır.","Toplama birimi net=Σwᵢxᵢ+w₀ hesaplar.","Aktivasyon f(net), doğrusal olmayan veya eşikli dönüşüm yapar.","y=f(net) nöronun çıktısıdır."],final:"Girişler × ağırlıklar + bias → net toplam → aktivasyon → çıktı."},
+      {id:"s26",topic:"ann",title:"Aktivasyon hesabı",q:"net=1,2 için doğrusal f(net)=net ve sigmoid f(net)=1/(1+e^(−net)) çıktılarını hesaplayınız.",steps:["Doğrusal fonksiyon doğrudan neti verir: 1,2.","Sigmoid için e^(−1,2)≈0,3010.","f=1/(1+0,3010)≈0,7685."],final:"Doğrusal çıktı 1,2; sigmoid çıktı yaklaşık 0,769'dur."},
+      {id:"s27",topic:"ann",title:"XOR ve doğrusal ayrılabilirlik",q:"Tek katmanlı perceptron XOR fonksiyonunu neden öğrenemez?",steps:["XOR'da pozitif sınıflar (0,1) ve (1,0); negatifler (0,0) ve (1,1)'dir.","Bu iki sınıf düzlemde çapraz köşelerdedir.","Tek bir doğru/hiperdüzlem iki sınıfı hatasız ayıramaz.","Tek perceptron yalnız doğrusal karar sınırı oluşturur; gizli katmanlı ağ gerekir."],final:"XOR doğrusal ayrılabilir olmadığı için tek perceptronla öğrenilemez; en az bir gizli katman gerekir."},
+      {id:"s28",topic:"ann",title:"Perceptron ağırlık güncelleme",q:"η=0,1; x=(1,0,8); bias girişi x₀=1; hedef t=1, çıktı o=−1 olsun. Her ağırlığın değişimini bulunuz.",steps:["Hata terimi t−o=1−(−1)=2.","Kural Δwᵢ=η(t−o)xᵢ.","Δw₀=0,1·2·1=0,2; Δw₁=0,1·2·1=0,2; Δw₂=0,1·2·0,8=0,16.","Yeni ağırlıklar eski ağırlıklara bu değişimler eklenerek bulunur."],final:"Ağırlık değişimleri Δw=(0,2; 0,2; 0,16)'dır."},
+      {id:"s29",topic:"ann",title:"Karar sınırı",q:"İki girişli bir perceptronda w₀=−0,8, w₁=w₂=0,5 olsun. Karar sınırı denklemini yazıp eksen kesişimlerini bulunuz.",steps:["Karar sınırında net=0'dır.","−0,8+0,5x₁+0,5x₂=0.","x₂=0 iken x₁=1,6; x₁=0 iken x₂=1,6.","Doğrunun net>0 tarafı +1, diğer tarafı −1 üretilir."],final:"Sınır 0,5x₁+0,5x₂−0,8=0; eksen kesişimleri (1,6;0) ve (0;1,6)."},
+      {id:"s30",topic:"ann",title:"Çok katmanlı ileri yayılım",q:"x₁=1,x₂=0; gizli nöronda w₀=−0,5,w₁=1,w₂=1 ve eşik aktivasyonu; çıkış nöronunda v₀=−0,2,v₁=0,8 olsun. Çıktıyı bulunuz (net>0 ise 1, değilse 0).",steps:["Gizli net: −0,5+1·1+1·0=0,5; h=1.","Çıkış net: −0,2+0,8·h=−0,2+0,8=0,6.","0,6>0 olduğundan y=1."],final:"Gizli çıktı h=1, ağın son çıktısı y=1'dir."},
+      {id:"s31",topic:"ann",title:"Geri yayılım çıkış deltası",q:"Sigmoid çıkışlı bir nöronda hedef t=1, çıktı o=0,7 ve öğrenme oranı α=0,2 olsun. Çıkış deltası ve girişi h=0,6 olan bağlantının ağırlık değişimini hesaplayınız.",steps:["Sigmoid türevi o(1−o)=0,7·0,3=0,21.","δ=o(1−o)(t−o)=0,21·0,3=0,063.","Δw=α·δ·h=0,2·0,063·0,6=0,00756."],final:"Çıkış deltası 0,063; ağırlık değişimi +0,00756'dır."},
+      {id:"s32",topic:"ann",title:"Gizli katman deltası",q:"Bir gizli nöronun çıktısı h=0,4; çıkış katmanına ağırlığı 0,8; ilgili çıkış deltası 0,05 olsun. Gizli delta ve x=0,7 girişli bağlantı için α=0,1 ile değişimi bulunuz.",steps:["Gizli sigmoid türevi h(1−h)=0,4·0,6=0,24.","Geri taşınan hata 0,8·0,05=0,04.","δh=0,24·0,04=0,0096.","Δw=α·δh·x=0,1·0,0096·0,7=0,000672."],final:"Gizli delta 0,0096; giriş ağırlığı değişimi +0,000672'dir."},
+      {id:"s33",topic:"ann",title:"Bias neden gereklidir?",q:"x₁=x₂=x₃=0 iken bias içermeyen bir perceptron net>0 koşuluyla +1 üretebilir mi? Biasın rolünü açıklayınız.",steps:["Bütün girişler 0 ise Σwᵢxᵢ, ağırlıklar ne olursa olsun 0'dır.","Aktivasyon net>0 istediği için net=0 sonucu −1/0 sınıfına gider.","Bias girişi x₀=1 ve ağırlığı w₀ eklenirse net=w₀ olabilir.","Pozitif w₀, sıfır vektöründe +1 üretmeyi ve karar düzlemini orijinden kaydırmayı sağlar."],final:"Biassız mümkün değildir. Bias, karar sınırını kaydıran ve sıfır girişte de nörona etkinlik kazandıran sabit terimdir."},
+      {id:"s34",topic:"ann",title:"Delta kuralı ve hata",q:"Perceptron kuralı ile delta/gradient descent yaklaşımını karşılaştırınız; E=½Σ(t−o)² ifadesinin rolünü açıklayınız.",steps:["Perceptron kuralı eşikli çıktı ve yanlış sınıflama durumunda güncelleme kullanır; doğrusal ayrılabilir veride yakınsar.","Delta kuralı türevlenebilir aktivasyonla sayısal hata fonksiyonunun gradyanını izler.","E=½Σ(t−o)² toplam karesel hatayı ölçer; ½ türevde 2 katsayısını sadeleştirir.","Ağırlıklar hatayı azaltan negatif gradyan yönünde güncellenir."],final:"Perceptron ayrık sınıflama hatasına, delta kuralı türevlenebilir toplam karesel hatayı en aza indirmeye dayanır."},
+      {id:"s35",topic:"tree",title:"Saflık sınır durumları",q:"Bir düğümdeki örneklerin tamamı aynı sınıftaysa ve iki sınıf tam dengeliyse ikili entropi kaç olur? Sonucu yorumlayınız.",steps:["Saf düğümde p=1 ve diğer sınıf p=0'dır; 0·log0 limiti 0 alınır, H=0.","Dengeli düğümde p₁=p₂=0,5'tir.","H=−2·0,5·log₂0,5=1."],final:"Saf düğüm H=0 (belirsizlik yok); dengeli ikili düğüm H=1 (maksimum belirsizlik)."},
+      {id:"s36",topic:"fuzzy",title:"İki kuralın ağırlıklı ortalaması",q:"İki Singleton kuralı α₁=0,3 ile z₁=2 ve α₂=0,7 ile z₂=5 üretiyor. Kesin çıktıyı bulunuz.",steps:["Singleton/Sugeno çıktıları ateşleme dereceleriyle ağırlıklandırılır.","z=(α₁z₁+α₂z₂)/(α₁+α₂).","z=(0,3·2+0,7·5)/(0,3+0,7)=(0,6+3,5)/1=4,1."],final:"Durulaştırılmış çıktı 4,1'dir."},
+      {id:"s37",topic:"concept",title:"Hocanın hipotez sıralama kalıbı",q:"hₐ=<sunny,warm,?,strong,cool,same>, hᵦ=<sunny,?,?,strong,?,?>, h𝒸=<sunny,warm,?,strong,?,same>, h𝒹=<sunny,?,?,?,?,?>, hₑ=<sunny,warm,high,strong,cool,same>, h𝒻=<sunny,warm,?,strong,?,?> ve h𝓰=<?,?,?,?,?,?> hipotezlerini en genelden en özele sıralayınız.",steps:["h𝓰 tümü ? olduğu için her örneği kapsar ve en geneldir.","h𝒹 yalnız sunny koşulunu; hᵦ sunny ve strong koşullarını; h𝒻 bunlara ek warm koşulunu taşır.","h𝒸 ayrıca same, hₐ ayrıca cool, hₑ ayrıca high koşulunu ekler. Her ek belirli değer kapsama kümesini küçültür.","Bu hipotezler dallanmayan bir kapsama zinciri oluşturur."],final:"h𝓰 → h𝒹 → hᵦ → h𝒻 → h𝒸 → hₐ → hₑ."}
+    ];
+
+    const mlFormulaSections = [
+      {title:"Hipotez genelliği",formula:"h₁ ≥g h₂ ⇔ h₂'nin kapsadığı her örneği h₁ de kapsar",notes:["? her değeri kabul eder; belirli değer yalnız kendisini kabul eder; Ø hiçbir örneği kabul etmez.","Sadece ? sayısını saymak her zaman kanıt değildir; nitelikleri tek tek karşılaştır.","Find-S: <Ø,…,Ø> ile başla, yalnız pozitifleri kullan, uyuşmayan niteliği ? yap."]},
+      {title:"Uzay büyüklükleri",formula:"|X|=∏|Vᵢ|\n|H|sözdizimsel=∏(|Vᵢ|+2)\n|H|anlamsal=1+∏(|Vᵢ|+1)",notes:["+2: gerçek değerler, ? ve Ø.","Ø içeren tüm yazımlar aynı boş kavramdır; bu nedenle anlamsal sayımda bir kez eklenir."]},
+      {title:"Entropi ve bilgi kazancı",formula:"H(S)=−Σ pᵢ log₂pᵢ\nH(X,S)=Σ(|Sᵥ|/|S|)H(Sᵥ)\nGain(X,S)=H(S)−H(X,S)",notes:["Saf düğüm 0, dengeli ikili düğüm 1.","ID3 en yüksek bilgi kazancını seçer.","C4.5 sayısal aday eşik: t=(xᵢ+xᵢ₊₁)/2."]},
+      {title:"Üçgensel üyelik",formula:"μ(x)=0, x≤a veya x≥c\nμ(x)=(x−a)/(b−a), a≤x≤b\nμ(x)=(c−x)/(c−b), b≤x≤c",notes:["Önce x'in hangi kenarda olduğunu işaretle.","Sonuç mutlaka 0 ile 1 arasında olmalı."]},
+      {title:"Yamuksal üyelik",formula:"μ(x)=0 dışarıda\nμ(x)=(x−a)/(b−a) yükselişte\nμ(x)=1, b≤x≤c\nμ(x)=(d−x)/(d−c) düşüşte",notes:["Parametre sırası (a,b,c,d).","Omuz kümelerinde a=b veya c=d olabilir."]},
+      {title:"Bulanık çıkarım",formula:"AND=min, OR=max\nα-kesiti: μçıktı(z)=α\nz*=Σ(αᵢzᵢ)/Σαᵢ",notes:["Mamdani'de aynı sonuçlar max ile birleştirilir.","Ağırlıklı ortalama simetrik çıktı kümeleri veya Singleton/Sugeno sonuçlarında uygundur."]},
+      {title:"Perceptron ileri hesap",formula:"x₀=1\nnet=w₀+Σwᵢxᵢ\ny=+1, net>0; aksi halde −1",notes:["Biası ayrı yazmayı unutma.","Her doğruluk tablosu satırında neti yeniden hesapla.","Karar sınırı net=0 denklemiyle bulunur."]},
+      {title:"Perceptron öğrenme",formula:"Δwᵢ=η(t−o)xᵢ\nwᵢ(yeni)=wᵢ(eski)+Δwᵢ",notes:["Doğru sınıflamada t−o=0, güncelleme yok.","Bipolar hedeflerde hata +2 veya −2 olabilir.","Yakınsama için veri doğrusal ayrılabilir olmalıdır."]},
+      {title:"Aktivasyon ve hata",formula:"sigmoid(net)=1/(1+e^(−net))\ntanh(net)=(eⁿ−e⁻ⁿ)/(eⁿ+e⁻ⁿ)\nE=½Σ(t−o)²",notes:["Sigmoid aralığı (0,1), tanh aralığı (−1,1).","Doğrusal olmayan aktivasyonlar çok katmanlı ağlara güç kazandırır."]},
+      {title:"Geri yayılım",formula:"δout=o(1−o)(t−o)\nδh=h(1−h)Σ(w·δout)\nΔw=α·δ·giriş",notes:["Önce ileri yayılım ve çıktıyı hesapla.","Çıkış deltalarından başlayıp gizli katmana geri git.","Bias bağlantısında giriş 1'dir."]}
+    ];
+
+    function mlFmt(value, digits=3) {
+      const rounded = Math.round((Number(value) + Number.EPSILON) * 10 ** digits) / 10 ** digits;
+      return rounded.toLocaleString("tr-TR", { maximumFractionDigits: digits });
+    }
+    function mlPick(items) { return items[Math.floor(Math.random() * items.length)]; }
+
+    function makeHypothesisProblem() {
+      const domains = [
+        ["Güneşli","Yağmurlu"], ["Sıcak","Soğuk"], ["Yüksek","Normal"],
+        ["Güçlü","Zayıf"], ["Ilık","Serin"], ["Aynı","Değişir"]
+      ];
+      const names = ["Gökyüzü","Sıcaklık","Nem","Rüzgâr","Su","Tahmin"];
+      const base = domains.map(mlPick);
+      const order = shuffle([0,1,2,3,4,5]);
+      const chain = [Array(6).fill("?")];
+      let current = Array(6).fill("?");
+      order.forEach(i => { current = [...current]; current[i] = base[i]; chain.push(current); });
+      const items = shuffle(chain.map((values, i) => ({id:`h${i+1}`, values})));
+      const generalFirst = Math.random() > .5;
+      const desired = generalFirst ? chain : [...chain].reverse();
+      const labelFor = values => items.find(item => item.values.join("|") === values.join("|")).id;
+      return {
+        topic:"Hipotez Sıralama", difficulty:"Sınavın 1. sorusu", source:"Concept Learning sunumu · Genelden özele sıralama",
+        question:`Aşağıdaki hipotezleri ${generalFirst ? "en genelden en özele" : "en özelden en genele"} doğru sıralayınız.`,
+        data:`<table><thead><tr><th>Hipotez</th><th>&lt;${names.join(", ")}&gt;</th></tr></thead><tbody>${items.map(x=>`<tr><td><b>${x.id}</b></td><td class="hypothesis">&lt;${x.values.join(", ")}&gt;</td></tr>`).join("")}</tbody></table>`,
+        hint:"? işareti o nitelikte tüm değerleri kabul eder. İki hipotezi karşılaştırırken, birinin kapsadığı her örneğin diğerince de kapsanıp kapsanmadığına bak.",
+        steps:[
+          {title:"En uç hipotezi bul",text:`${generalFirst ? "Tüm nitelikleri ? olan hipotez, tüm örnekleri kapsadığı için en geneldir." : "Hiç ? içermeyen hipotez yalnız tek birleşimi kapsadığı için bu zincirin en özelidir."}`},
+          {title:"Komşu hipotezleri karşılaştır",text:"Bir ? yerine belirli değer yazmak hipotezi özelleştirir; belirli bir değeri ? yapmak genelleştirir. Buradaki hipotezler iç içe bir zincir oluşturur."},
+          {title:"Kapsama sırasını kur",text:desired.map((h,i)=>`${i+1}. ${labelFor(h)} = &lt;${h.join(", ")}&gt;`).join("<br>")},
+          {title:"Yönü kontrol et",text:`Sıralamada her adımda ? sayısı ${generalFirst ? "bir azalıyor" : "bir artıyor"}; daha önemlisi, önceki hipotezin kapsama kümesi sonrakiyle doğru yönde iç içe.`}
+        ],
+        final:`<strong>Doğru sıra:</strong> ${desired.map(labelFor).join(" → ")}<br><small>Sınavda yalnız sırayı değil, “? yerine belirli değer geldikçe hipotez özelleşir” gerekçesini de yaz.</small>`,
+        visual:{type:"hypothesis",items,desired:desired.map(labelFor)}
+      };
+    }
+
+    const fuzzyScenarios = [
+      {t:25,l:2.2,out:"Çok",tri:[3,3.75,4.5]}, {t:22.5,l:2.1,out:"Çok Fazla",tri:[4,4.5,5]},
+      {t:30,l:2.8,out:"Çok",tri:[3,3.75,4.5]}, {t:20,l:2,out:"Çok Fazla",tri:[4,4.5,5]},
+      {t:35,l:3,out:"Orta",tri:[1.5,2.5,3.5]}, {t:32.5,l:1.9,out:"Çok",tri:[3,3.75,4.5]},
+      {t:23.75,l:2.3,out:"Çok",tri:[3,3.75,4.5]}, {t:27.5,l:3.1,out:"Orta",tri:[1.5,2.5,3.5]},
+      {t:18.75,l:2.4,out:"Çok Fazla",tri:[4,4.5,5]}, {t:33.75,l:2.6,out:"Çok",tri:[3,3.75,4.5]}
+    ];
+    function triangleMu(x,a,b,c) { return x<=a||x>=c ? 0 : x<=b ? (x-a)/(b-a) : (c-x)/(c-b); }
+    function makeFuzzyProblem() {
+      const s = mlPick(fuzzyScenarios);
+      const tempTri=[15,27.5,40], levelTri=[1.5,2.5,3.5];
+      const muT=triangleMu(s.t,...tempTri), muL=triangleMu(s.l,...levelTri), alpha=Math.min(muT,muL);
+      const [a,b,c]=s.tri, z1=a+alpha*(b-a), z2=c-alpha*(c-b), crisp=(z1*alpha+z2*alpha)/(2*alpha);
+      const tempSide=s.t<=tempTri[1]?"yükselen":"düşen", levelSide=s.l<=levelTri[1]?"yükselen":"düşen";
+      return {
+        topic:"Bulanık Mantık",difficulty:"Sınavın 2. sorusu",source:"Bulanık Mantık sunumu + sınıftaki su ısıtma örneği",
+        question:`Su ısıtma sisteminde sıcaklık ${mlFmt(s.t)} °C, su seviyesi ${mlFmt(s.l)} L'dir. Aşağıdaki üyelikler ve kural kullanılarak rezistans çıkışını bulunuz.`,
+        data:`<table><tbody><tr><th>Sıcaklık “Düşük”</th><td>Üçgen (15; 27,5; 40)</td></tr><tr><th>Seviye “Orta”</th><td>Üçgen (1,5; 2,5; 3,5)</td></tr><tr><th>Kural</th><td>EĞER Sıcaklık=Düşük VE Seviye=Orta İSE Rezistans=${s.out}</td></tr><tr><th>Çıkış “${s.out}”</th><td>Üçgen (${s.tri.map(v=>mlFmt(v)).join("; ")}) kΩ</td></tr><tr><th>İşlemler</th><td>AND=min, α-kesiti, ağırlıklı ortalama durulaştırması</td></tr></tbody></table>`,
+        hint:"Önce her kesin girişin üçgendeki hangi kenara düştüğünü belirle. Kuralın ateşleme derecesi iki üyeliğin küçüğüdür.",
+        steps:[
+          {title:"Sıcaklığı bulanıklaştır",text:`${mlFmt(s.t)}, üçgenin ${tempSide} kenarında. μDüşük(${mlFmt(s.t)})=${s.t<=27.5?`(${mlFmt(s.t)}−15)/(27,5−15)`:`(40−${mlFmt(s.t)})/(40−27,5)`}=${mlFmt(muT)}.`},
+          {title:"Su seviyesini bulanıklaştır",text:`${mlFmt(s.l)}, Orta kümesinin ${levelSide} kenarında. μOrta(${mlFmt(s.l)})=${s.l<=2.5?`(${mlFmt(s.l)}−1,5)/(2,5−1,5)`:`(3,5−${mlFmt(s.l)})/(3,5−2,5)`}=${mlFmt(muL)}.`},
+          {title:"Kuralı ateşle",text:`VE bağlacı için min kullanılır: α=min(${mlFmt(muT)}; ${mlFmt(muL)})=${mlFmt(alpha)}. “${s.out}” çıkış kümesi ${mlFmt(alpha)} yüksekliğinde kesilir.`},
+          {title:"α-kesiti noktalarını bul",text:`Sol kenar: ${mlFmt(alpha)}=(z₁−${mlFmt(a)})/(${mlFmt(b)}−${mlFmt(a)}) ⇒ z₁=${mlFmt(z1)}. Sağ kenar: ${mlFmt(alpha)}=(${mlFmt(c)}−z₂)/(${mlFmt(c)}−${mlFmt(b)}) ⇒ z₂=${mlFmt(z2)}.`},
+          {title:"Durulaştır",text:`z*=(${mlFmt(z1)}·${mlFmt(alpha)}+${mlFmt(z2)}·${mlFmt(alpha)})/(${mlFmt(alpha)}+${mlFmt(alpha)})=${mlFmt(crisp)} kΩ. Simetrik üçgende sonuç tepe değeriyle aynıdır.`}
+        ],
+        final:`<strong>Rezistans çıkışı ≈ ${mlFmt(crisp)} kΩ.</strong><br><small>Kontrol: ${mlFmt(alpha)} ateşleme derecesiyle kesilen simetrik “${s.out}” üçgeninin merkezi ${mlFmt(b)} kΩ'dur.</small>`,
+        visual:{type:"fuzzy",input:{x:s.t,tri:tempTri,mu:muT},output:{tri:s.tri,alpha,z1,z2,crisp}}
+      };
+    }
+
+    const gateCases = [
+      {name:"AND",w:[-0.8,0.5,0.5],targets:[-1,-1,-1,1]},
+      {name:"OR",w:[-0.3,0.5,0.5],targets:[-1,1,1,1]},
+      {name:"NAND",w:[0.8,-0.5,-0.5],targets:[1,1,1,-1]}
+    ];
+    function makePerceptronProblem() {
+      if (Math.random()<.3) return makeLearningProblem();
+      const g=mlPick(gateCases), rows=[[0,0],[0,1],[1,0],[1,1]].map((x,i)=>{
+        const net=g.w[0]+x[0]*g.w[1]+x[1]*g.w[2]; return {x,net,y:net>0?1:-1,t:g.targets[i]};
+      });
+      return {
+        topic:"Perceptron",difficulty:"Sınavın 3. sorusu",source:"Yapay Sinir Ağları sunumu + sınıftaki AND ileri hesap örneği",
+        question:`Bias girişi x₀=1 olan perceptronda w₀=${mlFmt(g.w[0])}, w₁=${mlFmt(g.w[1])}, w₂=${mlFmt(g.w[2])}. net>0 ise y=+1, aksi halde y=−1. Tüm girişleri ileri hesaplayıp ${g.name} fonksiyonunun öğrenilip öğrenilmediğini gösteriniz.`,
+        data:`<table><thead><tr><th>x₁</th><th>x₂</th><th>Hedef (${g.name})</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${r.x[0]}</td><td>${r.x[1]}</td><td>${r.t>0?"+1":"−1"}</td></tr>`).join("")}</tbody></table>`,
+        hint:"Her satır için net=w₀·1+w₁x₁+w₂x₂ yaz. Net tam 0 olsa bile koşul “>0” olduğu için çıktı −1'dir.",
+        steps:rows.map((r,i)=>({title:`${i+1}. satır: x=(${r.x.join(",")})`,text:`net=${mlFmt(g.w[0])}+(${mlFmt(g.w[1])}·${r.x[0]})+(${mlFmt(g.w[2])}·${r.x[1]})=${mlFmt(r.net)}. ${mlFmt(r.net)} ${r.net>0?">":"≤"} 0 ⇒ y=${r.y>0?"+1":"−1"}. Hedef ${r.t>0?"+1":"−1"}; ${r.y===r.t?"doğru":"yanlış"}.`})).concat({title:"Sonucu değerlendir",text:rows.every(r=>r.y===r.t)?`Dört satırın tamamında çıktı hedefle aynı; ağırlıklar ${g.name} fonksiyonunu temsil eder.`:"En az bir satır hatalı; bu ağırlıklarla fonksiyon öğrenilmemiştir."}),
+        final:`<strong>${rows.every(r=>r.y===r.t)?`${g.name} fonksiyonu öğrenilmiştir.`:"Fonksiyon öğrenilememiştir."}</strong><br><small>Netler: ${rows.map(r=>mlFmt(r.net)).join("; ")} · Çıktılar: ${rows.map(r=>r.y>0?"+1":"−1").join("; ")}</small>`,
+        visual:{type:"perceptron",rows,w:g.w,name:g.name}
+      };
+    }
+    function makeLearningProblem() {
+      const cases=[
+        {w:[-0.4,0.2,0.3],x:[1,1],t:1,eta:.1}, {w:[0.2,-0.4,0.1],x:[1,0],t:1,eta:.2},
+        {w:[0.5,-0.2,-0.4],x:[1,1],t:-1,eta:.1}, {w:[-0.1,0.3,-0.2],x:[0,1],t:1,eta:.15}
+      ];
+      const c=mlPick(cases), net=c.w[0]+c.w[1]*c.x[0]+c.w[2]*c.x[1], o=net>0?1:-1, err=c.t-o;
+      const dw=[c.eta*err,c.eta*err*c.x[0],c.eta*err*c.x[1]], nw=c.w.map((v,i)=>v+dw[i]);
+      return {topic:"Perceptron Öğrenme",difficulty:"Sınavın 3. sorusu",source:"Yapay Sinir Ağları sunumu · Perceptron eğitim kuralı",
+        question:`η=${mlFmt(c.eta)}, başlangıç ağırlıkları (w₀,w₁,w₂)=(${c.w.map(v=>mlFmt(v)).join("; ")}), örnek x=(${c.x.join("; ")}) ve hedef t=${c.t>0?"+1":"−1"}. İleri çıktıyı ve bir eğitim adımı sonrası yeni ağırlıkları bulunuz.`,
+        data:`<div class="formula">x₀=1 · net=w₀+w₁x₁+w₂x₂ · Δwᵢ=η(t−o)xᵢ</div>`,hint:"Önce mevcut net ve o değerini bul. Güncellemede bias için x₀=1 kullanılır.",
+        steps:[
+          {title:"İleri hesabı yap",text:`net=${mlFmt(c.w[0])}+${mlFmt(c.w[1])}·${c.x[0]}+${mlFmt(c.w[2])}·${c.x[1]}=${mlFmt(net)} ⇒ o=${o>0?"+1":"−1"}.`},
+          {title:"Hata sinyalini bul",text:`t−o=${c.t>0?"1":"−1"}−(${o>0?"1":"−1"})=${mlFmt(err)}. ${err===0?"Örnek doğru sınıflandığı için değişim sıfırdır.":"Yanlış sınıflama vardır; ağırlıklar güncellenecek."}`},
+          {title:"Ağırlık değişimlerini hesapla",text:`Δw₀=${mlFmt(c.eta)}·${mlFmt(err)}·1=${mlFmt(dw[0])}; Δw₁=${mlFmt(c.eta)}·${mlFmt(err)}·${c.x[0]}=${mlFmt(dw[1])}; Δw₂=${mlFmt(c.eta)}·${mlFmt(err)}·${c.x[1]}=${mlFmt(dw[2])}.`},
+          {title:"Yeni ağırlıkları yaz",text:`w(yeni)=w(eski)+Δw ⇒ (${nw.map(v=>mlFmt(v)).join("; ")}).`}
+        ],final:`<strong>İlk çıktı ${o>0?"+1":"−1"}; yeni ağırlıklar (${nw.map(v=>mlFmt(v)).join("; ")}).</strong>`,
+        visual:{type:"perceptron",rows:[{x:c.x,net,y:o,t:c.t}],w:c.w,name:"Öğrenme adımı"}
+      };
+    }
+
+    function bankToProblem(item) {
+      return {topic:mlTopics[item.topic],difficulty:"Sürpriz 20 puan",source:`${mlTopics[item.topic]} sunumu`,question:item.q,data:"",hint:"Verilenleri, kullanılacak tanımı/formülü, ara işlemleri ve sonucu ayrı satırlarda yaz.",steps:item.steps.map((text,i)=>({title:`${i+1}. işlem`,text})),final:`<strong>Sınavda yazılacak özet:</strong> ${item.final}`,visual:{type:"none"}};
+    }
+
+    function buildMlSession(mode) {
+      if (mode==="hypothesis") return [makeHypothesisProblem()];
+      if (mode==="fuzzy") return [makeFuzzyProblem()];
+      if (mode==="perceptron") return [makePerceptronProblem()];
+      if (mode==="exam") return [makeHypothesisProblem(),makeFuzzyProblem(),makePerceptronProblem(),bankToProblem(mlPick(mlBank))];
+      return [];
+    }
+
+    function showSubject(name) {
+      $("subjectChooser").hidden=true; $("securityApp").hidden=name!=="security"; $("mlApp").hidden=name!=="ml";
+      localStorage.setItem("lastStudySubject",name); window.scrollTo({top:0,behavior:"smooth"});
+    }
+    function showSubjectChooser() {
+      clearInterval(state.timerId); $("subjectChooser").hidden=false; $("securityApp").hidden=true; $("mlApp").hidden=true; window.scrollTo({top:0,behavior:"smooth"});
+    }
+    function syncThemeButtons() {
+      const icon=document.documentElement.dataset.theme==="dark"?"☼":"☾";
+      ["themeButton","chooserThemeButton","mlThemeButton"].forEach(id=>{ if($(id)) $(id).textContent=icon; });
+    }
+    function toggleGlobalTheme() {
+      const theme=document.documentElement.dataset.theme==="dark"?"light":"dark";
+      document.documentElement.dataset.theme=theme; localStorage.setItem("bilgiGuvenligiTheme",theme); syncThemeButtons();
+      if(mlState.problem) renderMlVisual(mlState.revealed-1);
+    }
+
+    function mlShowHome() {
+      ["mlWorkspace","mlBankView","mlFormulaView"].forEach(id=>$(id).hidden=true); $("mlHome").hidden=false; mlState.mode=""; window.scrollTo({top:0,behavior:"smooth"});
+    }
+    function mlOpenMode(mode) {
+      $("mlHome").hidden=true; $("mlBankView").hidden=true; $("mlFormulaView").hidden=true;
+      if(mode==="bank") { $("mlBankView").hidden=false; renderMlBank(); window.scrollTo({top:0,behavior:"smooth"}); return; }
+      if(mode==="formula") { $("mlFormulaView").hidden=false; window.scrollTo({top:0,behavior:"smooth"}); return; }
+      $("mlWorkspace").hidden=false; mlState.mode=mode; mlState.session=buildMlSession(mode); mlState.index=0; renderMlProblem(); window.scrollTo({top:0,behavior:"smooth"});
+    }
+    function mlRegenerateOrAdvance() {
+      if(mlState.mode==="exam") {
+        if(mlState.index<mlState.session.length-1) mlState.index++;
+        else { mlState.session=buildMlSession("exam"); mlState.index=0; showToast("Yeni 4 soruluk prova hazırlandı."); }
+      } else mlState.session=buildMlSession(mlState.mode);
+      renderMlProblem();
+    }
+
+    function renderMlProblem() {
+      const p=mlState.session[mlState.index]; mlState.problem=p; mlState.revealed=0; cancelAnimationFrame(mlState.animationFrame);
+      $("mlTopicChip").textContent=p.topic; $("mlDifficultyChip").textContent=p.difficulty; $("mlSourceLabel").textContent=p.source;
+      $("mlQuestionText").textContent=p.question; $("mlQuestionData").innerHTML=p.data; $("mlScratch").value="";
+      $("mlHintBox").hidden=true; $("mlHintBox").textContent=p.hint; $("mlSolutionZone").hidden=true; $("mlSolutionSteps").innerHTML=""; $("mlFinalAnswer").hidden=true;
+      $("mlNextStepButton").disabled=false; $("mlNextStepButton").textContent="Sonraki adımı göster →";
+      $("mlProgressText").textContent=mlState.mode==="exam"?`${mlState.index+1}/4 soru`:"Yeni varyasyon";
+      $("mlNewButton").textContent=mlState.mode==="exam"?(mlState.index===3?"Yeni prova ↻":"Sonraki soru →"):"Yeni soru ↻";
+      prepareMlVisual();
+    }
+    function startMlSolution() { $("mlSolutionZone").hidden=false; if(!mlState.revealed) revealMlStep(); $("mlSolutionZone").scrollIntoView({behavior:"smooth",block:"start"}); }
+    function revealMlStep() {
+      const p=mlState.problem; if(mlState.revealed>=p.steps.length) return showMlFinal();
+      const step=p.steps[mlState.revealed], el=document.createElement("div"); el.className="solution-step";
+      el.innerHTML=`<span class="step-no">${mlState.revealed+1}</span><div><strong>${step.title}</strong><p>${step.text}</p></div>`;
+      $("mlSolutionSteps").appendChild(el); renderMlVisual(mlState.revealed); mlState.revealed++;
+      if(mlState.revealed>=p.steps.length) { $("mlNextStepButton").textContent="Sonucu göster ✓"; }
+    }
+    function showAllMlSteps() { $("mlSolutionZone").hidden=false; while(mlState.revealed<mlState.problem.steps.length) revealMlStep(); showMlFinal(); }
+    function showMlFinal() { $("mlFinalAnswer").innerHTML=mlState.problem.final; $("mlFinalAnswer").hidden=false; $("mlNextStepButton").disabled=true; $("mlNextStepButton").textContent="Çözüm tamamlandı"; renderMlVisual(99); }
+
+    function prepareMlVisual() {
+      $("mlCanvas").hidden=true; $("mlVisualHtml").innerHTML=""; $("mlVisualCaption").textContent="Çözümü başlattığında işlem burada canlanacak.";
+      const v=mlState.problem.visual;
+      if(v.type==="hypothesis") {
+        $("mlVisualTitle").textContent="Genellik merdiveni";
+        $("mlVisualHtml").innerHTML=`<div class="hypothesis-stack">${v.items.map(x=>`<div class="hypothesis-row" data-hyp="${x.id}"><b>${x.id}</b> &lt;${x.values.join(", ")}&gt;</div>`).join("")}</div>`;
+      } else if(v.type==="fuzzy") { $("mlVisualTitle").textContent="Üyelik fonksiyonu ve α-kesiti"; $("mlCanvas").hidden=false; drawFuzzy(0); }
+      else if(v.type==="perceptron") {
+        $("mlVisualTitle").textContent="Perceptron ileri akışı";
+        $("mlVisualHtml").innerHTML=`<div class="perceptron-live"><div class="net-equation">net = ${mlFmt(v.w[0])} + ${mlFmt(v.w[1])}x₁ + ${mlFmt(v.w[2])}x₂</div>${v.rows.map((r,i)=>`<div class="truth-row" data-row="${i}"><b>${r.x[0]}</b><b>${r.x[1]}</b><span>net ${mlFmt(r.net)}</span><span>y ${r.y>0?"+1":"−1"}</span><span>t ${r.t>0?"+1":"−1"}</span></div>`).join("")}</div>`;
+      } else { $("mlVisualTitle").textContent="Çözüm planı"; $("mlVisualHtml").innerHTML="<div class='hypothesis-stack'><div class='hypothesis-row'>1. Verilenleri yaz</div><div class='hypothesis-row'>2. Tanım veya formülü seç</div><div class='hypothesis-row'>3. Ara işlemleri göster</div><div class='hypothesis-row'>4. Sonucu yorumla</div></div>"; }
+    }
+
+    function renderMlVisual(step) {
+      const v=mlState.problem?.visual; if(!v) return;
+      if(v.type==="hypothesis") {
+        const upto=Math.min(Math.max(step+1,0),v.desired.length);
+        document.querySelectorAll(".hypothesis-row[data-hyp]").forEach(el=>el.classList.toggle("active",v.desired.slice(0,upto).includes(el.dataset.hyp)));
+        $("mlVisualCaption").textContent=upto?`Sıranın ilk ${upto} elemanı kapsama ilişkisiyle belirlendi.`:"En genel hipotez en büyük örnek kümesini kapsar.";
+      } else if(v.type==="fuzzy") {
+        const target=step<0?0:Math.min(1,(step+1)/5); animateFuzzy(target);
+        $("mlVisualCaption").textContent=step<2?"Kesin girişin üyelik derecesi grafikte okunuyor.":step<4?"Çıkış üçgeni α yüksekliğinde kesiliyor.":"Kesit noktalarının ağırlıklı ortalaması kesin çıkışı verir.";
+      } else if(v.type==="perceptron") {
+        const rows=[...document.querySelectorAll(".truth-row")]; rows.forEach((el,i)=>el.classList.toggle("active",step>=i));
+        $("mlVisualCaption").textContent=step>=v.rows.length?"Tüm satırlar hedeflerle karşılaştırıldı.":"Her satırda ağırlıklı toplam eşikten geçirilir.";
+      } else {
+        const rows=[...$("mlVisualHtml").children[0].children]; rows.forEach((el,i)=>el.classList.toggle("active",step>=i));
+      }
+    }
+
+    function canvasTheme() {
+      const s=getComputedStyle(document.documentElement); return {text:s.getPropertyValue("--text").trim(),muted:s.getPropertyValue("--muted").trim(),line:s.getPropertyValue("--line").trim(),accent:s.getPropertyValue("--accent").trim(),accent2:s.getPropertyValue("--accent-2").trim(),surface:s.getPropertyValue("--surface").trim()};
+    }
+    function drawFuzzy(progress=1) {
+      const canvas=$("mlCanvas"), rect=canvas.getBoundingClientRect(), dpr=Math.min(window.devicePixelRatio||1,2), w=Math.max(320,rect.width), h=250;
+      canvas.width=w*dpr; canvas.height=h*dpr; const ctx=canvas.getContext("2d"); ctx.scale(dpr,dpr); const c=canvasTheme(); ctx.clearRect(0,0,w,h);
+      const pad=34, mid=w/2, plotW=(w-pad*3)/2, base=h-38, top=32, plotH=base-top, v=mlState.problem.visual;
+      function axes(x0,label){ctx.strokeStyle=c.line;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(x0,top);ctx.lineTo(x0,base);ctx.lineTo(x0+plotW,base);ctx.stroke();ctx.fillStyle=c.muted;ctx.font="12px system-ui";ctx.fillText(label,x0,18);}
+      function tri(x0,tri,color){const min=tri[0],max=tri[2],map=x=>x0+(x-min)/(max-min)*plotW;ctx.strokeStyle=color;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(map(tri[0]),base);ctx.lineTo(map(tri[1]),top);ctx.lineTo(map(tri[2]),base);ctx.stroke();return map;}
+      const x1=pad,x2=mid+pad/2;axes(x1,"Giriş: Düşük sıcaklık");axes(x2,"Çıkış: Rezistans");
+      const mapIn=tri(x1,v.input.tri,c.accent2), mapOut=tri(x2,v.output.tri,c.accent);
+      if(progress>.08){const px=mapIn(v.input.x),py=base-v.input.mu*plotH;ctx.setLineDash([5,5]);ctx.strokeStyle=c.accent2;ctx.beginPath();ctx.moveTo(px,base);ctx.lineTo(px,py);ctx.lineTo(x1,py);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle=c.text;ctx.fillText(`μ=${mlFmt(v.input.mu)}`,x1+5,py-6);}
+      if(progress>.42){const a=Math.min(1,(progress-.42)/.35), y=base-v.output.alpha*a*plotH;ctx.strokeStyle=c.accent;ctx.setLineDash([5,4]);ctx.beginPath();ctx.moveTo(x2,y);ctx.lineTo(x2+plotW,y);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle=c.text;ctx.fillText(`α=${mlFmt(v.output.alpha*a)}`,x2+5,y-6);}
+      if(progress>.78){ctx.fillStyle=c.accent;const p1=mapOut(v.output.z1),p2=mapOut(v.output.z2),pc=mapOut(v.output.crisp);[p1,p2].forEach(p=>{ctx.beginPath();ctx.arc(p,base-v.output.alpha*plotH,4,0,Math.PI*2);ctx.fill();});ctx.strokeStyle=c.accent2;ctx.beginPath();ctx.moveTo(pc,base);ctx.lineTo(pc,top);ctx.stroke();ctx.fillStyle=c.text;ctx.fillText(`${mlFmt(v.output.crisp)} kΩ`,Math.min(pc+5,x2+plotW-62),top+14);}
+    }
+    function animateFuzzy(target) {
+      cancelAnimationFrame(mlState.animationFrame); const start=performance.now(),duration=500;
+      const tick=now=>{const p=Math.min(1,(now-start)/duration); drawFuzzy(target*(1-Math.pow(1-p,3))); if(p<1) mlState.animationFrame=requestAnimationFrame(tick);}; mlState.animationFrame=requestAnimationFrame(tick);
+    }
+
+    function renderMlBank() {
+      const filter=$("mlBankFilter").value, items=mlBank.filter(q=>filter==="all"||q.topic===filter);
+      $("mlBankList").innerHTML=items.map((item,i)=>`<details class="bank-item" id="bank-${item.id}"><summary><span class="bank-number">${String(i+1).padStart(2,"0")}</span><span class="bank-summary"><strong>${item.title}</strong><span>${mlTopics[item.topic]} · Klasik</span></span></summary><div class="bank-answer"><p><b>Soru:</b> ${item.q}</p><ol>${item.steps.map(s=>`<li>${s}</li>`).join("")}</ol><p class="exam-write"><b>Sınavda yazılacak sonuç:</b> ${item.final}</p></div></details>`).join("");
+    }
+    function renderFormulaSheet() {
+      $("mlFormulaGrid").innerHTML=mlFormulaSections.map(s=>`<article class="formula-card"><h3>${s.title}</h3><div class="formula">${s.formula.replaceAll("\n","<br>")}</div><ul>${s.notes.map(n=>`<li>${n}</li>`).join("")}</ul></article>`).join("")+`<div class="source-note">Kapsam: 1. Temel Kavramlar, 2. Concept Learning, 3. Karar Ağaçları (ID3/C4.5), 4. Bulanık Mantık–Bulanık Kontrol ve 6. Artificial Neural Networks sunumları ile sınıf tahtası örnekleri.</div>`;
+    }
+
+    function initializeMl() {
+      $("mlBankCount").textContent=mlBank.length;
+      Object.entries(mlTopics).forEach(([value,label])=>{const o=document.createElement("option");o.value=value;o.textContent=label;$("mlBankFilter").appendChild(o);});
+      renderMlBank(); renderFormulaSheet(); syncThemeButtons();
+      document.querySelectorAll("[data-subject]").forEach(b=>b.addEventListener("click",()=>showSubject(b.dataset.subject)));
+      document.querySelectorAll("[data-ml-mode]").forEach(b=>b.addEventListener("click",()=>mlOpenMode(b.dataset.mlMode)));
+      document.querySelectorAll("[data-ml-home]").forEach(b=>b.addEventListener("click",mlShowHome));
+      $("securitySubjectBack").addEventListener("click",showSubjectChooser); $("mlSubjectBack").addEventListener("click",showSubjectChooser); $("mlHomeButton").addEventListener("click",mlShowHome);
+      $("chooserThemeButton").addEventListener("click",toggleGlobalTheme); $("mlThemeButton").addEventListener("click",toggleGlobalTheme);
+      $("mlHintButton").addEventListener("click",()=>$("mlHintBox").hidden=!$("mlHintBox").hidden);
+      $("mlSolveButton").addEventListener("click",startMlSolution); $("mlNextStepButton").addEventListener("click",revealMlStep); $("mlShowAllButton").addEventListener("click",showAllMlSteps); $("mlNewButton").addEventListener("click",mlRegenerateOrAdvance);
+      $("mlBankFilter").addEventListener("change",renderMlBank); $("mlRandomBankButton").addEventListener("click",()=>{const item=mlPick(mlBank.filter(q=>$("mlBankFilter").value==="all"||q.topic===$("mlBankFilter").value));renderMlBank();requestAnimationFrame(()=>{const el=$(`bank-${item.id}`);el.open=true;el.scrollIntoView({behavior:"smooth",block:"center"});});});
+      $("printFormulaButton").addEventListener("click",()=>window.print());
+      window.addEventListener("resize",()=>{if(mlState.problem?.visual.type==="fuzzy")drawFuzzy(1);});
+    }
+
     initialize();
+    initializeMl();
   </script>
 </body>
 </html>
