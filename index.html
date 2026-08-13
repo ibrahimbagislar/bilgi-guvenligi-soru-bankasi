@@ -242,11 +242,20 @@
 
     .solution-zone { padding: clamp(20px, 4vw, 34px); border-top: 1px solid var(--line); background: color-mix(in srgb, var(--surface-2) 55%, transparent); }
     .solution-zone h3 { margin: 0 0 14px; }
-    .solution-steps { display: grid; gap: 10px; }
-    .solution-step { display: grid; grid-template-columns: 34px 1fr; gap: 12px; padding: 14px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface); animation: rise .24s ease; }
+    .solution-steps { display: grid; gap: 16px; }
+    .solution-step { display: grid; grid-template-columns: 42px 1fr; gap: 15px; padding: 18px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface); animation: rise .24s ease; }
     .step-no { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; color: #07111f; background: var(--accent); font-weight: 950; }
-    .solution-step strong { display: block; margin-bottom: 3px; }
-    .solution-step p { margin: 0; color: var(--muted); }
+    .solution-step .step-title { display: block; margin: 2px 0 12px; font-size: 17px; color: var(--text); }
+    .teaching-blocks { display: grid; gap: 9px; }
+    .teaching-block { padding: 11px 13px; border-left: 3px solid var(--line); border-radius: 0 10px 10px 0; background: var(--surface-2); }
+    .teaching-block b { display: block; margin-bottom: 4px; color: var(--text); font-size: 12px; letter-spacing: .035em; text-transform: uppercase; }
+    .teaching-block p { margin: 0; color: var(--muted); line-height: 1.7; }
+    .teaching-block.purpose { border-left-color: var(--accent-2); }
+    .teaching-block.math { border-left-color: var(--accent); }
+    .teaching-block.meaning { border-left-color: var(--correct); }
+    .teaching-formula { display: block; margin-top: 6px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 9px; color: var(--accent); background: var(--surface); font: 750 14px/1.7 "Cascadia Code",Consolas,monospace; overflow-x: auto; white-space: normal; }
+    .step-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
+    .step-chips span { padding: 5px 8px; border-radius: 8px; color: var(--muted); background: var(--surface); font-size: 11px; }
     .final-answer { margin-top: 13px; padding: 16px; border: 1px solid color-mix(in srgb, var(--correct) 52%, var(--line)); border-radius: 13px; background: color-mix(in srgb, var(--correct) 10%, var(--surface)); animation: rise .24s ease; }
     .final-answer strong { color: var(--correct); }
 
@@ -264,13 +273,19 @@
     .bank-summary span { color: var(--muted); font-size: 12px; }
     .bank-answer { padding: 0 17px 18px 50px; }
     .bank-answer ol { color: var(--muted); }
+    .bank-teaching { display: grid; gap: 9px; margin: 14px 0; }
+    .bank-teaching-step { display: grid; grid-template-columns: 28px 1fr; gap: 9px; padding: 11px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+    .bank-teaching-step > b { display: grid; place-items: center; width: 25px; height: 25px; border-radius: 7px; color: #07111f; background: var(--accent); font-size: 12px; }
+    .bank-teaching-step p { margin: 0; color: var(--muted); line-height: 1.65; }
     .bank-answer .exam-write { padding: 13px; border-left: 3px solid var(--correct); background: color-mix(in srgb, var(--correct) 8%, transparent); }
 
     .formula-head { padding: clamp(20px, 4vw, 34px); }
     .formula-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; padding: 0 clamp(20px, 4vw, 34px) clamp(20px, 4vw, 34px); }
     .formula-card { padding: 18px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface-2); }
     .formula-card h3 { margin: 0 0 12px; color: var(--accent); }
-    .formula { overflow-x: auto; margin: 9px 0; padding: 11px 13px; border-radius: 10px; background: var(--surface); font-family: "Cascadia Code", Consolas, monospace; }
+    .formula-label { display: block; margin-top: 10px; color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+    .formula { overflow-x: auto; margin: 6px 0 12px; padding: 13px; border: 1px solid var(--line); border-radius: 10px; color: var(--accent); background: var(--surface); font: 750 14px/1.75 "Cascadia Code", Consolas, monospace; }
+    .formula-how { margin: 0; padding: 11px 13px; border-left: 3px solid var(--correct); border-radius: 0 9px 9px 0; color: var(--muted); background: color-mix(in srgb,var(--correct) 7%,transparent); font-size: 13px; line-height: 1.65; }
     .formula-card ul { margin: 10px 0 0; padding-left: 20px; color: var(--muted); }
     .source-note { margin-top: 18px; padding: 13px; border: 1px dashed var(--line); border-radius: 12px; color: var(--muted); font-size: 12px; }
     .term-chooser { padding: clamp(22px, 4vw, 38px); }
@@ -550,13 +565,13 @@
           <div class="ml-work-area"><div class="ml-data" id="mlQuestionData"></div><label class="scratch-label">Kendi çözüm alanın<textarea class="scratch" id="mlScratch" placeholder="Formülleri ve ara sonuçları buraya yazabilirsin..."></textarea></label><div class="ml-actions"><button class="btn" id="mlHintButton" type="button">İpucu</button><button class="btn accent" id="mlSolveButton" type="button">Çözümü adım adım başlat</button></div><div class="hint-box" id="mlHintBox" hidden></div></div>
           <aside class="ml-visual"><h3 id="mlVisualTitle">Canlı çözüm alanı</h3><canvas id="mlCanvas" width="680" height="500" hidden></canvas><div id="mlVisualHtml"></div><p class="visual-caption" id="mlVisualCaption">Çözümü başlattığında işlem burada canlanacak.</p></aside>
         </div>
-        <section class="solution-zone" id="mlSolutionZone" hidden><h3>Çözüm adımları</h3><div class="solution-steps" id="mlSolutionSteps"></div><div class="ml-actions"><button class="btn accent" id="mlNextStepButton" type="button">Sonraki adımı göster →</button><button class="btn" id="mlShowAllButton" type="button">Tüm çözümü göster</button></div><div class="final-answer" id="mlFinalAnswer" hidden></div></section>
+        <section class="solution-zone" id="mlSolutionZone" hidden><h3>Öğreten çözüm</h3><p class="visual-caption">Her adımda yalnız işlemi değil, neden yaptığımızı ve çıkan sonucun ne anlama geldiğini göreceksin.</p><div class="solution-steps" id="mlSolutionSteps"></div><div class="ml-actions"><button class="btn accent" id="mlNextStepButton" type="button">Sonraki adımı öğret →</button><button class="btn" id="mlShowAllButton" type="button">Tüm çözümü öğret</button></div><div class="final-answer" id="mlFinalAnswer" hidden></div></section>
       </article>
     </section>
 
     <section id="mlBankView" class="panel" hidden>
       <div class="ml-toolbar"><div class="ml-toolbar-left"><button class="btn" data-ml-home type="button">← Ana menü</button><span class="chip category">Sürpriz 20 puan</span></div><button class="btn" id="mlRandomBankButton" type="button">Rastgele soru aç</button></div>
-      <div class="ml-bank-head"><div><h2>Klasik sürpriz soru bankası</h2><p>Her soruda işlem sırası ve sınavda yazılabilecek sonuç bulunur.</p></div><label>Konu filtresi<select id="mlBankFilter"><option value="all">Tüm konular</option></select></label></div>
+      <div class="ml-bank-head"><div><h2>Klasik sürpriz soru bankası</h2><p>Her soruda işlem sırası, işlemin amacı ve sınavda yazılabilecek sonuç birlikte verilir.</p></div><label>Konu filtresi<select id="mlBankFilter"><option value="all">Tüm konular</option></select></label></div>
       <div class="bank-list" id="mlBankList"></div>
     </section>
 
@@ -1306,6 +1321,11 @@
       return `<div class="ml-toolbar"><div class="ml-toolbar-left"><button class="btn" id="mlFinalHomeBtn" type="button">← Final menüsü</button><span class="chip category">${kicker}</span></div></div><article class="panel ml-problem"><header class="ml-problem-head"><div class="eyebrow">Önce öğren, sonra çöz</div><h2>${title}</h2></header><div class="ml-work-area" style="border:0"><div class="learn-first"><h3>Konu ne?</h3><p>${lesson}</p></div>${body}</div></article>`;
     }
 
+    function teachingStepHtml(step,index) {
+      const title=step.title||`${index+1}. adım`,lower=title.toLocaleLowerCase("tr-TR"),autoPurpose=lower.includes("bulanıklaştır")?"Kesin sayının ilgili sözel kümeye ne ölçüde ait olduğunu buluyoruz; çünkü bulanık kurallar doğrudan derece değerleriyle çalışır.":lower.includes("ateşle")?"Kuralın ne kadar güçlü çalışacağını belirliyoruz. VE bağlacında iki koşuldan zayıf olanı kuralın gücünü sınırlar.":lower.includes("durulaştır")?"Bulanık sonuç bir üyelik kümesidir; sistemi çalıştırabilmek için bunu tek bir kesin sayıya çeviriyoruz.":lower.includes("ileri")||lower.includes("satır")?"Mevcut ağırlıkların bu giriş için hangi sınıfı ürettiğini görmek üzere ağırlıklı toplamı hesaplıyoruz.":lower.includes("hata")?"Tahmin ile doğru cevap arasındaki farkı ölçüyoruz. Ağırlıkların değişip değişmeyeceğini bu fark belirler.":lower.includes("ağırlık")?"Hatanın her bağlantıya düşen düzeltme payını hesaplayıp karar sınırını doğru yöne kaydırıyoruz.":lower.includes("sırala")||lower.includes("kapsama")?"Hipotezlerin kapsadığı örnek kümelerini karşılaştırarak hangisinin daha genel olduğunu gerekçelendiriyoruz.":"Bu işlem, bir sonraki kararı verebilmek için gerekli ara bilgiyi üretir.",autoMeaning=lower.includes("bulanıklaştır")?"Üyelik 1'e yaklaştıkça giriş o kümeyi daha güçlü temsil eder; 0'a yaklaştıkça o kural üzerindeki etkisi azalır.":lower.includes("ateşle")?"Bulduğumuz α değeri, sonuç kümesinin hangi yükseklikten kesileceğini söyler.":lower.includes("durulaştır")?"Bulduğumuz kesin değer, denetleyicinin cihaza göndereceği gerçek çıkıştır.":lower.includes("hata")?"Hata 0 ise öğrenilecek bir şey yoktur; sıfırdan farklıysa ağırlıklar güncellenir.":lower.includes("ağırlık")?"Yeni ağırlıklar aynı örnek tekrar geldiğinde çıktının hedefe yaklaşmasını sağlar.":lower.includes("satır")||lower.includes("ileri")?"Net pozitifse +1, sıfır veya negatifse −1 seçilir; ardından hedefle karşılaştırılır.":"Bu ara sonucu bir sonraki adımda kullanacağız.",purpose=step.purpose||autoPurpose,formula=step.formula||step.text||"",substitution=step.substitution||"",meaning=step.meaning||step.interpretation||autoMeaning;
+      return `<span class="step-no">${index+1}</span><div><strong class="step-title">${title}</strong><div class="teaching-blocks"><div class="teaching-block purpose"><b>Bu adımın amacı</b><p>${purpose}</p></div>${formula?`<div class="teaching-block math"><b>${substitution?"Kullanılan kural / formül":"İşlem"}</b><span class="teaching-formula">${formula}</span>${substitution?`<p style="margin-top:7px"><b style="display:inline;text-transform:none;letter-spacing:0">Sayıları yerine koyunca:</b> ${substitution}</p>`:""}</div>`:""}<div class="teaching-block meaning"><b>Sonuç bize ne söylüyor?</b><p>${meaning}</p></div></div></div>`;
+    }
+
     function openMlFinal(mode) {
       const ws=$("mlFinalWorkspace"); ws.hidden=false;
       if(mode==="tf") renderTfFinal();
@@ -1399,17 +1419,17 @@
 
     function id3Stats(c) {
       const target=i=>c.rows[i][2],yes=c.rows.filter(r=>r[2]==="Evet").length,no=c.rows.length-yes,parent=entropy(yes,no);
-      const attrs=c.attrs.map((name,ai)=>{const groups={};c.rows.forEach(r=>(groups[r[ai]]??=[]).push(r[2]));let cond=0;Object.values(groups).forEach(g=>{const y=g.filter(x=>x==="Evet").length,n=g.length-y;cond+=g.length/c.rows.length*entropy(y,n);});return {name,groups,cond,gain:parent-cond};});return {yes,no,parent,attrs,best:[...attrs].sort((a,b)=>b.gain-a.gain)[0]};
+      const attrs=c.attrs.map((name,ai)=>{const groups={};c.rows.forEach(r=>(groups[r[ai]]??=[]).push(r[2]));const parts=Object.entries(groups).map(([value,g])=>{const y=g.filter(x=>x==="Evet").length,n=g.length-y;return {value,labels:g,yes:y,no:n,entropy:entropy(y,n),weight:g.length/c.rows.length};});const cond=parts.reduce((sum,p)=>sum+p.weight*p.entropy,0);return {name,groups,parts,cond,gain:parent-cond};});return {yes,no,parent,attrs,best:[...attrs].sort((a,b)=>b.gain-a.gain)[0]};
     }
     function renderId3Final() {
       const c=mlPick(id3Cases),s=id3Stats(c);
-      $("mlFinalWorkspace").innerHTML=finalShell("ID3: kök niteliği neden bilgi kazancıyla seçilir?","4. soru", "Karar ağacı her adımda veriyi daha saf gruplara bölmek ister. Entropi karışıklığı ölçer: 0 tamamen saf, 1 dengeli ikili sınıfta en karışık durumdur. Bilgi kazancı, bir niteliğin bu karışıklığı ne kadar azalttığını söyler.", `<div class="why-box"><b>Üç basit soru:</b> Başta ne kadar karışık? → Her nitelikle bölersem ne kadar karışık kalır? → Hangisi karışıklığı en çok azalttı?</div><div class="ml-data"><table><thead><tr><th>${c.attrs[0]}</th><th>${c.attrs[1]}</th><th>${c.name}</th></tr></thead><tbody>${c.rows.map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join("")}</tr>`).join("")}</tbody></table></div><div class="solution-steps" id="id3Steps"></div><div class="ml-actions"><button class="btn accent" id="id3Next" type="button">İlk adımı göster →</button><button class="btn" id="id3All" type="button">Tüm çözümü göster</button><button class="btn" id="id3New" type="button">Yeni veri kümesi ↻</button></div>`);
+      $("mlFinalWorkspace").innerHTML=finalShell("ID3 karar ağacını gerçekten anlayarak kur","4. soru", "Karar ağacı ardı ardına evet/hayır soruları soran bir karar sistemidir. ID3'ün ilk işi, veriyi en temiz biçimde ayıracak sütunu bulmaktır. Entropi karışıklığı, bilgi kazancı ise bir sütunun bu karışıklığı ne kadar azalttığını ölçer.", `<div class="immune-formulas"><div class="immune-formula"><div><h4>Entropi neyi ölçer?</h4><p>Bir grupta cevapların ne kadar birbirine karıştığını söyler. Hepsi aynıysa 0; Evet ve Hayır sayıları birbirine yakınsa değer 1'e yaklaşır.</p></div><div><span class="math-line">H(S) = −p(Evet)·log₂p(Evet) − p(Hayır)·log₂p(Hayır)</span><div class="formula-example"><b>log₂</b>, “2'nin kaçıncı kuvveti?” sorusudur. Hesap makinesinde log(x)÷log(2) ile bulunabilir.</div></div></div><div class="immune-formula"><div><h4>Bilgi kazancı neyi ölçer?</h4><p>Bir sütunla böldükten sonra karışıklığın ne kadar azaldığını gösterir. En büyük kazanç, ilk soru olarak en yararlı sütundur.</p></div><div><span class="math-line">Gain = Başlangıç entropisi − Bölme sonrası ağırlıklı entropi</span><div class="formula-example">Ağırlık kullanırız; çünkü 6 satırlık bir dalın toplam sonuca etkisi, 2 satırlık daldan daha büyük olmalıdır.</div></div></div></div><div class="why-box"><b>Çözüm yolumuz:</b> 1) Başlangıç karışıklığını ölç. 2) Her sütunu ayrı ayrı dene. 3) Karışıklığı en fazla azaltan sütunu kök seç. 4) Aynı işlemi saf olmayan dallarda tekrarla.</div><div class="ml-data"><table><thead><tr><th>${c.attrs[0]}</th><th>${c.attrs[1]}</th><th>${c.name}</th></tr></thead><tbody>${c.rows.map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join("")}</tr>`).join("")}</tbody></table></div><div class="solution-steps" id="id3Steps"></div><div class="ml-actions"><button class="btn accent" id="id3Next" type="button">İlk adımı öğret →</button><button class="btn" id="id3All" type="button">Tüm çözümü öğret</button><button class="btn" id="id3New" type="button">Yeni veri kümesi ↻</button></div>`);
       const steps=[
-        ["1. Hedef entropisi",`Evet=${s.yes}, Hayır=${s.no}. H(S)=−(${s.yes}/${c.rows.length})log₂(${s.yes}/${c.rows.length})−(${s.no}/${c.rows.length})log₂(${s.no}/${c.rows.length})=${mlFmt(s.parent)}. Bu değer başlangıç karışıklığıdır.`],
-        ...s.attrs.map((a,i)=>[`${i+2}. ${a.name} ile böl`,`Gruplar: ${Object.entries(a.groups).map(([k,g])=>`${k}=[${g.join(", ")}]`).join(" · ")}. Ağırlıklı çocuk entropisi=${mlFmt(a.cond)}. Neden ağırlık? Büyük dalın toplam karışıklığa etkisi daha fazla olmalıdır. Gain=${mlFmt(s.parent)}−${mlFmt(a.cond)}=${mlFmt(a.gain)}.`]),
-        ["4. Kökü seç",`${s.best.name} en yüksek kazanca (${mlFmt(s.best.gain)}) sahiptir. Bu yüzden ilk bölmede belirsizliği en çok o azaltır ve kök olur.`],
-        ["5. Ağacı sürdür",`Her saf olmayan dalda kalan nitelikler için aynı işlem tekrar edilir. Dal tamamen Evet/Hayır olduğunda yaprak oluşur; nitelik kalmazsa çoğunluk sınıfı kullanılır.`]
-      ];let step=0;const reveal=()=>{if(step>=steps.length)return;const el=document.createElement("div");el.className="solution-step";el.innerHTML=`<span class="step-no">${step+1}</span><div><strong>${steps[step][0]}</strong><p>${steps[step][1]}</p></div>`;$("id3Steps").appendChild(el);step++;$("id3Next").disabled=step===steps.length;$("id3Next").textContent=step===steps.length?"Kök bulundu ✓":"Sonraki adım →";};
+        {title:"Önce bütün tablonun karışıklığını ölç",purpose:"Henüz hiçbir sütunla bölmedik. Sonraki kazanç hesaplarını karşılaştırabilmek için başlangıçtaki karışıklığı bir sayı hâline getiriyoruz.",formula:"H(S) = −p(Evet)·log₂p(Evet) − p(Hayır)·log₂p(Hayır)",substitution:`p(Evet)=${s.yes}/${c.rows.length}; p(Hayır)=${s.no}/${c.rows.length}<br>H(S)=−(${s.yes}/${c.rows.length})log₂(${s.yes}/${c.rows.length})−(${s.no}/${c.rows.length})log₂(${s.no}/${c.rows.length})=<b>${mlFmt(s.parent)}</b>`,meaning:`Başlangıç entropisi ${mlFmt(s.parent)} çıktı. 0 olmadığı için cevaplar tamamen aynı değil; 1'e ${s.parent>.7?"oldukça yakın olduğu için veri belirgin biçimde karışık":"çok yakın olmadığı için karışıklık sınırlı"}. Şimdi hangi sütunun bunu azaltacağını deneyeceğiz.`},
+        ...s.attrs.map(a=>({title:`“${a.name}” sütunuyla bölmeyi dene`,purpose:`${a.name} kök olursa her farklı değer ayrı bir dal oluşturur. Bu dalların eski tablodan daha temiz olup olmadığını ölçüyoruz.`,formula:a.parts.map(p=>`H(${p.value}) = H(${p.yes} Evet, ${p.no} Hayır) = ${mlFmt(p.entropy)}`).join("<br>")+`<br><br>H(${a.name},S) = Σ (dal boyutu / ${c.rows.length}) × dal entropisi`,substitution:a.parts.map(p=>`(${p.labels.length}/${c.rows.length})×${mlFmt(p.entropy)}`).join(" + ")+` = <b>${mlFmt(a.cond)}</b><br>Gain(${a.name})=${mlFmt(s.parent)}−${mlFmt(a.cond)}=<b>${mlFmt(a.gain)}</b>`,meaning:`${a.name} ile bölünce geriye ${mlFmt(a.cond)} karışıklık kalıyor; başlangıca göre ${mlFmt(a.gain)} azalma sağlandı. ${a.parts.filter(p=>p.entropy===0).length?`${a.parts.filter(p=>p.entropy===0).map(p=>p.value).join(", ")} dalı saf olduğu için bu dallarda karar hemen verilebilir.`:"Henüz hiçbir dal tamamen saf değil; alt dallarda yeni bölmeler gerekecek."}` })),
+        {title:"Kazançları karşılaştır ve kökü seç",purpose:"ID3 tahminle sütun seçmez. Hesapladığımız kazançların en büyüğünü kullanır; çünkü o sütun belirsizliği en fazla azaltmıştır.",formula:s.attrs.map(a=>`Gain(${a.name}) = ${mlFmt(a.gain)}`).join("<br>"),substitution:`En büyük değer = <b>${mlFmt(s.best.gain)}</b>`,meaning:`Bu nedenle ağacın kökü <b>${s.best.name}</b> olur. İlk sorumuz “${s.best.name} nedir?” şeklindedir.`},
+        {title:"Kökten sonra dalları tamamla",purpose:"Kök yalnız ilk soruyu belirler. İçinde hem Evet hem Hayır bulunan dallarda karar henüz kesin değildir.",formula:"Saf dal → doğrudan yaprak<br>Karışık dal → kalan sütunlarla entropi ve kazancı yeniden hesapla<br>Sütun kalmadıysa → çoğunluk sınıfını yaprak yap",substitution:`${Object.entries(s.best.groups).map(([value,labels])=>`${value}: [${labels.join(", ")}] → ${new Set(labels).size===1?`<b>${labels[0]} yaprağı</b>`:"karışık; bölmeye devam"}`).join("<br>")}`,meaning:"Ağaç, bütün dallar karar verebilir hâle gelene veya kullanılacak sütun kalmayana kadar aynı mantıkla büyür."}
+      ];let step=0;const reveal=()=>{if(step>=steps.length)return;const el=document.createElement("div");el.className="solution-step";el.innerHTML=teachingStepHtml(steps[step],step);$("id3Steps").appendChild(el);step++;$("id3Next").disabled=step===steps.length;$("id3Next").textContent=step===steps.length?"Kök ve dallar açıklandı ✓":"Sonraki adımı öğret →";};
       $("id3Next").addEventListener("click",reveal);$("id3All").addEventListener("click",()=>{while(step<steps.length)reveal();});$("id3New").addEventListener("click",renderId3Final);
     }
 
@@ -1574,7 +1594,7 @@
       $("mlTopicChip").textContent=p.topic; $("mlDifficultyChip").textContent=p.difficulty; $("mlSourceLabel").textContent=p.source;
       $("mlQuestionText").textContent=p.question; $("mlQuestionData").innerHTML=(p.lesson?`<div class="learn-first"><h3>${p.lesson.title}</h3><p>${p.lesson.text}</p><div class="why-box"><b>Neden öğreniyoruz?</b> ${p.lesson.why}</div></div>`:"")+p.data; $("mlScratch").value="";
       $("mlHintBox").hidden=true; $("mlHintBox").textContent=p.hint; $("mlSolutionZone").hidden=true; $("mlSolutionSteps").innerHTML=""; $("mlFinalAnswer").hidden=true;
-      $("mlNextStepButton").disabled=false; $("mlNextStepButton").textContent="Sonraki adımı göster →";
+      $("mlNextStepButton").disabled=false; $("mlNextStepButton").textContent="Sonraki adımı öğret →";
       $("mlProgressText").textContent=mlState.mode==="exam"?`${mlState.index+1}/4 soru`:"Yeni varyasyon";
       $("mlNewButton").textContent=mlState.mode==="exam"?(mlState.index===3?"Yeni prova ↻":"Sonraki soru →"):"Yeni soru ↻";
       prepareMlVisual();
@@ -1583,12 +1603,12 @@
     function revealMlStep() {
       const p=mlState.problem; if(mlState.revealed>=p.steps.length) return showMlFinal();
       const step=p.steps[mlState.revealed], el=document.createElement("div"); el.className="solution-step";
-      el.innerHTML=`<span class="step-no">${mlState.revealed+1}</span><div><strong>${step.title}</strong><p>${step.text}</p></div>`;
+      el.innerHTML=teachingStepHtml(step,mlState.revealed);
       $("mlSolutionSteps").appendChild(el); renderMlVisual(mlState.revealed); mlState.revealed++;
-      if(mlState.revealed>=p.steps.length) { $("mlNextStepButton").textContent="Sonucu göster ✓"; }
+      if(mlState.revealed>=p.steps.length) { $("mlNextStepButton").textContent="Öğrendim, sonucu göster ✓"; }
     }
     function showAllMlSteps() { $("mlSolutionZone").hidden=false; while(mlState.revealed<mlState.problem.steps.length) revealMlStep(); showMlFinal(); }
-    function showMlFinal() { $("mlFinalAnswer").innerHTML=mlState.problem.final; $("mlFinalAnswer").hidden=false; $("mlNextStepButton").disabled=true; $("mlNextStepButton").textContent="Çözüm tamamlandı"; renderMlVisual(99); }
+    function showMlFinal() { $("mlFinalAnswer").innerHTML=mlState.problem.final; $("mlFinalAnswer").hidden=false; $("mlNextStepButton").disabled=true; $("mlNextStepButton").textContent="Çözüm ve yorum tamamlandı"; renderMlVisual(99); }
 
     function prepareMlVisual() {
       $("mlCanvas").hidden=true; $("mlVisualHtml").innerHTML=""; $("mlVisualCaption").textContent="Çözümü başlattığında işlem burada canlanacak.";
@@ -1642,10 +1662,10 @@
 
     function renderMlBank() {
       const filter=$("mlBankFilter").value, items=mlBank.filter(q=>filter==="all"||q.topic===filter);
-      $("mlBankList").innerHTML=items.map((item,i)=>`<details class="bank-item" id="bank-${item.id}"><summary><span class="bank-number">${String(i+1).padStart(2,"0")}</span><span class="bank-summary"><strong>${item.title}</strong><span>${mlTopics[item.topic]} · Klasik</span></span></summary><div class="bank-answer"><p><b>Soru:</b> ${item.q}</p><ol>${item.steps.map(s=>`<li>${s}</li>`).join("")}</ol><p class="exam-write"><b>Sınavda yazılacak sonuç:</b> ${item.final}</p></div></details>`).join("");
+      $("mlBankList").innerHTML=items.map((item,i)=>`<details class="bank-item" id="bank-${item.id}"><summary><span class="bank-number">${String(i+1).padStart(2,"0")}</span><span class="bank-summary"><strong>${item.title}</strong><span>${mlTopics[item.topic]} · Klasik</span></span></summary><div class="bank-answer"><p><b>Soru:</b> ${item.q}</p><div class="why-box"><b>Bu soruda ne öğreniyoruz?</b> Soruyu küçük adımlara ayırıp her ara sonucun bir sonraki kararı nasıl hazırladığını göreceğiz.</div><div class="bank-teaching">${item.steps.map((s,j)=>`<div class="bank-teaching-step"><b>${j+1}</b><p>${s}</p></div>`).join("")}</div><p class="exam-write"><b>Sınavda yazılacak sonuç:</b> ${item.final}</p></div></details>`).join("");
     }
     function renderFormulaSheet() {
-      $("mlFormulaGrid").innerHTML=mlFormulaSections.map(s=>`<article class="formula-card"><h3>${s.title}</h3><div class="formula">${s.formula.replaceAll("\n","<br>")}</div><ul>${s.notes.map(n=>`<li>${n}</li>`).join("")}</ul></article>`).join("")+`<div class="source-note">Kapsam: 1. Temel Kavramlar, 2. Concept Learning, 3. Karar Ağaçları (ID3/C4.5), 4. Bulanık Mantık–Bulanık Kontrol ve 6. Artificial Neural Networks sunumları ile sınıf tahtası örnekleri.</div>`;
+      $("mlFormulaGrid").innerHTML=mlFormulaSections.map(s=>`<article class="formula-card"><h3>${s.title}</h3><span class="formula-label">Formül / kural</span><div class="formula">${s.formula.replaceAll("\n","<br>")}</div><p class="formula-how"><b>Nasıl kullanılır?</b> ${s.notes[0]}</p><span class="formula-label">Kontrol ederken unutma</span><ul>${s.notes.slice(1).map(n=>`<li>${n}</li>`).join("")}</ul></article>`).join("")+`<div class="source-note">Kapsam: 1. Temel Kavramlar, 2. Concept Learning, 3. Karar Ağaçları (ID3/C4.5), 4. Bulanık Mantık–Bulanık Kontrol ve 6. Artificial Neural Networks sunumları ile sınıf tahtası örnekleri.</div>`;
     }
 
     function initializeMl() {
