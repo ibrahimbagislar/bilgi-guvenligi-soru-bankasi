@@ -375,6 +375,28 @@
     .lesson-stage .stage-why { padding: 12px; border-left: 3px solid var(--accent-2); background: var(--surface-2); }
     .lesson-stage .solution-step .step-title { display: none; }
     .lesson-stage .solution-step .teaching-blocks { margin: 0; }
+    .stage-guide { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 16px; }
+    .stage-guide > div { padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+    .stage-guide small { display: block; margin-bottom: 6px; color: var(--accent); font-size: 11px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
+    .stage-guide p { margin: 0; color: var(--muted); line-height: 1.65; }
+    .stage-guide .stage-result { border-color: color-mix(in srgb,var(--correct) 60%,var(--line)); }
+    .worked-calc { display: grid; gap: 9px; margin: 13px 0; }
+    .worked-calc > div { padding: 13px 15px; border-left: 3px solid var(--accent); border-radius: 0 11px 11px 0; background: var(--surface-2); }
+    .worked-calc b { display: block; margin-bottom: 5px; }
+    .worked-calc code { color: var(--text); font: 750 13px/1.65 "Cascadia Code",Consolas,monospace; white-space: normal; }
+    .stage-data-title { margin: 18px 0 8px; font-size: 15px; }
+    .stage-data-note { margin: -2px 0 10px; color: var(--muted); font-size: 13px; }
+    .compact-data .immune-table { max-height: none; }
+    .full-data { margin-top: 10px; border: 1px solid var(--line); border-radius: 11px; background: var(--surface); }
+    .full-data summary { cursor: pointer; padding: 12px 14px; color: var(--accent); font-weight: 850; }
+    .full-data .immune-table { margin: 0; border: 0; border-top: 1px solid var(--line); border-radius: 0 0 11px 11px; }
+    .formula-focus { margin: 14px 0; padding: 15px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-2); }
+    .formula-focus small { display: block; margin-bottom: 7px; color: var(--muted); }
+    .formula-focus .math-line { font-size: 16px; }
+    .reveal-chip { display: inline-flex; margin-left: 7px; padding: 3px 7px; border-radius: 999px; color: #07111f; background: var(--correct); font-size: 10px; font-weight: 900; vertical-align: middle; }
+    .lesson-goal { margin-bottom: 15px; padding: 15px 17px; border-left: 4px solid var(--accent); border-radius: 0 13px 13px 0; background: var(--surface-2); }
+    .lesson-goal b { display: block; margin-bottom: 5px; color: var(--accent); }
+    .lesson-goal p { margin: 0; line-height: 1.65; }
     .lesson-start { padding: 20px; text-align: center; border: 1px dashed var(--line); border-radius: 15px; background: var(--surface-2); }
     .lesson-start p { max-width: 680px; margin: 0 auto 14px; color: var(--muted); line-height: 1.7; }
     .step-only-note { margin: 10px 0; color: var(--muted); font-size: 13px; text-align: center; }
@@ -392,6 +414,7 @@
       .ml-hero, .ml-problem-body { grid-template-columns: 1fr; }
       .exam-map { grid-template-columns: repeat(2, 1fr); }
       .lab-grid { grid-template-columns: repeat(2, 1fr); }
+      .stage-guide { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 680px) {
@@ -606,6 +629,7 @@
     </div>
 
     <section id="mlFinalStudy" hidden>
+      <div id="mlFinalMenu">
       <section class="hero ml-hero"><div><div class="eyebrow">Final · 4 klasik soru</div><h1>Konu aslında dört basit fikre dayanıyor.</h1><p>Önce fikri günlük dille öğren, sonra görsel üzerinde dene, en sonunda hocanın yazılı formatında çöz. İşlemlerde her adımın “neden”i ayrıca açıklanır.</p></div><div class="exam-map"><div><b>1. soru</b><span>Doğru/Yanlış ile nokta atışı bilgi</span></div><div><b>2. soru</b><span>İki grafikte doğrusal ayrımı çiz</span></div><div><b>3. soru</b><span>Klonal seçimin 8 aşamasını uygula</span></div><div><b>4. soru</b><span>ID3 ağacını entropi ve kazançla kur</span></div></div></section>
       <div class="panel ml-intro"><div class="learn-first"><h3>Çalışma sırası</h3><p>“Konuyu öğren” bölümünden başla. Soruda önce kendin dene. Çözümü açtığında yalnız formülü değil, o formülün neden kullanıldığını da göreceksin.</p></div><div class="final-topic-grid">
         <button class="final-topic" data-ml-final="tf" type="button"><b>1. SORU</b><strong>Doğru / Yanlış maratonu</strong><span>Sunumlardaki tanımlar, algoritmalar ve sık karıştırılan ayrımlar.</span></button>
@@ -613,6 +637,7 @@
         <button class="final-topic" data-ml-final="clone" type="button"><b>3. SORU · EN ÖNEMLİ</b><strong>Yapay bağışıklık / CLONALG</strong><span>Hocanın amaç, klon ve hipermutasyon formülleriyle sekiz aşamalı tablo animasyonu.</span></button>
         <button class="final-topic" data-ml-final="id3" type="button"><b>4. SORU</b><strong>ID3 karar ağacı</strong><span>Entropi neyi ölçer, kazanç neden hesaplanır, kök nasıl seçilir?</span></button>
       </div></div>
+      </div>
       <section id="mlFinalWorkspace" hidden></section>
       <footer class="footer">Final: ders sunumları, Apriori ve K-means notları ile öğretmenin açıkladığı dört soru düzeni.</footer>
     </section>
@@ -1335,7 +1360,7 @@
 
     function openMlTerm(term) {
       $("mlTermChooser").hidden=true; $("mlVizeStudy").hidden=term!=="vize"; $("mlFinalStudy").hidden=term!=="final";
-      if(term==="vize") mlShowHome(); else { $("mlFinalWorkspace").hidden=true; window.scrollTo({top:0,behavior:"smooth"}); }
+      if(term==="vize") mlShowHome(); else { $("mlFinalMenu").hidden=false; $("mlFinalWorkspace").hidden=true; window.scrollTo({top:0,behavior:"smooth"}); }
     }
 
     function finalShell(title,kicker,lesson,body) {
@@ -1348,12 +1373,12 @@
     }
 
     function openMlFinal(mode) {
-      const ws=$("mlFinalWorkspace"); ws.hidden=false;
+      const ws=$("mlFinalWorkspace"); $("mlFinalMenu").hidden=true; ws.hidden=false;
       if(mode==="tf") renderTfFinal();
       if(mode==="linear") renderLinearFinal();
       if(mode==="clone") renderCloneFinal();
       if(mode==="id3") renderId3Final();
-      $("mlFinalHomeBtn").addEventListener("click",()=>{ws.hidden=true;window.scrollTo({top:0,behavior:"smooth"});});
+      $("mlFinalHomeBtn").addEventListener("click",()=>{ws.hidden=true;$("mlFinalMenu").hidden=false;window.scrollTo({top:0,behavior:"smooth"});});
       ws.scrollIntoView({behavior:"smooth",block:"start"});
     }
 
@@ -1418,7 +1443,8 @@
       const refill=Array.from({length:original.length-c.select},(_,i)=>{const p=randomPoint(c,rng);return {id:`Yeni-Ab${c.select+i+1}`,x1:p[0],x2:p[1],fitness:c.fn(p[0],p[1]),source:"Yeni rastgele aday"};});
       return {original,ranked,selected,clones,cloneRanked,winners,next:[...winners,...refill],best,worst};
     }
-    function renderCloneFinal(caseId) {
+    /* Önceki CLONALG görünümü karşılaştırma için kaynakta tutulur; uygulama yeni renderCloneFinal akışını kullanır.
+    function renderCloneFinalLegacy(caseId) {
       const c=caseId?cloneCases.find(x=>x.id===caseId):mlPick(cloneCases),r=buildCloneRun(c),direction=c.goal==="max"?"büyükten küçüğe":"küçükten büyüğe",goalText=c.goal==="max"?"en büyük değeri bulmak":"en küçük değeri bulmak",baseCols=[
         {label:"Antikor",value:"id"},{label:"x₁",value:x=>mlFmt(x.x1,3)},{label:"x₂",value:x=>mlFmt(x.x2,3)},{label:"f(x)",value:x=>x.fitness===undefined?"—":mlFmt(x.fitness,3)},{label:"Açıklama",value:x=>x.source||"Aday çözüm"}
       ];
@@ -1439,6 +1465,51 @@
       $("mlFinalWorkspace").innerHTML=finalShell("Yapay bağışıklığı adım adım çöz","3. soru · odaklı anlatım", "Kısaca: adaylar üret → iyileri seç → kopyala → biraz değiştir → yeniden seç. Şimdilik bilmen gereken tek şey, her antikorun bir (x₁,x₂) çözüm adayı olduğudur.", `<div class="immune-case-picker"><label for="cloneCaseSelect">Örnek:</label><select id="cloneCaseSelect">${cloneCases.map(x=>`<option value="${x.id}" ${x.id===c.id?"selected":""}>${x.name}</option>`).join("")}</select><button class="btn" id="cloneRefresh" type="button">Yeni sayılar ↻</button></div><div class="immune-brief"><div class="immune-brief-card goal"><small>Aradığımız şey</small><strong>f(x) = ${c.formula}</strong><span class="immune-goal-badge">${c.goal==="max"?"EN BÜYÜK değeri bul":"EN KÜÇÜK değeri bul"}</span></div><div class="immune-brief-card"><small>x₁ aralığı</small><strong>${mlFmt(c.bounds[0][0],2)} ≤ x₁ ≤ ${mlFmt(c.bounds[0][1],2)}</strong></div><div class="immune-brief-card"><small>x₂ aralığı</small><strong>${mlFmt(c.bounds[1][0],2)} ≤ x₂ ≤ ${mlFmt(c.bounds[1][1],2)}</strong></div></div><div class="lesson-progress" id="cloneProgress">${stages.map((_,i)=>`<span>${i+1}</span>`).join("")}</div><div id="cloneStage"><div class="lesson-start"><p>Formülleri şimdi ezberlemene gerek yok. Her formül yalnız kullanılacağı adım geldiğinde açıklanacak.</p><button class="btn accent" id="cloneStart" type="button">1. adımdan başla →</button></div></div><p class="step-only-note">Bir sonraki düğmesine bastığında mevcut adım kapanır ve yenisi açılır.</p><div class="ml-actions"><button class="btn" id="clonePrev" type="button" hidden>← Önceki adım</button><button class="btn accent" id="cloneNext" type="button" hidden>Sonraki adım →</button></div>`);
       let step=-1;const renderStage=()=>{const progress=$("cloneProgress").querySelectorAll("span");progress.forEach((x,i)=>x.className=i<step?"done":i===step?"active":"");if(step<0)return;const s=stages[step];$("cloneStage").innerHTML=`<section class="lesson-stage"><div class="lesson-stage-head"><span>${step+1}</span><h3>${s.title}</h3></div><p class="stage-why"><b>Neden bu adımı yapıyoruz?</b><br>${s.why}</p>${s.html}${step===stages.length-1?teacherResult:""}</section>`;$("clonePrev").hidden=false;$("cloneNext").hidden=false;$("cloneNext").disabled=step===stages.length-1;$("cloneNext").textContent=step===stages.length-1?"Bir iterasyon tamamlandı ✓":`${step+2}. adıma geç →`;};
       $("cloneStart").addEventListener("click",()=>{step=0;renderStage();});$("cloneNext").addEventListener("click",()=>{if(step<stages.length-1){step++;renderStage();$("cloneStage").scrollIntoView({behavior:"smooth",block:"start"});}});$("clonePrev").addEventListener("click",()=>{if(step>0){step--;renderStage();}else{step=-1;renderCloneFinal(c.id);}});$("cloneCaseSelect").addEventListener("change",e=>{cloneSeedOffset=0;renderCloneFinal(e.target.value);});$("cloneRefresh").addEventListener("click",()=>{cloneSeedOffset+=997;renderCloneFinal(c.id);});
+    }
+
+    */
+    function clonePlainGoal(c) {
+      if(c.id==="sunum-max") return "x₁ ve x₂ değerlerini verilen sınırlar içinde seçip formülün ürettiği puanı olabildiğince büyütmek.";
+      if(c.id==="kase-min") return "x₁ ve x₂ ayarlarını seçip üretim hatasını gösteren puanı sıfıra yaklaştırmak.";
+      if(c.id==="kar-max") return "x₁ ve x₂ kararlarını seçip kârı gösteren puanı olabildiğince büyütmek.";
+      return "x₁ ve x₂ ayarlarını seçip enerji tüketimini gösteren puanı olabildiğince küçültmek.";
+    }
+    function cloneSubstitution(c,row) {
+      const x1=mlFmt(row.x1,3),x2=mlFmt(row.x2,3),result=mlFmt(row.fitness,3);
+      if(c.id==="sunum-max") return `21,5 + (${x1})·sin(4π·${x1}) + (${x2})·sin(20π·${x2}) = <b>${result}</b>`;
+      if(c.id==="kase-min") return `(${x1}−3)² + 2·(${x2}+2)² = <b>${result}</b>`;
+      if(c.id==="kar-max") return `50 − (${x1}−4)² − 3·(${x2}−1)² = <b>${result}</b>`;
+      return `(${x1})² + 2·(${x2})² + 4 = <b>${result}</b>`;
+    }
+    function stagedImmuneTable(rows,columns,label,visible=5) {
+      const sample=rows.slice(0,visible),remaining=Math.max(0,rows.length-sample.length);
+      return `<div class="compact-data">${immuneTable(sample,columns)}</div>${remaining?`<details class="full-data"><summary>Tüm ${rows.length} satırı göster (${remaining} satır daha)</summary>${immuneTable(rows,columns)}</details>`:""}`;
+    }
+    function renderCloneFinal(caseId) {
+      const c=caseId?cloneCases.find(x=>x.id===caseId):mlPick(cloneCases),r=buildCloneRun(c);
+      const isMax=c.goal==="max",direction=isMax?"büyükten küçüğe":"küçükten büyüğe",betterWord=isMax?"büyük":"küçük";
+      const candidateCols=[{label:"Antikor",value:"id"},{label:"x₁",value:x=>mlFmt(x.x1,3)},{label:"x₂",value:x=>mlFmt(x.x2,3)},{label:"Bu aşamadaki durum",value:()=>"Puanı henüz hesaplanmadı"}];
+      const scoredCols=[{label:"Antikor",value:"id"},{label:"x₁",value:x=>mlFmt(x.x1,3)},{label:"x₂",value:x=>mlFmt(x.x2,3)},{label:'f(x) <span class="reveal-chip">YENİ</span>',value:x=>mlFmt(x.fitness,3)}];
+      const selectedSummary=r.selected.map((x,i)=>({...x,cloneCount:Math.round(c.beta*r.original.length/(i+1)),cloneFormula:`Round(${mlFmt(c.beta,2)} × ${r.original.length} ÷ ${i+1})`}));
+      const mutationSummary=r.selected.map(parent=>{const copies=r.clones.filter(x=>x.parent===parent.id),first=copies[0];return {...parent,cloneCount:copies.length,quality:first.quality,mutationCount:first.mutationCount,mutationText:first.mutationCount===0?"Klonu değiştirme":first.mutationCount===1?"Her klonda x₁ veya x₂'den birini değiştir":"Her klonda x₁ ve x₂'yi değiştir"};});
+      const stage2Examples=r.original.slice(0,2).map(x=>`<div><b>${x.id}: x₁=${mlFmt(x.x1,3)}, x₂=${mlFmt(x.x2,3)}</b><code>${cloneSubstitution(c,x)}</code></div>`).join("");
+      const cloneExamples=selectedSummary.slice(0,2).map(x=>`<div><b>${x.id} — başarı sırası i=${x.rank}</b><code>Cᵢ = Round(${mlFmt(c.beta,2)} × ${r.original.length} ÷ ${x.rank}) = <b>${x.cloneCount} klon</b></code></div>`).join("");
+      const mutationExamples=mutationSummary.filter((x,i,a)=>i===0||x.mutationCount!==a[0].mutationCount).slice(0,2).map(x=>`<div><b>${x.id}: q=${mlFmt(x.quality,3)}</b><code>μ = Round(e<sup>(−10×${mlFmt(x.quality,3)})</sup> × 2) = <b>${x.mutationCount}</b><br>${x.mutationText}</code></div>`).join("");
+      const stages=[
+        {title:`${c.popSize} başlangıç adayı oluştur`,purpose:"Aramaya tek bir tahminle başlarsak iyi çözümün bulunduğu bölgeyi kaçırabiliriz. Bu yüzden farklı noktalardan başlarız.",action:`x₁ için ${mlFmt(c.bounds[0][0],2)}–${mlFmt(c.bounds[0][1],2)}, x₂ için ${mlFmt(c.bounds[1][0],2)}–${mlFmt(c.bounds[1][1],2)} aralığından rastgele ikililer üret. Her ikili bir antikordur.`,result:`Elimizde ${c.popSize} farklı (x₁,x₂) adayı var. Bu adımda yalnız adayları ürettik; hangisinin iyi olduğunu henüz bilmiyoruz.`,html:`<h4 class="stage-data-title">Önce yalnız adayların oluştuğunu gör</h4><p class="stage-data-note">Dikkat: f(x) sütunu özellikle yok. Puanı bir sonraki adımda hesaplayacağız.</p>${stagedImmuneTable(r.original,candidateCols,"aday",6)}`},
+        {title:"Her adayın puanını ilk kez hesapla",purpose:"Adayları karşılaştırabilmek için her birine aynı puanlama kuralını uygulamamız gerekir. f(x), adayın ne kadar iyi olduğunu söyleyen ortak ölçüdür.",action:"Her satırdaki x₁ ve x₂ değerlerini soruda verilen f(x) formülünde yerine koy. Hesap makinesinden çıkan sonucu o satırın puanı olarak yaz.",result:`Artık her adayın f(x) puanı var. Bu soru ${isMax?"maksimizasyon":"minimizasyon"} olduğu için ${betterWord} puan daha iyi aday demektir.`,html:`<div class="formula-focus"><small>Bu adımda ilk kez kullanacağımız puanlama kuralı</small><span class="math-line">f(x) = ${c.formula}</span></div><div class="worked-calc">${stage2Examples}</div><h4 class="stage-data-title">Hesaplanan puanlar</h4>${stagedImmuneTable(r.original,scoredCols,"puan",6)}`},
+        {title:`Puanları ${direction} sırala ve ilk n=${c.select} adayı seç`,purpose:"Klonlama için bütün adayları kullanmak gereksiz hesap oluşturur. Önce en umut verici adaylara odaklanırız.",action:`f(x) sütununu ${direction} sırala. Tablonun ilk ${c.select} satırını seç; kalanlar bu turda klonlanmayacak.`,result:`${c.popSize} adaydan ${c.select} tanesi seçildi. n küçülürse işlem hızlanır fakat çeşitlilik azalır; n büyürse daha çok bölge korunur fakat hesap artar.`,html:`<div class="n-guide"><div><b>Daha küçük n</b>Daha hızlı, daha dar arama.</div><div class="current"><b>Bu soruda n=${c.select}</b>Adayların yaklaşık %${Math.round(c.select/c.popSize*100)}'i seçiliyor.</div><div><b>Daha büyük n</b>Daha çeşitli, daha fazla hesap.</div></div>${stagedImmuneTable(r.ranked,[{label:"Sıra",value:"rank"},...scoredCols,{label:"Karar",value:x=>x.selected?"Seçildi":"Bu tur elendi"}],"sıralama",7)}`},
+        {title:"Seçilen adayların kaç kopyası olacağını bul",purpose:"En iyi adayı daha çok çoğaltırsak onun yakınında daha fazla yeni çözüm deneyebiliriz. Alt sıralardaki adayların kopyası giderek azalır.",action:"Her seçilen adayın başarı sırasını i olarak al ve klon formülünde yerine koy. Round, çıkan sayıyı en yakın tam sayıya yuvarlar.",result:`İlk sıradaki ${r.selected[0].id}, ${selectedSummary[0].cloneCount} klonla en çok kopyalanan aday oldu. Sıra numarası büyüdükçe klon sayısı azaldı.`,html:`<div class="formula-focus"><small>Yalnız bu adımda gereken formül</small><span class="math-line">Cᵢ = Round(β × s(Ab) ÷ i)</span><div class="symbol-guide"><span><b>β</b>: klon çarpanı (${mlFmt(c.beta,2)})</span><span><b>s(Ab)</b>: başlangıçtaki aday sayısı (${c.popSize})</span><span><b>i</b>: adayın başarı sırası</span></div></div><div class="worked-calc">${cloneExamples}</div>${stagedImmuneTable(selectedSummary,[{label:"Sıra i",value:"rank"},{label:"Aday",value:"id"},{label:"İşlem",value:"cloneFormula"},{label:"Üretilen klon",value:"cloneCount"}],"klon",6)}`},
+        {title:"Her klonun ne kadar değişeceğini belirle",purpose:"İyi adayı tamamen bozmak istemeyiz; ama yalnız aynı kopyaları tutarsak yeni çözüm bulamayız. Bu adım koruma ile yeni yerleri deneme arasında denge kurar.",action:"Önce adayın seçilenler arasındaki başarı derecesi q değerini bul. Sonra q değerini μ formülüne koy. Sonuç 0, 1 veya 2 olur.",result:"μ=0 ise klon aynı kalır; μ=1 ise x₁ veya x₂'den biri; μ=2 ise ikisi değişir. Sonucun 0 çıkması hata değildir: bu, iyi adayı koru demektir.",html:`<div class="formula-focus"><small>Yalnız bu adımda gereken formül</small><span class="math-line">μ = Round(e<sup>(−10 × q)</sup> × 2)</span><div class="symbol-guide"><span><b>q</b>: adayın başarı derecesi</span><span><b>μ=0</b>: değiştirme</span><span><b>μ=1</b>: bir değişken</span><span><b>μ=2</b>: iki değişken</span></div></div><div class="worked-calc">${mutationExamples}</div>${stagedImmuneTable(mutationSummary,[{label:"Ana aday",value:"id"},{label:"Klon sayısı",value:"cloneCount"},{label:"q",value:x=>mlFmt(x.quality,3)},{label:"μ",value:"mutationCount"},{label:"Yapılacak işlem",value:"mutationText"}],"mutasyon",6)}`},
+        {title:"Değişen klonların puanını yeniden hesapla",purpose:"Bir klonun x₁ veya x₂ değeri değiştiğinde eski puanı artık o klonu anlatmaz. Karşılaştırma yapmadan önce yeni puanı bulmalıyız.",action:"Yeni x₁ ve x₂ değerlerini aynı f(x) formülünde yeniden yerine koy. Eski ve yeni puanı yan yana yazarak değişimin işe yarayıp yaramadığını gör.",result:`Yeni puanlar hesaplandı. ${isMax?"Yeni puanı büyüyen":"Yeni puanı küçülen"} klonlar daha iyi bir bölgeye ilerledi; diğerleri sonraki sıralamada elenebilir.`,html:stagedImmuneTable(r.clones,[{label:"Klon",value:"id"},{label:"Önceki f(x)",value:x=>mlFmt(x.oldFitness,3)},{label:"Yeni x₁",value:x=>mlFmt(x.x1,3)},{label:"Yeni x₂",value:x=>mlFmt(x.x2,3)},{label:'Yeni f(x) <span class="reveal-chip">YENİ</span>',value:x=>mlFmt(x.fitness,3)},{label:"Ne oldu?",value:x=>x.changed?"Yeniden hesaplandı":"Değerler aynı; puan aynı"}],"yeni puan",6)},
+        {title:`Klonları ${direction} sırala ve en iyi ${c.select} tanesini koru`,purpose:"Klon üretmek tek başına başarı değildir. Gerçekten daha iyi sonuç verenleri ölçüp seçmemiz gerekir.",action:`Yeni f(x) değerlerini ${direction} sırala. İlk ${c.select} klonu yeni nesle aktar; diğerlerini bırak.`,result:`Mutasyon sonrası en iyi ${c.select} çözüm korundu. Böylece yalnız kopya sayısına değil, kopyaların yeni performansına göre karar verdik.`,html:stagedImmuneTable(r.cloneRanked,[{label:"Yeni sıra",value:"newRank"},{label:"Klon",value:"id"},{label:"x₁",value:x=>mlFmt(x.x1,3)},{label:"x₂",value:x=>mlFmt(x.x2,3)},{label:"f(x)",value:x=>mlFmt(x.fitness,3)},{label:"Karar",value:x=>x.selected?"Yeni nesle geçti":"Elendi"}],"son seçim",7)},
+        {title:`Yeni nesli tekrar ${c.popSize} adaya tamamla`,purpose:"Yalnız başarılı klonlarla devam edersek bütün adaylar birbirine benzer ve başka iyi bölgeler gözden kaçabilir. Biraz rastgelelik aramayı canlı tutar.",action:`Korunan ${c.select} klonu yerinde bırak. Boş kalan ${c.popSize-c.select} yere sınırlar içinde yeni rastgele adaylar ekle.`,result:`Yeni nesil yine ${c.popSize} adaya ulaştı. Bir iterasyon tamamlandı; durma koşulu sağlanmadıysa 2. adımdan itibaren aynı döngü tekrar edilir.`,html:`<div class="worked-calc"><div><b>Yeni neslin yapısı</b><code>${c.select} seçilmiş klon + ${c.popSize-c.select} yeni rastgele aday = <b>${c.popSize} aday</b></code></div></div>${stagedImmuneTable(r.next,[{label:"Yeni aday",value:"id"},{label:"x₁",value:x=>mlFmt(x.x1,3)},{label:"x₂",value:x=>mlFmt(x.x2,3)},{label:"f(x)",value:x=>mlFmt(x.fitness,3)},{label:"Kaynak",value:"source"}],"yeni nesil",7)}`}
+      ];
+      const teacherResult=c.teacher?`<div class="teacher-result"><div><small>Sunumdaki koşu</small><b>100 iterasyon</b></div><div><small>En iyi iterasyon</small><b>79</b></div><div><small>En iyi f(x)</small><b>38,859</b></div><div><small>Çözüm</small><b>x₁=11,631 · x₂=5,728</b></div></div>`:"";
+      $("mlFinalWorkspace").innerHTML=finalShell("Yapay bağışıklığı adım adım çöz","3. soru · odaklı anlatım","Antikor burada gerçek bir hücre değil, yalnızca bir çözüm adayıdır. Her antikor iki sayı taşır: (x₁,x₂). Algoritma çok sayıda aday üretir; puanı iyi olanları çoğaltır, küçük değişikliklerle yeni adaylar dener ve daha iyi sonuçları korur.",`<div class="immune-case-picker"><label for="cloneCaseSelect">Çözülecek örnek:</label><select id="cloneCaseSelect">${cloneCases.map(x=>`<option value="${x.id}" ${x.id===c.id?"selected":""}>${x.name}</option>`).join("")}</select><button class="btn" id="cloneRefresh" type="button">Yeni sayılar ↻</button></div><div class="lesson-goal"><b>Bu soruda senden istenen</b><p>${clonePlainGoal(c)} Adayların puanını veren kural <strong>f(x) = ${c.formula}</strong>. Algoritmanın sekiz adımı, bu iyi x₁–x₂ ikilisini aramak için uygulanır.</p></div><div class="immune-brief"><div class="immune-brief-card"><small>x₁ için izin verilen aralık</small><strong>${mlFmt(c.bounds[0][0],2)} ≤ x₁ ≤ ${mlFmt(c.bounds[0][1],2)}</strong></div><div class="immune-brief-card"><small>x₂ için izin verilen aralık</small><strong>${mlFmt(c.bounds[1][0],2)} ≤ x₂ ≤ ${mlFmt(c.bounds[1][1],2)}</strong></div><div class="immune-brief-card goal"><small>İyi sonuç ne demek?</small><strong>f(x) ne kadar ${isMax?"büyükse":"küçükse"}, aday o kadar iyi</strong><span class="immune-goal-badge">${isMax?"MAKSİMUMU BUL":"MİNİMUMU BUL"}</span></div></div><div class="lesson-progress" id="cloneProgress">${stages.map((_,i)=>`<span>${i+1}</span>`).join("")}</div><div id="cloneStage"><div class="lesson-start"><p>Her ekranda yalnız o adımda ortaya çıkan bilgi gösterilecek. İlk adımda adaylar var ama puan yok; f(x), ikinci adımda hesaplanınca görünecek.</p><button class="btn accent" id="cloneStart" type="button">1. adımdan başla →</button></div></div><div class="ml-actions"><button class="btn" id="clonePrev" type="button" hidden>← Önceki adım</button><button class="btn accent" id="cloneNext" type="button" hidden>Sonraki adım →</button></div>`);
+      let step=-1;
+      const renderStage=()=>{const progress=$("cloneProgress").querySelectorAll("span");progress.forEach((x,i)=>x.className=i<step?"done":i===step?"active":"");if(step<0)return;const s=stages[step];$("cloneStage").innerHTML=`<section class="lesson-stage"><div class="lesson-stage-head"><span>${step+1}</span><h3>${s.title}</h3></div><div class="stage-guide"><div><small>Bu adımın amacı</small><p>${s.purpose}</p></div><div><small>Şimdi ne yapacağız?</small><p>${s.action}</p></div><div class="stage-result"><small>Bu adım bitince</small><p>${s.result}</p></div></div>${s.html}${step===stages.length-1?teacherResult:""}</section>`;$("clonePrev").hidden=false;$("cloneNext").hidden=false;$("cloneNext").disabled=step===stages.length-1;$("cloneNext").textContent=step===stages.length-1?"Bir iterasyon tamamlandı ✓":`${step+2}. adıma geç →`;};
+      $("cloneStart").addEventListener("click",()=>{step=0;renderStage();});$("cloneNext").addEventListener("click",()=>{if(step<stages.length-1){step++;renderStage();$("cloneStage").scrollIntoView({behavior:"smooth",block:"start"});}});$("clonePrev").addEventListener("click",()=>{if(step>0){step--;renderStage();}else renderCloneFinal(c.id);});$("cloneCaseSelect").addEventListener("change",e=>{cloneSeedOffset=0;renderCloneFinal(e.target.value);});$("cloneRefresh").addEventListener("click",()=>{cloneSeedOffset+=997;renderCloneFinal(c.id);});
     }
 
     function id3Stats(c) {
