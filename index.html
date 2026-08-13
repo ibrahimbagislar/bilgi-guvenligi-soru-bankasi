@@ -309,18 +309,37 @@
     .clone-dot { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; color: #07111f; background: var(--accent-2); font-weight: 900; }
     .clone-stage-row > div { min-width: 0; }
     .clone-stage-row .tf-result { margin-top: 11px; }
-    .immune-formulas { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin: 16px 0; }
-    .immune-formula { padding: 14px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface-2); }
-    .immune-formula small { display: block; color: var(--muted); margin-bottom: 7px; }
-    .immune-formula code { color: var(--accent); font: 800 13px/1.6 "Cascadia Code",Consolas,monospace; white-space: normal; }
-    .immune-table { overflow-x: auto; margin-top: 10px; border-radius: 11px; }
+    .immune-case-picker { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 0 0 16px; }
+    .immune-case-picker label { color: var(--muted); font-size: 13px; font-weight: 750; }
+    .immune-case-picker select { flex: 1; min-width: 250px; min-height: 44px; border: 1px solid var(--line); border-radius: 11px; padding: 0 12px; color: var(--text); background: var(--surface); font: inherit; }
+    .immune-brief { display: grid; grid-template-columns: 1.35fr .9fr .9fr; gap: 10px; margin-bottom: 14px; }
+    .immune-brief-card { padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-2); }
+    .immune-brief-card small { display: block; color: var(--muted); margin-bottom: 7px; }
+    .immune-brief-card strong { display: block; color: var(--text); line-height: 1.55; }
+    .immune-brief-card.goal { border-left: 4px solid var(--accent); }
+    .immune-goal-badge { display: inline-flex; margin-top: 9px; padding: 5px 9px; border-radius: 999px; color: #07111f; background: var(--accent); font-size: 12px; font-weight: 900; }
+    .immune-formulas { display: grid; gap: 10px; margin: 16px 0; }
+    .immune-formula { display: grid; grid-template-columns: 220px 1fr; gap: 18px; align-items: center; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-2); }
+    .immune-formula h4 { margin: 0 0 5px; font-size: 15px; }
+    .immune-formula p { margin: 5px 0 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .math-line { display: block; padding: 11px 13px; border-radius: 10px; color: var(--accent); background: var(--surface); font: 800 14px/1.65 "Cascadia Code",Consolas,monospace; overflow-wrap: anywhere; }
+    .formula-example { margin-top: 8px; color: var(--text); font-size: 13px; }
+    .symbol-guide { display: flex; flex-wrap: wrap; gap: 7px; margin: 10px 0 16px; }
+    .symbol-guide span { padding: 7px 9px; border: 1px solid var(--line); border-radius: 9px; color: var(--muted); background: var(--surface); font-size: 12px; }
+    .symbol-guide b { color: var(--accent); }
+    .n-guide { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin: 12px 0 18px; }
+    .n-guide div { padding: 12px; border: 1px solid var(--line); border-radius: 11px; background: var(--surface); color: var(--muted); font-size: 13px; line-height: 1.55; }
+    .n-guide b { display: block; color: var(--text); margin-bottom: 3px; }
+    .n-guide .current { border-color: var(--accent); background: color-mix(in srgb,var(--accent) 8%,var(--surface)); }
+    .immune-table { overflow: auto; max-height: 430px; margin-top: 10px; border: 1px solid var(--line); border-radius: 11px; }
     .immune-table table { width: 100%; border-collapse: collapse; min-width: 620px; font-size: 13px; }
     .immune-table th, .immune-table td { padding: 8px 10px; border: 1px solid var(--line); text-align: right; }
     .immune-table th:first-child, .immune-table td:first-child, .immune-table th:last-child, .immune-table td:last-child { text-align: left; }
-    .immune-table th { color: var(--accent); background: var(--surface-2); }
+    .immune-table th { position: sticky; top: 0; z-index: 1; color: var(--accent); background: var(--surface-2); }
     .immune-table tr.selected td { background: color-mix(in srgb,var(--accent) 10%,var(--surface)); font-weight: 750; }
     .immune-table tr.changed td { background: color-mix(in srgb,var(--accent-2) 9%,var(--surface)); }
-    .stage-why { margin: 8px 0 0; color: var(--muted); line-height: 1.65; }
+    .stage-why { margin: 8px 0 0; color: var(--muted); line-height: 1.7; }
+    .stage-why b { color: var(--text); }
     .teacher-result { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin: 14px 0 18px; }
     .teacher-result div { padding: 12px; border: 1px solid var(--line); border-radius: 11px; background: var(--surface); }
     .teacher-result b { display: block; color: var(--accent); font-size: 18px; }
@@ -366,14 +385,19 @@
       .ml-toolbar-right { justify-content: flex-end; }
       .bank-answer { padding-left: 17px; }
       .concept-strip { grid-template-columns: repeat(2,1fr); }
-      .immune-formulas, .teacher-result { grid-template-columns: 1fr 1fr; }
+      .immune-brief { grid-template-columns: 1fr 1fr; }
+      .immune-brief .goal { grid-column: 1 / -1; }
+      .immune-formula { grid-template-columns: 1fr; gap: 9px; }
+      .n-guide { grid-template-columns: 1fr; }
+      .teacher-result { grid-template-columns: 1fr 1fr; }
       .graph-choice { grid-template-columns: 1fr; }
       .ml-data { max-width: calc(100vw - 60px); }
     }
 
     @media (max-width: 420px) {
       .coverage, .result-grid, .exam-map { grid-template-columns: 1fr; }
-      .immune-formulas, .teacher-result { grid-template-columns: 1fr; }
+      .immune-brief, .teacher-result { grid-template-columns: 1fr; }
+      .immune-brief .goal { grid-column: auto; }
       .live-stats { font-size: 11px; gap: 7px; }
       .question-text { font-size: 18px; }
     }
@@ -1255,10 +1279,10 @@
     ];
 
     const cloneCases = [
-      {name:"Sunumdaki sayılara yakın örnek",beta:1,select:3,pop:[[10.621,5.631],[11.164,4.965],[11.206,4.456],[6.745,5.350],[3.600,5.100],[-2.800,4.120]],refill:[[1.400,4.200],[8.200,4.800],[9.750,5.450]]},
-      {name:"Başlangıç popülasyonu B",beta:1,select:3,pop:[[11.630,5.730],[4.100,5.700],[8.200,4.800],[2.125,4.175],[5.875,5.125],[7.375,4.625]],refill:[[-1.750,4.250],[10.125,5.575],[6.750,5.350]]},
-      {name:"Başlangıç popülasyonu C",beta:1,select:3,pop:[[9.825,5.225],[3.125,4.675],[10.625,5.625],[1.875,5.125],[7.825,4.725],[-2.125,5.575]],refill:[[0.250,4.550],[4.100,5.700],[11.900,4.700]]},
-      {name:"Başlangıç popülasyonu D",beta:1,select:3,pop:[[11.875,5.725],[8.625,5.125],[5.625,4.625],[2.625,5.375],[-1.125,4.875],[10.375,4.375]],refill:[[3.600,5.100],[6.750,5.350],[12.000,5.200]]}
+      {id:"sunum-max",name:"Örnek 1 · Sunumdaki maksimum sorusu",goal:"max",formula:"21,5 + x₁·sin(4πx₁) + x₂·sin(20πx₂)",fn:(x1,x2)=>21.5+x1*Math.sin(4*Math.PI*x1)+x2*Math.sin(20*Math.PI*x2),bounds:[[-3,12.1],[4.1,5.8]],popSize:40,select:10,beta:.25,seed:731,anchors:[[10.621,5.631],[11.164,4.965]],teacher:true},
+      {id:"kase-min",name:"Örnek 2 · Üretim hatasını en aza indir",goal:"min",formula:"(x₁−3)² + 2·(x₂+2)²",fn:(x1,x2)=>(x1-3)**2+2*(x2+2)**2,bounds:[[-5,8],[-6,4]],popSize:36,select:8,beta:.30,seed:194,anchors:[[3.4,-1.7],[2.6,-2.4]]},
+      {id:"kar-max",name:"Örnek 3 · Kârı en yükseğe çıkar",goal:"max",formula:"50 − (x₁−4)² − 3·(x₂−1)²",fn:(x1,x2)=>50-(x1-4)**2-3*(x2-1)**2,bounds:[[0,9],[-3,5]],popSize:30,select:6,beta:.35,seed:418,anchors:[[3.6,.8],[4.5,1.2]]},
+      {id:"enerji-min",name:"Örnek 4 · Enerji tüketimini en aza indir",goal:"min",formula:"x₁² + 2·x₂² + 4",fn:(x1,x2)=>x1**2+2*x2**2+4,bounds:[[-6,6],[-5,5]],popSize:40,select:14,beta:.20,seed:956,anchors:[[.5,-.4],[-.7,.3]]}
     ];
 
     const id3Cases = [
@@ -1313,53 +1337,64 @@
       $("linearNew").addEventListener("click",renderLinearFinal);
     }
 
-    function immuneFitness(x1,x2) {
-      return 21.5 + x1 * Math.sin(4 * Math.PI * x1) + x2 * Math.sin(20 * Math.PI * x2);
+    let cloneSeedOffset=0;
+    function seededRandom(seed) {
+      let value=seed%2147483647;if(value<=0)value+=2147483646;
+      return ()=>((value=value*16807%2147483647)-1)/2147483646;
+    }
+    function randomPoint(c,rng) {
+      return c.bounds.map(([min,max])=>min+rng()*(max-min));
     }
     function immuneTable(rows, columns) {
       return `<div class="immune-table"><table><thead><tr>${columns.map(c=>`<th>${c.label}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr class="${r.rowClass||(r.selected?"selected":r.changed?"changed":"")}">${columns.map(c=>`<td>${typeof c.value==="function"?c.value(r):(r[c.value]??"—")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
     }
     function buildCloneRun(c) {
-      const original=c.pop.map((p,i)=>({id:`Ab${i+1}`,x1:p[0],x2:p[1],fitness:immuneFitness(p[0],p[1])}));
-      const ranked=[...original].sort((a,b)=>b.fitness-a.fitness).map((a,i)=>({...a,rank:i+1,selected:i<c.select}));
+      const rng=seededRandom(c.seed+cloneSeedOffset),points=[...(c.anchors||[])];
+      while(points.length<c.popSize)points.push(randomPoint(c,rng));
+      const original=points.map((p,i)=>({id:`Ab${i+1}`,x1:p[0],x2:p[1],fitness:c.fn(p[0],p[1])}));
+      const better=(a,b)=>c.goal==="max"?b.fitness-a.fitness:a.fitness-b.fitness;
+      const ranked=[...original].sort(better).map((a,i)=>({...a,rank:i+1,selected:i<c.select}));
       const selected=ranked.slice(0,c.select);
       const clones=[];
       selected.forEach((parent,index)=>{
         const rank=index+1,cloneCount=Math.round(c.beta*original.length/rank);
         for(let k=1;k<=cloneCount;k++) clones.push({id:`${parent.id}-K${k}`,parent:parent.id,rank,x1:parent.x1,x2:parent.x2,oldFitness:parent.fitness});
       });
-      const maxFitness=Math.max(...clones.map(x=>x.oldFitness));
+      const values=selected.map(x=>x.fitness),best=Math[c.goal==="max"?"max":"min"](...values),worst=Math[c.goal==="max"?"min":"max"](...values),range=Math.max(Math.abs(best-worst),1e-9);
       clones.forEach((clone,index)=>{
-        clone.mutationCount=Math.max(0,Math.min(2,Math.round(Math.exp(-10*(clone.oldFitness/maxFitness))*2)));
+        const teacherQuality=c.teacher?Math.max(0,Math.min(1,clone.oldFitness/Math.max(...values))):(c.goal==="max"?(clone.oldFitness-worst)/range:(worst-clone.oldFitness)/range);
+        clone.quality=teacherQuality;
+        clone.mutationCount=Math.max(0,Math.min(2,Math.round(Math.exp(-10*teacherQuality)*2)));
         clone.mutationTarget=clone.mutationCount===0?"Değişmedi":clone.mutationCount===2?"x₁ ve x₂":((index+clone.rank)%2?"x₁":"x₂");
-        if(clone.mutationCount>0 && clone.mutationTarget!=="x₂") clone.x1=c.refill[index%c.refill.length][0];
-        if(clone.mutationCount>0 && clone.mutationTarget!=="x₁") clone.x2=c.refill[(index+1)%c.refill.length][1];
-        clone.fitness=immuneFitness(clone.x1,clone.x2);
+        const mutated=randomPoint(c,rng);
+        if(clone.mutationCount>0 && clone.mutationTarget!=="x₂") clone.x1=mutated[0];
+        if(clone.mutationCount>0 && clone.mutationTarget!=="x₁") clone.x2=mutated[1];
+        clone.fitness=c.fn(clone.x1,clone.x2);
         clone.changed=clone.mutationCount>0;
       });
-      const cloneRanked=[...clones].sort((a,b)=>b.fitness-a.fitness).map((a,i)=>({...a,newRank:i+1,selected:i<c.select}));
+      const cloneRanked=[...clones].sort(better).map((a,i)=>({...a,newRank:i+1,selected:i<c.select}));
       const winners=cloneRanked.slice(0,c.select).map((a,i)=>({...a,id:`Yeni-Ab${i+1}`,source:`${a.id} (seçildi)`}));
-      const refill=c.refill.slice(0,original.length-c.select).map((p,i)=>({id:`Yeni-Ab${c.select+i+1}`,x1:p[0],x2:p[1],fitness:immuneFitness(p[0],p[1]),source:"Sınırlar içinde rastgele üretildi"}));
-      return {original,ranked,selected,clones,cloneRanked,winners,next:[...winners,...refill],maxFitness};
+      const refill=Array.from({length:original.length-c.select},(_,i)=>{const p=randomPoint(c,rng);return {id:`Yeni-Ab${c.select+i+1}`,x1:p[0],x2:p[1],fitness:c.fn(p[0],p[1]),source:"Yeni rastgele aday"};});
+      return {original,ranked,selected,clones,cloneRanked,winners,next:[...winners,...refill],best,worst};
     }
-    function renderCloneFinal() {
-      const c=mlPick(cloneCases),r=buildCloneRun(c),baseCols=[
+    function renderCloneFinal(caseId) {
+      const c=caseId?cloneCases.find(x=>x.id===caseId):mlPick(cloneCases),r=buildCloneRun(c),direction=c.goal==="max"?"büyükten küçüğe":"küçükten büyüğe",goalText=c.goal==="max"?"en büyük değeri bulmak":"en küçük değeri bulmak",baseCols=[
         {label:"Antikor",value:"id"},{label:"x₁",value:x=>mlFmt(x.x1,3)},{label:"x₂",value:x=>mlFmt(x.x2,3)},{label:"f(x)",value:x=>x.fitness===undefined?"—":mlFmt(x.fitness,3)},{label:"Açıklama",value:x=>x.source||"Aday çözüm"}
       ];
       const stages=[
-        {title:"Başlangıç popülasyonunu Ab oluştur",why:"Her satır bir antikordur, yani problemin olası bir çözümüdür. x₁ ve x₂ değerleri mutlaka verilen sınırlar içinde rastgele üretilir.",html:immuneTable(r.original,baseCols)},
-        {title:"Her antikor için amaç fonksiyonunu hesapla",why:"Soruda maksimum istendiği için f(x) ne kadar büyükse afinite/çözüm kalitesi o kadar iyidir. Minimizasyon verilseydi sıralama yönü ters olurdu.",html:immuneTable(r.original,baseCols)},
-        {title:`Büyükten küçüğe sırala ve ilk n=${c.select} antikoru seç`,why:"Yalnız umut veren çözümler klonlanır. Yeşil satırlar seçilen Ab{n} kümesidir; sıra numarası sonraki adımda klon sayısını belirler.",html:immuneTable(r.ranked,[{label:"Sıra",value:"rank"},...baseCols.slice(0,4),{label:"Karar",value:x=>x.selected?"Ab{n}'ye seçildi":"Seçilmedi"}].map(col=>col.value==="id"?col:col))},
-        {title:"Seçilenleri afinite sırasına göre klonla",why:"Sunumdaki formülde s(Ab) başlangıç popülasyonu büyüklüğüdür. i sıra numarası büyüdükçe klon sayısı azalır; en iyi antikor en fazla kopyayı üretir.",html:immuneTable(r.selected.map((x,i)=>({...x,cloneCount:Math.round(c.beta*r.original.length/(i+1)),formula:`Round(${c.beta}×${r.original.length}/${i+1})`})),[{label:"i",value:"rank"},{label:"Antikor",value:"id"},{label:"f(x)",value:x=>mlFmt(x.fitness,3)},{label:"Hesap",value:"formula"},{label:"Cᵢ",value:"cloneCount"}])},
-        {title:"Klonlara hipermutasyon uygula",why:"Mutasyon afiniteyle ters orantılıdır: iyi antikor korunur, daha zayıf olan daha fazla değiştirilir. Sonuç 0 ise değişiklik yok; 1 ise rastgele x₁ veya x₂; 2 ise ikisi birden sınırlar içinde yeniden üretilir. Bu fonksiyon ve seçilen yüksek afinite değerlerinde μ=0 çıkması hata değildir; formül klonu aynen korur.",html:immuneTable(r.clones,[{label:"Klon",value:"id"},{label:"Ana antikor",value:"parent"},{label:"Eski f(x)",value:x=>mlFmt(x.oldFitness,3)},{label:"μ",value:"mutationCount"},{label:"Mutasyon",value:"mutationTarget"},{label:"Yeni x₁",value:x=>mlFmt(x.x1,3)},{label:"Yeni x₂",value:x=>mlFmt(x.x2,3)}])},
-        {title:"Mutasyon sonrası f(x) değerlerini yeniden hesapla",why:"Bir değişken değiştiğinde eski f(x) artık o çözümü anlatmaz. Bu yüzden bütün klonlar yeni x₁ ve x₂ değerleriyle yeniden değerlendirilir.",html:immuneTable(r.clones,[{label:"Klon",value:"id"},{label:"x₁",value:x=>mlFmt(x.x1,3)},{label:"x₂",value:x=>mlFmt(x.x2,3)},{label:"Eski f(x)",value:x=>mlFmt(x.oldFitness,3)},{label:"Yeni f(x)",value:x=>mlFmt(x.fitness,3)},{label:"Durum",value:x=>x.changed?"Mutasyona uğradı":"Korundu"}])},
-        {title:`Klonları yeniden sırala ve en iyi n=${c.select} tanesini al`,why:"Klon üretmenin amacı çok kopya sahibi olmak değil, bu kopyalar arasından daha kaliteli çözümleri bulmaktır. Yeşil satırlar yeni popülasyona aktarılır.",html:immuneTable(r.cloneRanked,[{label:"Yeni sıra",value:"newRank"},{label:"Klon",value:"id"},{label:"x₁",value:x=>mlFmt(x.x1,3)},{label:"x₂",value:x=>mlFmt(x.x2,3)},{label:"f(x)",value:x=>mlFmt(x.fitness,3)},{label:"Karar",value:x=>x.selected?"Seçildi":"Elendi"}])},
-        {title:"Yeni Ab popülasyonunu tamamla ve döngüye dön",why:`En iyi ${c.select} klon korunur; kalan ${r.original.length-c.select} yer sınırlar içinde yeni rastgele antikorlarla doldurulur. Durma koşulu sağlanmadıysa yeni Ab ile tekrar f(x) hesabına dönülür.`,html:immuneTable(r.next,baseCols)}
+        {title:`${c.popSize} farklı başlangıç adayı oluştur`,why:`Tek bir tahminle başlamıyoruz. x₁ ve x₂ sınırları içinde ${c.popSize} farklı ikili üretiyoruz. Böylece çözüm uzayının farklı bölgelerini aynı anda deniyoruz.`,html:immuneTable(r.original,baseCols)},
+        {title:"Her adayın puanını f(x) ile hesapla",why:`Her (x₁,x₂) ikilisini soruda verilen fonksiyonda yerine koyuyoruz. Amacımız ${goalText}; yani “iyi” kelimesinin anlamını soru belirliyor.`,html:immuneTable(r.original,baseCols)},
+        {title:`Puanları ${direction} sırala ve ilk n=${c.select} adayı seç`,why:`${c.goal==="max"?"Büyük":"Küçük"} f(x) daha iyi olduğu için tabloyu ${direction} diziyoruz. İlk ${c.select} satır bir sonraki aşamaya geçiyor; diğerleri şimdilik eleniyor.`,html:immuneTable(r.ranked,[{label:"Sıra",value:"rank"},...baseCols.slice(0,4),{label:"Karar",value:x=>x.selected?"Seçildi":"Elenmiş aday"}])},
+        {title:"Seçilen adayların kopyalarını oluştur",why:`Round “en yakın tam sayıya yuvarla” demektir. Örneğin ilk aday için Round(${mlFmt(c.beta,2)}×${c.popSize}/1)=${Math.round(c.beta*c.popSize)} klon oluşur. i arttıkça bölen büyür ve klon sayısı azalır; en iyi aday en çok denenmiş olur.`,html:immuneTable(r.selected.map((x,i)=>({...x,cloneCount:Math.round(c.beta*r.original.length/(i+1)),formula:`Round(${mlFmt(c.beta,2)}×${r.original.length}/${i+1})`})),[{label:"Sıra i",value:"rank"},{label:"Antikor",value:"id"},{label:"f(x)",value:x=>mlFmt(x.fitness,3)},{label:"Yerine koyma",value:"formula"},{label:"Klon sayısı",value:"cloneCount"}])},
+        {title:"Kopyaların ne kadar değişeceğini belirle",why:"Basit fikir şu: Çok iyi bir adayı bozmak istemeyiz, bu yüzden az değiştiririz. Seçilenler arasındaki daha zayıf adaylara ise yeni bir bölge bulabilmeleri için daha fazla değişme şansı veririz. μ=0: dokunma; μ=1: x₁ veya x₂'den birini değiştir; μ=2: ikisini de değiştir.",html:immuneTable(r.clones,[{label:"Klon",value:"id"},{label:"Ana aday",value:"parent"},{label:"Kalite q",value:x=>mlFmt(x.quality,3)},{label:"μ sonucu",value:"mutationCount"},{label:"Yapılacak işlem",value:"mutationTarget"},{label:"Yeni x₁",value:x=>mlFmt(x.x1,3)},{label:"Yeni x₂",value:x=>mlFmt(x.x2,3)}])},
+        {title:"Değişen adayların puanını tekrar hesapla",why:"x₁ veya x₂ değiştiyse sonuç da değişebilir. Bu nedenle yeni değerleri f(x)'te yeniden yerine koyuyoruz; eski puanla karar vermiyoruz.",html:immuneTable(r.clones,[{label:"Klon",value:"id"},{label:"x₁",value:x=>mlFmt(x.x1,3)},{label:"x₂",value:x=>mlFmt(x.x2,3)},{label:"Önceki f(x)",value:x=>mlFmt(x.oldFitness,3)},{label:"Yeni f(x)",value:x=>mlFmt(x.fitness,3)},{label:"Durum",value:x=>x.changed?"Değiştirildi":"Aynı kaldı"}])},
+        {title:`Klonları ${direction} sırala ve en iyi ${c.select} tanesini koru`,why:`Kopyaların hepsi kalmaz. Yeni puanlara bakıp amacımıza en uygun ${c.select} klonu seçiyoruz. Yeşil satırlar bir sonraki nesle aktarılacak olanlardır.`,html:immuneTable(r.cloneRanked,[{label:"Yeni sıra",value:"newRank"},{label:"Klon",value:"id"},{label:"x₁",value:x=>mlFmt(x.x1,3)},{label:"x₂",value:x=>mlFmt(x.x2,3)},{label:"f(x)",value:x=>mlFmt(x.fitness,3)},{label:"Karar",value:x=>x.selected?"Korundu":"Elendi"}])},
+        {title:`Yeni nesli yeniden ${c.popSize} adaya tamamla`,why:`Seçtiğimiz ${c.select} iyi klon kalır. Boş kalan ${c.popSize-c.select} yere yepyeni rastgele adaylar ekleriz. Bu yeni adaylar algoritmanın daha önce bakmadığı bölgeleri denemesini sağlar. Sonra aynı işlemler yeni nesil üzerinde tekrar edilir.`,html:immuneTable(r.next,baseCols)}
       ];
-      r.ranked.forEach(x=>x.rowClass=x.selected?"selected":"");r.cloneRanked.forEach(x=>x.rowClass=x.selected?"selected":"");r.clones.forEach(x=>x.rowClass=x.changed?"changed":"");
-      $("mlFinalWorkspace").innerHTML=finalShell("Yapay bağışıklık: hocanın örneğiyle bir CLONALG iterasyonu","3. soru · sunumdaki yöntem", "Biyolojik bağışıklıkta antijeni iyi tanıyan hücreler seçilip çoğaltılır; klonlar mutasyona uğrar ve daha iyi tanıyanlar korunur. Optimizasyonda antikor bir (x₁,x₂) aday çözümü, afinite ise amaç fonksiyonundan gelen çözüm kalitesidir. Aşağıdaki çözüm 7. Yapay Bağışıklık sunumundaki sıra ve formülleri izler.", `<div class="why-box"><b>Bu örnekte amaç:</b> f(x)=21,5+x₁·sin(4πx₁)+x₂·sin(20πx₂) değerini <b>maksimum</b> yapmak.<br>−3 ≤ x₁ ≤ 12,1 ve 4,1 ≤ x₂ ≤ 5,8. Örnek: ${c.name}; s(Ab)=${r.original.length}, n=${c.select}, β=${c.beta}.</div><div class="immune-formulas"><div class="immune-formula"><small>Amaç / afinite</small><code>f(x)=21,5+x₁sin(4πx₁)+x₂sin(20πx₂)</code></div><div class="immune-formula"><small>Hocanın klon formülü</small><code>Cᵢ=Round(β×s(Ab)/i)</code></div><div class="immune-formula"><small>Hocanın hipermutasyon formülü</small><code>μᵢ=Round(e^(−10·f(i)/max(f))×2)</code></div></div><div class="teacher-result"><div><small>Sunumdaki koşu</small><b>100 iterasyon</b></div><div><small>En iyi iterasyon</small><b>79</b></div><div><small>En iyi f(x)</small><b>38,859</b></div><div><small>Çözüm</small><b>x₁=11,631 · x₂=5,728</b></div></div><div class="clone-stage">${stages.map((s,i)=>`<div class="clone-stage-row" data-clone-stage="${i}"><span class="clone-dot">${i+1}</span><div><b>${s.title}</b><div class="tf-result" hidden><p class="stage-why"><b>Neden?</b> ${s.why}</p>${s.html}</div></div></div>`).join("")}</div><div class="ml-actions"><button class="btn accent" id="cloneNext" type="button">1. aşamayı canlandır →</button><button class="btn" id="cloneAll" type="button">8 aşamayı aç</button><button class="btn" id="cloneNew" type="button">Başka örnek çöz ↻</button></div>`);
+      const teacherResult=c.teacher?`<div class="teacher-result"><div><small>Sunumdaki koşu</small><b>100 iterasyon</b></div><div><small>En iyi iterasyon</small><b>79</b></div><div><small>En iyi f(x)</small><b>38,859</b></div><div><small>Çözüm</small><b>x₁=11,631 · x₂=5,728</b></div></div>`:"";
+      $("mlFinalWorkspace").innerHTML=finalShell("Yapay bağışıklığı adım adım çöz","3. soru · tablolu anlatım", "Önce çok sayıda olası çözüm üretiyoruz. İyileri seçip kopyalıyoruz, kopyaları biraz değiştiriyoruz ve daha iyi sonuç verenleri koruyoruz. Antikor dediğimiz şey yalnızca bir aday (x₁,x₂) ikilisidir; afinite ise bu adayın ne kadar iyi olduğudur.", `<div class="immune-case-picker"><label for="cloneCaseSelect">Çözülecek örnek:</label><select id="cloneCaseSelect">${cloneCases.map(x=>`<option value="${x.id}" ${x.id===c.id?"selected":""}>${x.name}</option>`).join("")}</select><button class="btn" id="cloneRefresh" type="button">Aynı soruya yeni sayılar ↻</button></div><div class="immune-brief"><div class="immune-brief-card goal"><small>Sorunun istediği</small><strong>f(x) = ${c.formula}</strong><span class="immune-goal-badge">${c.goal==="max"?"EN BÜYÜK değeri ara":"EN KÜÇÜK değeri ara"}</span></div><div class="immune-brief-card"><small>x₁ için izin verilen aralık</small><strong>${mlFmt(c.bounds[0][0],2)} ≤ x₁ ≤ ${mlFmt(c.bounds[0][1],2)}</strong></div><div class="immune-brief-card"><small>x₂ için izin verilen aralık</small><strong>${mlFmt(c.bounds[1][0],2)} ≤ x₂ ≤ ${mlFmt(c.bounds[1][1],2)}</strong></div></div><div class="symbol-guide"><span><b>s(Ab)=${c.popSize}</b> · başlangıçtaki aday sayısı</span><span><b>n=${c.select}</b> · seçilip çoğaltılacak iyi aday sayısı</span><span><b>β=${mlFmt(c.beta,2)}</b> · kaç klon üretileceğini etkileyen çarpan</span><span><b>i</b> · adayın başarı sırası</span></div><div class="n-guide"><div><b>n küçük olursa</b>Daha hızlı çalışır; yalnız çok iyi birkaç bölgeye yoğunlaşır. Fakat başka iyi bölgeleri kaçırabilir.</div><div class="current"><b>Bu örnekte n=${c.select}</b>${c.popSize} adayın yaklaşık %${Math.round(c.select/c.popSize*100)}'i seçiliyor. Hız ve çeşitlilik arasında dengeli bir seçim.</div><div><b>n büyük olursa</b>Daha fazla bölge araştırılır ve çeşitlilik artar. Buna karşılık klon ve hesap sayısı da artar.</div></div><div class="immune-formulas"><div class="immune-formula"><div><h4>1 · Kaç kopya üretilecek?</h4><p>En iyi aday daha çok, alt sıradaki aday daha az kopyalanır.</p></div><div><span class="math-line">Cᵢ = Round(β × s(Ab) ÷ i)</span><div class="formula-example"><b>Round = en yakın tam sayıya yuvarla.</b> İlk aday: Round(${mlFmt(c.beta,2)}×${c.popSize}÷1) = <b>${Math.round(c.beta*c.popSize)} klon</b>.</div></div></div><div class="immune-formula"><div><h4>2 · Kopya ne kadar değişecek?</h4><p>Buradaki q, adayın seçilenler arasındaki başarı derecesidir: 1'e yakınsa çok iyi, 0'a yakınsa diğerlerine göre daha zayıftır.</p></div><div><span class="math-line">μ = Round(e^(−10 × q) × 2)</span><div class="formula-example">e, yaklaşık <b>2,718</b> olan sabit sayıdır. Üstteki <b>−10×q</b>, iyi adaylarda sonucu küçültür. Yuvarlama sonunda: <b>0</b> dokunma · <b>1</b> bir değişkeni değiştir · <b>2</b> ikisini değiştir. ${c.teacher?"Sunumda q yerine doğrudan f(i)/max(f) oranı yazılmıştır.":"Minimum sorusunda küçük f(x) iyi olduğu için q hesabının yönü ters çevrilir."}</div></div></div></div>${teacherResult}<div class="clone-stage">${stages.map((s,i)=>`<div class="clone-stage-row" data-clone-stage="${i}"><span class="clone-dot">${i+1}</span><div><b>${s.title}</b><div class="tf-result" hidden><p class="stage-why"><b>Bu adımı neden yapıyoruz?</b> ${s.why}</p>${s.html}</div></div></div>`).join("")}</div><div class="ml-actions"><button class="btn accent" id="cloneNext" type="button">1. aşamayı aç →</button><button class="btn" id="cloneAll" type="button">8 aşamanın tümünü aç</button></div>`);
       let step=0;const reveal=()=>{if(step>=stages.length)return;const root=$("mlFinalWorkspace");root.querySelectorAll(".clone-stage-row.active").forEach(x=>{x.classList.remove("active");x.classList.add("done");});const row=root.querySelector(`[data-clone-stage="${step}"]`);row.classList.add("active");row.querySelector(".tf-result").hidden=false;step++;$("cloneNext").textContent=step===8?"Bir iterasyon tamamlandı ✓":`${step+1}. aşamayı canlandır →`;$("cloneNext").disabled=step===8;row.scrollIntoView({behavior:"smooth",block:"center"});};
-      $("cloneNext").addEventListener("click",reveal);$("cloneAll").addEventListener("click",()=>{while(step<8)reveal();});$("cloneNew").addEventListener("click",renderCloneFinal);reveal();
+      $("cloneNext").addEventListener("click",reveal);$("cloneAll").addEventListener("click",()=>{while(step<8)reveal();});$("cloneCaseSelect").addEventListener("change",e=>{cloneSeedOffset=0;renderCloneFinal(e.target.value);});$("cloneRefresh").addEventListener("click",()=>{cloneSeedOffset+=997;renderCloneFinal(c.id);});reveal();
     }
 
     function id3Stats(c) {
