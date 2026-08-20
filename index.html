@@ -194,7 +194,7 @@
     .subject-card b { color: var(--accent); }
     .subject-card.ml b { color: var(--accent-2); }
     .subject-card.crypto b { color: #ffc66d; }
-    .crypto-frame { display: block; width: 100%; min-height: 900px; border: 0; border-radius: var(--radius); background: transparent; }
+    .crypto-frame { display: block; width: 100%; min-height: 900px; overflow: hidden; border: 0; border-radius: var(--radius); background: transparent; }
 
     .ml-hero { grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr); }
     .exam-map { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
@@ -679,7 +679,7 @@
     .build-board{margin-bottom:14px;padding:16px;border:1px solid var(--line);border-radius:15px;background:var(--surface2)}.build-board small{display:block;margin-bottom:9px;color:var(--muted);font-weight:800}.build-row{display:flex;flex-wrap:wrap;gap:7px}.build-char{display:grid;place-items:center;width:39px;height:44px;border:1px dashed var(--line);border-radius:10px;color:var(--muted);background:var(--surface)}.build-char.done{color:#07111f;border-style:solid;border-color:var(--ok);background:var(--ok);font-weight:950;animation:pop .25s ease}.build-char.current{box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 18%,transparent)}.step-layout{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:16px}.step-explain{padding:15px;border-left:3px solid var(--accent2);border-radius:0 12px 12px 0;background:var(--surface2)}.step-explain b{display:block;margin-bottom:5px;color:var(--accent2)}.step-work{min-width:0}.step-caption{margin:10px 0 0;color:var(--muted);font-size:13px}@keyframes pop{from{transform:scale(.65);opacity:.3}to{transform:scale(1);opacity:1}}
     @media(max-width:720px){.step-layout{grid-template-columns:1fr}}
     @media(max-width:620px){.shell{width:min(100% - 20px,1180px)}.brand span:last-child{font-size:13px}.top-actions .btn{padding:0 10px;font-size:12px}.exam-grid,.atlas-grid{grid-template-columns:1fr}.exam-card.wide{grid-column:auto}.lab-settings{grid-template-columns:1fr}.answer-zone{grid-template-columns:1fr}.step-progress{grid-template-columns:repeat(4,1fr)}.alphabet{grid-template-columns:repeat(7,1fr)}.workspace-head{display:block}.concept-map{grid-template-columns:1fr}.build-char{width:34px;height:39px}}
-    body.embedded{background:transparent}.embedded .shell{width:100%;padding:0 0 28px}.embedded .topbar{display:none}.embedded .footer{margin-bottom:0}
+    body.embedded{overflow:hidden;background:transparent}.embedded .shell{width:100%;padding:0 0 28px}.embedded .topbar{display:none}.embedded .footer{margin-bottom:0}
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
   </style>
 </head>
@@ -953,7 +953,7 @@ $("homeBtn").onclick=()=>showView("homeView");$("newProblemBtn").onclick=renderP
 $("quizNext").onclick=()=>{if(quizIndex<quizSession.length-1){quizIndex++;renderQuiz()}else setupQuiz(quizMode)};$("quizNewSet").onclick=()=>setupQuiz(quizMode);
 $("themeBtn").onclick=()=>{const t=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=t;localStorage.setItem("bilgiGuvenligiTheme",t);$("themeBtn").textContent=t==="dark"?"☼":"☾"};const saved=localStorage.getItem("bilgiGuvenligiTheme");if(saved){document.documentElement.dataset.theme=saved;$("themeBtn").textContent=saved==="dark"?"☼":"☾"}
 const embedded=window.parent!==window;
-if(embedded){document.body.classList.add("embedded");const reportHeight=()=>parent.postMessage({type:"crypto-height",height:document.documentElement.scrollHeight},"*");new ResizeObserver(reportHeight).observe(document.body);window.addEventListener("load",reportHeight)}
+if(embedded){document.body.classList.add("embedded");document.documentElement.style.overflow="hidden";const reportHeight=()=>parent.postMessage({type:"crypto-height",height:document.body.scrollHeight+2},"*");new ResizeObserver(reportHeight).observe(document.body);window.addEventListener("load",reportHeight)}
 window.addEventListener("message",event=>{if(event.data?.type==="crypto-home")showView("homeView");if(event.data?.type==="crypto-theme"){document.documentElement.dataset.theme=event.data.theme;$("themeBtn").textContent=event.data.theme==="dark"?"☼":"☾"}});
 </script>
 </body>
@@ -966,7 +966,7 @@ window.addEventListener("message",event=>{if(event.data?.type==="crypto-home")sh
       <div class="brand"><span class="brand-mark" aria-hidden="true">KT</span><span>Kodlama Teorisi ve Kriptografi<small>Final Laboratuvarı</small></span></div>
       <div class="top-actions"><button class="btn subject-back" id="cryptoHomeButton" type="button">← Final menüsü</button><button class="btn subject-back" id="cryptoSubjectBack" type="button">← Dersler</button><button class="icon-btn" id="cryptoThemeButton" type="button" aria-label="Renk temasını değiştir" title="Temayı değiştir">☼</button></div>
     </header>
-    <iframe id="cryptoFrame" class="crypto-frame" title="Kodlama Teorisi ve Kriptografi final çalışma alanı"></iframe>
+    <iframe id="cryptoFrame" class="crypto-frame" scrolling="no" title="Kodlama Teorisi ve Kriptografi final çalışma alanı"></iframe>
   </main>
 
   <script>
